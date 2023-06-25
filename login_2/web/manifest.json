@@ -1,6 +1,6 @@
 {
-    "name": "login_2",
-    "short_name": "login_2",
+    "name": "urtrace",
+    "short_name": "urtrace",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

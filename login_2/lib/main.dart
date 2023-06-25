@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/components/bottom_navigation_bar.dart';
 
-void main(List<String> args) {
+void main() {
   runApp(const MyApp());
 }
 

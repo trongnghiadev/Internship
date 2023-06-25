@@ -5,11 +5,10 @@ import 'package:login_2/components/textfild_login.dart';
 import 'package:login_2/config/const.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({Key? key}) : super(key: key);
 
-// final logoA = TextEditingController();
-// final logoB = TextEditingController();
-// final logoC = TextEditingController();
+  final usernameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,6 +19,8 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 100,
             ),
+
+            //Logo
             Image.asset(
               'assets/image/logo--footer 2.png',
               height: 60,
@@ -27,6 +28,8 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+
+            //Welcome
             const Text(
               'Xin chào',
               style: TextStyle(color: dColorMain, fontSize: 25),
@@ -34,13 +37,15 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
+
+            //Nhắc nhở
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
               child: Wrap(
                 alignment: WrapAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'Nhập email hoặc số điện thoại để đăng ký hoặc đăng nhập',
+                    'Nhập email để đăng ký hoặc đăng nhập',
                     style: TextStyle(color: dColorText),
                     textAlign: TextAlign.center,
                   ),
@@ -50,18 +55,28 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 40,
             ),
-            const TextFieldLogin(),
+
+            //login
+            MyTextField(
+              controller: usernameController,
+              hintText: 'Vui lòng nhập email',
+              obscureText: false,
+              prefixIcon: const Icon(Icons.person),
+            ),
+
             const SizedBox(
               height: 40,
             ),
             const MyButton(),
+
             const SizedBox(
               height: 40,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Row(
-                children: const [
+                children: [
                   Expanded(
                     child: Divider(
                       thickness: 0.5,
@@ -81,20 +96,21 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(
-              height: 40,
+              height: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
                   ButonBottom(
                       imagePath: 'assets/image/Zalo.png',
                       colors: Colors.white,
                       colorText: Colors.blue,
                       text: 'Đăng nhập bằng Zalo'),
-                  // controller: logoA, child: Text( 'Zalo',),
                   SizedBox(
                     height: 20,
                   ),

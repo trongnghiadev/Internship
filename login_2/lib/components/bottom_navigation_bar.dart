@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/page/login_page.dart';
 import 'package:login_2/page/mainpage.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:login_2/config/const.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class BottomNav extends StatelessWidget {
   const BottomNav({super.key});
@@ -12,7 +12,7 @@ class BottomNav extends StatelessWidget {
     List<Widget> _buildScreens() {
       return [
         const HomePage(),
-        const LoginPage(),
+        LoginPage(),
         const HomePage(),
         const HomePage(),
         const HomePage(),
