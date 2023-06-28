@@ -7,3 +7,4 @@ const dButoonActive = Color(0xff11A44A);
 const dButoonInActive = Color(0xff798699);
 const dStyleTexNav = TextStyle(fontSize: 10, color: Color(0xff798699));
 const dColorText2 = Color(0xff9BA4B5);
+const dColorText3 = Color.fromARGB(255, 112, 146, 210);
