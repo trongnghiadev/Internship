@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_2/components/buton_save.dart';
 // import 'package:login_2/components/button_save.dart';
 import 'package:login_2/components/textfield_user.dart';
+import 'package:login_2/home/home.dart';
 // import 'package:login_2/components/textfiled_user.dart';
 
 class InfoPage extends StatelessWidget {
@@ -82,7 +83,34 @@ class InfoPage extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                ButtonSave(),
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 100),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      primary: Colors.green,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Tiếp tục',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 20,
                 ),

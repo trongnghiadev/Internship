@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                'Xin chào, Khoa',
+                                'Xin chào, Nghĩa',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,

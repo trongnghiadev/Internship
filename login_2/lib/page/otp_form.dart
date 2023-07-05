@@ -112,6 +112,36 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 100,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFF11A44A), // Màu nền của nút
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 130), // Kích thước padding của nút
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(10), // Độ cong viền của nút
+                  ),
+                ),
+
+                //Chuyển trang
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignupPage(),
+                    ),
+                  );
+                },
+
+                child: Text(
+                  'Tiếp tục',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
