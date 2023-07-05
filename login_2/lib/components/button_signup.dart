@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:login_2/components/bottom_navigation_bar.dart';
+import 'package:login_2/home/home.dart';
 import 'package:login_2/page/otp_form.dart';
 import '../config/const.dart';
 
-class MyButton extends StatefulWidget {
-  const MyButton({Key? key}) : super(key: key);
+class MyButtonSignUp extends StatefulWidget {
+  const MyButtonSignUp({Key? key}) : super(key: key);
 
   @override
-  State<MyButton> createState() => _MyButtonState();
+  State<MyButtonSignUp> createState() => _MyButtonSignUpState();
 }
 
-class _MyButtonState extends State<MyButton> {
+class _MyButtonSignUpState extends State<MyButtonSignUp> {
   int loginAttempts = 0;
   bool warning = false;
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -19,7 +21,7 @@ class _MyButtonState extends State<MyButton> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            OtpPage(), // Thay NewPage() bằng màn hình muốn chuyển đến
+            HomePage(), // Thay NewPage() bằng màn hình muốn chuyển đến
       ),
     );
   }
