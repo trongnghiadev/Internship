@@ -1,7 +1,14 @@
 # Internship
 
- thay đổi bên trang login từ button "TextFileLoginPage" đỏi thành "MyTextField" để sử dụng nút Button cho nhiều trang khác
- cập nhật thêm trang OTP + Signup
- ![image](https://github.com/trongnghiadev/Internship/assets/104135795/0c68510e-fdf3-4f3d-816d-8513f3f319e6)
+thay đổi trang OTP
+thêm trang Infcity
+chưa thay đổi các nút bấm quản lý trong app
 
+chạy được luồng khi bấm vào Nút tiếp tục qua các trang Login -> Otp -> Nhập mật khẩu -> Trang chủ -> Trang quản lý
 
+Việc hôm nay 7/6/23
+Thêm được api OTP
+chạy được luồng nhập Email -> gửi OTP -> nhập mật khẩu -> vào trang chủ 
+
+Làm trang giao diện Logbook 
+- Gồm Google map, nhập nhật ký canh tác 
