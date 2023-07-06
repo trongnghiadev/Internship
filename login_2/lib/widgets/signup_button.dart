@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/components/bottom_navigation_bar.dart';
-import 'package:login_2/home/home.dart';
-import 'package:login_2/page/otp_form.dart';
+import 'package:login_2/screens/main_screen.dart';
 import '../config/const.dart';
 
 class MyButtonSignUp extends StatefulWidget {
@@ -21,7 +19,7 @@ class _MyButtonSignUpState extends State<MyButtonSignUp> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            HomePage(), // Thay NewPage() bằng màn hình muốn chuyển đến
+            MainScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
       ),
     );
   }

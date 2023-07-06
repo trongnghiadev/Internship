@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/components/item_main.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/widgets/item_main.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/page/info_page.dart';
+import 'package:login_2/screens/info_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({
+class MainScreen extends StatelessWidget {
+  const MainScreen({
     super.key,
   });
 
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            InfoPage(), // Thay NewPage() bằng màn hình muốn chuyển đến
+                                            InfoScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
                                       ),
                                     );
                                   },

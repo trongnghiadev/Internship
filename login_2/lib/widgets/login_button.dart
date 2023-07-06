@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/page/otp_form.dart';
+import 'package:login_2/screens/otp_screen.dart';
 import '../config/const.dart';
 
 class MyButton extends StatefulWidget {
@@ -19,7 +19,7 @@ class _MyButtonState extends State<MyButton> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            OtpPage(), // Thay NewPage() bằng màn hình muốn chuyển đến
+            OtpScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
       ),
     );
   }

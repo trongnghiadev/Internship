@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 // import 'package:login_2/components/button_save.dart';
-import 'package:login_2/home/home.dart';
+import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/widgets/user_text.dart';
 // import 'package:login_2/components/textfiled_user.dart';
 
-class InfoPage extends StatelessWidget {
-  InfoPage({super.key});
+class InfoScreen extends StatelessWidget {
+  InfoScreen({super.key});
 
   final userManageController = TextEditingController();
   final nameCompanyController = TextEditingController();
@@ -97,7 +97,7 @@ class InfoPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(),
+                          builder: (context) => MainScreen(),
                         ),
                       );
                     },
