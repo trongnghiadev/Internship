@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/components/button_login.dart';
-import 'package:login_2/components/textfild_login.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/widgets/login_text.dart';
+import 'package:login_2/widgets/signup_button.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({Key? key});
+class SignupScreen extends StatelessWidget {
+  // static const routeName = "/SignupScreen";
+  SignupScreen({Key? key});
 
   final passwordController = TextEditingController();
 
@@ -81,7 +82,7 @@ class SignupPage extends StatelessWidget {
                 height: 100,
               ),
 
-              const MyButton(),
+              const MyButtonSignUp(),
 
               const SizedBox(
                 height: 40,
