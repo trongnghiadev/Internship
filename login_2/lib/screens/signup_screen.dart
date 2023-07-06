@@ -3,9 +3,9 @@ import 'package:login_2/config/const.dart';
 import 'package:login_2/widgets/login_text.dart';
 import 'package:login_2/widgets/signup_button.dart';
 
-class SignupPage extends StatelessWidget {
-  // static const routeName = "/signuppage";
-  SignupPage({Key? key});
+class SignupScreen extends StatelessWidget {
+  // static const routeName = "/SignupScreen";
+  SignupScreen({Key? key});
 
   final passwordController = TextEditingController();
 

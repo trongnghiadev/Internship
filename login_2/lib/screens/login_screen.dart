@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/page/otp_form.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/widgets/login_button.dart';
 import 'package:login_2/widgets/login_text.dart';
 
-class LoginPage extends StatelessWidget {
-  // static const routeName = "/loginpage";
-  LoginPage({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  // static const routeName = "/LoginScreen";
+  LoginScreen({Key? key}) : super(key: key);
 
   final usernameController = TextEditingController();
 

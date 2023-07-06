@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/home/home.dart';
-import 'package:login_2/home/home_body.dart';
-import 'package:login_2/page/login_page.dart';
-import 'package:login_2/page/otp_form.dart';
-import 'package:login_2/page/signup_page.dart';
+import 'package:login_2/screens/login_screen.dart';
+import 'package:login_2/screens/main_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // home: LoginPage(),
-      home: LoginPage(),
+      // home: LoginScreen(),
+      home: LoginScreen(),
 
       // Navigator.pushNamed(context, ProductPage.routeName,
     );

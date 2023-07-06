@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ButonBottom extends StatelessWidget {
+class ButtonBottom extends StatelessWidget {
   final String imagePath;
   final colors;
   final text;
@@ -10,7 +10,7 @@ class ButonBottom extends StatelessWidget {
   // final controller;
   // final String Text;
 
-  const ButonBottom({
+  const ButtonBottom({
     super.key,
     required this.imagePath,
     required this.colors,
