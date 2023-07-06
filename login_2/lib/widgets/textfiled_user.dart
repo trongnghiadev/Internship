@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 
-class MyTextField extends StatelessWidget {
+class TextFieldUser extends StatelessWidget {
   final controller;
   final String hintText;
-  final bool obscureText;
-  final Widget? prefixIcon;
 
-  const MyTextField({
+  const TextFieldUser({
     Key? key,
     required this.hintText,
     required this.controller,
-    required this.obscureText,
-    this.prefixIcon,
   }) : super(key: key);
 
   @override
@@ -21,18 +17,15 @@ class MyTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: TextField(
         controller: controller,
-        obscureText: obscureText,
         decoration: InputDecoration(
-
-          prefixIcon: prefixIcon,
           hintStyle: const TextStyle(color: Color.fromARGB(255, 174, 170, 170)),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: dColorMain),
+            borderRadius: BorderRadius.circular(7),
+            borderSide: const BorderSide(color: dButoonInActive),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: dColorMain),
+            borderRadius: BorderRadius.circular(7),
+            borderSide: const BorderSide(color: dButoonInActive),
           ),
           hintText: hintText,
         ),

@@ -91,6 +91,9 @@ class HomePage extends StatelessWidget {
                                         MaterialStateProperty.all<Color>(
                                             dColorMain),
                                   ),
+<<<<<<< HEAD:login_2/lib/page/mainpage.dart
+                                  onPressed: () {},
+=======
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -100,6 +103,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                     );
                                   },
+>>>>>>> d6920c95ae48c993643aa5ee64edbf95e3e2eb4f:login_2/lib/home/home.dart
                                   child: const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 80),
