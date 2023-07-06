@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/components/bottom_navigation_bar.dart';
+import 'package:login_2/home/home.dart';
+import 'package:login_2/home/home_body.dart';
+import 'package:login_2/page/login_page.dart';
+import 'package:login_2/page/otp_form.dart';
+import 'package:login_2/page/signup_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  static const routeName = "/";
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BottomNav(),
+      // home: LoginPage(),
+      home: LoginPage(),
+
+      // Navigator.pushNamed(context, ProductPage.routeName,
     );
   }
 }

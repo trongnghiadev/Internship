@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/components/item_main.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/page/info_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -39,7 +40,7 @@ class HomePage extends StatelessWidget {
                               ),
                               SizedBox(width: 10),
                               Text(
-                                'Xin chào, Nghĩa',
+                                'Xin chào, Hiếu Nghĩa',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -90,7 +91,15 @@ class HomePage extends StatelessWidget {
                                         MaterialStateProperty.all<Color>(
                                             dColorMain),
                                   ),
-                                  onPressed: null,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            InfoPage(), // Thay NewPage() bằng màn hình muốn chuyển đến
+                                      ),
+                                    );
+                                  },
                                   child: const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 80),
@@ -122,7 +131,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: const [
                   Text(
-                    'Tiện',
+                    'Tiện ích',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25,
@@ -131,13 +140,13 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    'ích',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  // Text(
+                  //   'ích',
+                  //   style: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 25,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
                 ],
               ),
             ),
