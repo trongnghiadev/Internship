@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                                         MaterialStateProperty.all<Color>(
                                             dColorMain),
                                   ),
-                                  onPressed: null,
+                                  onPressed: () {},
                                   child: const Padding(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 80),
@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: const [
                   Text(
-                    'Tiện',
+                    'Tiện ích',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 25,
@@ -131,13 +131,13 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    'ích',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  // Text(
+                  //   'ích',
+                  //   style: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 25,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
                 ],
               ),
             ),

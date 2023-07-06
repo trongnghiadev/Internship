@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_2/page/Signup_page.dart';
 import 'package:login_2/page/login_page.dart';
 import 'package:login_2/page/mainpage.dart';
 import 'package:login_2/config/const.dart';
@@ -13,8 +14,7 @@ class BottomNav extends StatelessWidget {
       return [
         const HomePage(),
         LoginPage(),
-        const HomePage(),
-        const HomePage(),
+        SignupPage(),
         const HomePage(),
       ];
     }
