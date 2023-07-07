@@ -15,3 +15,7 @@ final styleTitleItem = const TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
 );
+
+class AppColors {
+  static const Color buttonColor = Color(0xff11A44A);
+}

@@ -8,7 +8,7 @@ class SignupScreen extends StatelessWidget {
   SignupScreen({Key? key});
 
   final passwordController = TextEditingController();
-
+  final confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +72,7 @@ class SignupScreen extends StatelessWidget {
               ),
 
               MyTextField(
-                controller: passwordController,
+                controller: confirmPasswordController,
                 hintText: 'Xác nhận lại mật khẩu',
                 obscureText: true,
                 prefixIcon: const Icon(Icons.lock),

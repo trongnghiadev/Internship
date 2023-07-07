@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/data/data.dart';
 import 'package:login_2/screens/Signup_screen.dart';
+import 'package:login_2/widgets/button_bottom.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class OtpScreen extends StatefulWidget {
+  final String email;
   // static const routeName = "/OtpScreen";
   // final GlobalKey<NavigatorState> navigatorKey;
 
-  // OtpScreen({Key? key, required this.navigatorKey}) : super(key: key);
+  OtpScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
@@ -16,6 +19,7 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   OtpFieldController otpController = OtpFieldController();
+  String otpCode = '';
 
   // void verifyOTP(BuildContext context) {
   //   var text;
@@ -71,10 +75,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
-                  'Để xác minh email là của bạn, nhập mã gồm 6 chữ số vừa được gửi đến',
+                  'Để xác minh, nhập mã gồm 6 chữ số vừa được gửi đến ${widget.email}',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: dColorText),
                 ),
@@ -82,18 +86,22 @@ class _OtpScreenState extends State<OtpScreen> {
               const SizedBox(height: 30),
               Center(
                 child: OTPTextField(
-                  length: 5,
+                  length: 6,
                   width: MediaQuery.of(context).size.width,
-                  fieldWidth: 80,
+                  fieldWidth: 50,
+                  onChanged: (value) {
+                    otpCode = value;
+                  },
                   style: TextStyle(fontSize: 17),
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
-                    print("Completed: " + pin);
+                    OTPData().checkOTP(widget.email, pin);
                   },
                 ),
               ),
               const SizedBox(height: 20),
+              //   CustomButton(onTap: () {}, text: 'Tiếp tục'),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -115,33 +123,39 @@ class _OtpScreenState extends State<OtpScreen> {
               SizedBox(
                 height: 100,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF11A44A), // Màu nền của nút
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 130), // Kích thước padding của nút
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(10), // Độ cong viền của nút
-                  ),
-                ),
+              CustomButton(
+                  onTap: () {
+                    OTPData().checkOTP(widget.email, otpCode);
+                  },
+                  text: 'Tiếp tục')
 
-                //Chuyển trang
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignupScreen(),
-                    ),
-                  );
-                },
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     primary: const Color(0xFF11A44A), // Màu nền của nút
+              //     padding: const EdgeInsets.symmetric(
+              //         vertical: 16,
+              //         horizontal: 130), // Kích thước padding của nút
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius:
+              //           BorderRadius.circular(10), // Độ cong viền của nút
+              //     ),
+              //   ),
 
-                child: Text(
-                  'Tiếp tục',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
+              //   //Chuyển trang
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => SignupScreen(),
+              //       ),
+              //     );
+              //   },
+
+              //   child: Text(
+              //     'Tiếp tục',
+              //     style: TextStyle(fontSize: 18, color: Colors.white),
+              //   ),
+              // ),
             ],
           ),
         ),

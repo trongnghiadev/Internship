@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/data/data.dart';
 import 'package:login_2/widgets/button_bottom.dart';
-import 'package:login_2/widgets/login_button.dart';
 import 'package:login_2/widgets/login_text.dart';
 
 class LoginScreen extends StatelessWidget {
   // static const routeName = "/LoginScreen";
   LoginScreen({Key? key}) : super(key: key);
 
-  final usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+
+  void handleSubmit(BuildContext context) {
+    final email = _emailController.text;
+    OTPData().fetchData(email, context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +66,7 @@ class LoginScreen extends StatelessWidget {
 
               //login
               MyTextField(
-                controller: usernameController,
+                controller: _emailController,
                 hintText: 'Vui lòng nhập email',
                 obscureText: false,
                 prefixIcon: const Icon(Icons.person),
@@ -71,8 +76,18 @@ class LoginScreen extends StatelessWidget {
                 height: 40,
               ),
               // const MyButton(),
-
-              MyButton(),
+              CustomButton(
+                  onTap: () {
+                    handleSubmit(context);
+                  },
+                  text: 'Submit'),
+              // SizedBox(
+              //   width: double.infinity,
+              //   child: ElevatedButton(
+              //     onPressed: () => handleSubmit(context),
+              //     child: const Text('Submit'),
+              //   ),
+              // ),
 
               const SizedBox(
                 height: 40,
