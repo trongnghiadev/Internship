@@ -1,0 +1,10 @@
+^E:\CODE\INTERNSHIP\LOGIN_2\BUILD\WINDOWS\CMAKEFILES\9E3995129F3F58F47A231C42C3B120CF\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SE:/Code/Internship/login_2/windows -BE:/Code/Internship/login_2/build/windows --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/Code/Internship/login_2/build/windows/urtrace.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

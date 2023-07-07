@@ -1,0 +1,14 @@
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/icudtl.dat
+E:/Code/Internship/login_2/build/windows/runner/Debug/flutter_windows.dll
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/AssetManifest.bin
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/assets/image/fb.png
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/assets/image/gg.png
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/assets/image/logo--footer%202.png
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/assets/image/Zalo.png
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+E:/Code/Internship/login_2/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag
