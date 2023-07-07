@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:login_2/config/api.dart';
 import 'package:login_2/screens/otp_screen.dart';
@@ -50,7 +50,9 @@ class OTPData {
 
   Future checkOTP(String email, String optCode) async {
     final response = await dio.post(Api().convertApi(Api.apiCheckOtp),
-        data: {"email": email, "otp": optCode});
+        options: Options(
+            headers: {"Content-Type": "application/x-www-form-urlencoded"}),
+        data: convert.jsonEncode({"email": email, "otp": optCode}));
     if ((jsonDecode(response.data))['status'] == true) {
       Get.to(() => SignupScreen());
       // Navigator.push(
