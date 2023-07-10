@@ -28,7 +28,7 @@ List<Category> categoryList = [
     thumbnail: 'assets/image/hand_book.png',
   ),
   Category(
-    color: dColorMain,
+    color: AppColors.dColorMain,
     name: 'Quản lý mùa vụ',
     noOfCourses: 18,
     thumbnail: 'assets/image/sprout.png',

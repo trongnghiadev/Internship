@@ -23,20 +23,16 @@ class MyTextField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
-          // prefixIcon: const Icon(
-          //   Icons.person_2_outlined,
-          //   color: Color.fromARGB(255, 121, 120, 120),
-          // ),
           //Thêm icon mong muốn
           prefixIcon: prefixIcon,
           hintStyle: const TextStyle(color: Color.fromARGB(255, 174, 170, 170)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: dColorMain),
+            borderSide: const BorderSide(color: AppColors.dColorMain),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: dColorMain),
+            borderSide: const BorderSide(color: AppColors.dColorMain),
           ),
           hintText: hintText,
         ),

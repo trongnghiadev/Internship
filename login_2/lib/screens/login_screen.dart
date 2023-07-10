@@ -1,18 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/data.dart';
+import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/widgets/login_text.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   // static const routeName = "/LoginScreen";
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({
+    Key? key,
+  }) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
 
+  final _passwordController = TextEditingController();
+  bool passwordVisibility = false;
+
+  
   void handleSubmit(BuildContext context) {
     final email = _emailController.text;
-    OTPData().fetchData(email, context);
+    OTPData().fetchData(email).then((OTPStatus) => {
+          if (OTPStatus != null)
+            {
+              if (OTPStatus == 'false')
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OtpScreen(
+                        email: email,
+                      ),
+                    ),
+                  ),
+                }
+              else if (OTPStatus == 'true')
+                {
+                  setState(() {
+                    passwordVisibility = true;
+                  })
+                }
+            }
+        });
   }
 
   @override
@@ -40,7 +73,7 @@ class LoginScreen extends StatelessWidget {
               //Welcome
               const Text(
                 'Xin chào',
-                style: TextStyle(color: dColorMain, fontSize: 25),
+                style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
               ),
               const SizedBox(
                 height: 15,
@@ -73,21 +106,28 @@ class LoginScreen extends StatelessWidget {
               ),
 
               const SizedBox(
+                height: 20,
+              ),
+
+              Visibility(
+                visible: passwordVisibility,
+                child: MyTextField(
+                  controller: _passwordController,
+                  hintText: 'Nhập mật khẩu',
+                  obscureText: true,
+                  prefixIcon: const Icon(Icons.lock),
+                ),
+              ),
+
+              const SizedBox(
                 height: 40,
               ),
-              // const MyButton(),
+
               CustomButton(
                   onTap: () {
                     handleSubmit(context);
                   },
                   text: 'Submit'),
-              // SizedBox(
-              //   width: double.infinity,
-              //   child: ElevatedButton(
-              //     onPressed: () => handleSubmit(context),
-              //     child: const Text('Submit'),
-              //   ),
-              // ),
 
               const SizedBox(
                 height: 40,
