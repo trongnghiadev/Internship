@@ -34,7 +34,7 @@ class SignupScreen extends StatelessWidget {
               //Đăng Ký
               const Text(
                 'Đăng Ký',
-                style: TextStyle(color: dColorMain, fontSize: 25),
+                style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
               ),
               const SizedBox(
                 height: 15,

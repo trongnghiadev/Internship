@@ -18,7 +18,7 @@ class MainScreen extends StatelessWidget {
               flex: 2,
               child: Container(
                 width: double.infinity,
-                color: dColorMain,
+                color: AppColors.dColorMain,
                 child: Padding(
                   padding: const EdgeInsets.only(
                     top: 20,
@@ -89,7 +89,7 @@ class MainScreen extends StatelessWidget {
                                   style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
-                                            dColorMain),
+                                            AppColors.dColorMain),
                                   ),
                                   onPressed: () {
                                     Navigator.push(
@@ -140,13 +140,6 @@ class MainScreen extends StatelessWidget {
                   SizedBox(
                     width: 5,
                   ),
-                  // Text(
-                  //   'ích',
-                  //   style: TextStyle(
-                  //       color: Colors.black,
-                  //       fontSize: 25,
-                  //       fontWeight: FontWeight.bold),
-                  // ),
                 ],
               ),
             ),
@@ -176,7 +169,7 @@ class MainScreen extends StatelessWidget {
                   ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
-                    color: dColorMain,
+                    color: AppColors.dColorMain,
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),

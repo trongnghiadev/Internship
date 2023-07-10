@@ -11,7 +11,7 @@ class OtpScreen extends StatefulWidget {
   // static const routeName = "/OtpScreen";
   // final GlobalKey<NavigatorState> navigatorKey;
 
-  OtpScreen({Key? key, required this.email}) : super(key: key);
+  const OtpScreen({Key? key, required this.email}) : super(key: key);
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
@@ -20,37 +20,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   OtpFieldController otpController = OtpFieldController();
   String otpCode = '';
-
-  // void verifyOTP(BuildContext context) {
-  //   var text;
-  //   String otp = otpController.getValue();
-  //   if (otp.length == 6 && otp == '123456') {
-  //     Navigator.of(context).push(
-  //       MaterialPageRoute(
-  //         builder: (context) => SignupScreen(),
-  //       ),
-  //     );
-  //   } else {
-  //     //Mã OTP sai
-  //     showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text('Thông báo'),
-  //           content: const Text('OTP không hợp lệ'),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               child: const Text('OK'),
-  //               onPressed: () {
-  //                 Navigator.of(context).pop(); // Đóng dialog
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +38,7 @@ class _OtpScreenState extends State<OtpScreen> {
               const Text(
                 'Nhập mã xác minh',
                 style: TextStyle(
-                  color: dColorMain,
+                  color: AppColors.dColorMain,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -115,7 +84,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: const Text(
                   'Gửi lại mã',
                   style: TextStyle(
-                    color: dColorMain,
+                    color: AppColors.dColorMain,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -128,34 +97,6 @@ class _OtpScreenState extends State<OtpScreen> {
                     OTPData().checkOTP(widget.email, otpCode);
                   },
                   text: 'Tiếp tục')
-
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: const Color(0xFF11A44A), // Màu nền của nút
-              //     padding: const EdgeInsets.symmetric(
-              //         vertical: 16,
-              //         horizontal: 130), // Kích thước padding của nút
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius:
-              //           BorderRadius.circular(10), // Độ cong viền của nút
-              //     ),
-              //   ),
-
-              //   //Chuyển trang
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => SignupScreen(),
-              //       ),
-              //     );
-              //   },
-
-              //   child: Text(
-              //     'Tiếp tục',
-              //     style: TextStyle(fontSize: 18, color: Colors.white),
-              //   ),
-              // ),
             ],
           ),
         ),

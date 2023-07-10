@@ -33,7 +33,7 @@ class _MyButtonSignUpState extends State<MyButtonSignUp> {
         width: double.infinity,
         margin: const EdgeInsets.symmetric(horizontal: 30),
         decoration: BoxDecoration(
-          color: dColorMain,
+          color: AppColors.dColorMain,
           borderRadius: BorderRadius.circular(10),
         ),
         child: const Center(
