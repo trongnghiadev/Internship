@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/checkotp.dart';
+import 'package:login_2/data/checkExistEmail.dart';
 import 'package:login_2/screens/Signup_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -65,7 +65,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
-                    OTPData().checkOTP(widget.email, pin);
+                    // checkExistEmail().checkOTP(widget.email, pin);
                   },
                 ),
               ),
@@ -94,7 +94,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               CustomButton(
                   onTap: () {
-                    OTPData().checkOTP(widget.email, otpCode);
+                    // checkExistEmail().checkOTP(widget.email, otpCode);
                   },
                   text: 'Tiếp tục')
             ],
