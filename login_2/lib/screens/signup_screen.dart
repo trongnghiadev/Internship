@@ -3,12 +3,20 @@ import 'package:login_2/config/const.dart';
 import 'package:login_2/widgets/login_text.dart';
 import 'package:login_2/widgets/signup_button.dart';
 
-class SignupScreen extends StatelessWidget {
-  // static const routeName = "/SignupScreen";
-  SignupScreen({Key? key});
+class SignupScreen extends StatefulWidget {
+  final String email;
 
+  const SignupScreen({Key? key, required this.email}) : super(key: key);
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final passwordController = TextEditingController();
+
   final confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
