@@ -1,26 +1,68 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:login_2/config/api.dart';
+import 'package:login_2/screens/otp_screen.dart';
 // import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/screens/signup_screen.dart';
 import 'package:dio/src/form_data.dart' as FormData;
 
 class OTPData {
   Dio dio = Dio();
+
+  BuildContext? get context => null;
   Future<String?> fetchData(String email) async {
     try {
-      print(Api().convertApi(Api.apiCheckEmail) + email);
-      final response =
-          await dio.get('${Api().convertApi(Api.apiCheckEmail)}/$email');
-      String status = '';
-
-      if (response.statusCode == 200) {
-        final data = response.data;
+      // hell code
+      print(Api().convertApi(Api.apiCheckExistEmail) + email);
+      final checkExistEmailresponse =
+          await dio.get('${Api().convertApi(Api.apiCheckExistEmail)}/$email');
+      if (checkExistEmailresponse.statusCode == 200) {
+        String existEmail = 'false';
+        final data = checkExistEmailresponse.data;
         final json = jsonDecode(data);
-        status = json['data']['emailVerified'].toString();
+        existEmail = json['status'].toString();
 
-        return status;
+        if (existEmail == 'false') {
+          // hell code
+          print(Api().convertApi(Api.apiRegister));
+
+          //truyền
+          final options = Options(
+            contentType: Headers.formUrlEncodedContentType,
+          );
+
+          final registerResponse = await dio.post(
+            Api().convertApi(Api.apiRegister),
+            data: {"email": email},
+            options: options,
+          );
+          //Cục này hứng registerResponse
+          if (registerResponse.statusCode == 200) {
+            String registerEmail = 'false';
+
+            //trả về data như thế nào
+            final data = registerResponse.data;
+
+            //chuyển data bảo đảm data là dạng json, nên Decode
+            final json = jsonDecode(data);
+
+            registerEmail = json['status'].toString();
+            if (registerEmail == 'true') {
+              // Navigator.push(
+              //   context!,
+              //   MaterialPageRoute(
+              //     builder: (context) => OtpScreen(
+              //       email: email,
+              //     ),
+              //   ),
+              // );
+            }
+          }
+          // Xử lý phản hồi từ việc đăng ký
+        }
         // if (status == 'false') {
         //   Navigator.push(
         //     context,
