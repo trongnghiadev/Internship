@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/data.dart';
+import 'package:login_2/data/checkotp.dart';
 import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/widgets/login_text.dart';
@@ -21,9 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool passwordVisibility = false;
 
-  
   void handleSubmit(BuildContext context) {
     final email = _emailController.text;
+
     OTPData().fetchData(email).then((OTPStatus) => {
           if (OTPStatus != null)
             {
