@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/checkExistEmail.dart';
+import 'package:login_2/data/checkotp.dart';
 import 'package:login_2/screens/Signup_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -23,6 +24,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final email = widget.email;
     return SafeArea(
       child: Scaffold(
         backgroundColor: dColorBG,
@@ -65,22 +67,39 @@ class _OtpScreenState extends State<OtpScreen> {
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
-                    // checkExistEmail().checkOTP(widget.email, pin);
+                    checkOtp()
+                        .fetchData(widget.email, pin)
+                        .then((checkOtpStatus) {
+                      if (checkOtpStatus != null) {
+                        if (checkOtpStatus == "true") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignupScreen(
+                                email: email,
+                              ),
+                            ),
+                          );
+                        } else {
+                          print("that bai roi nha");
+                        }
+                      }
+                    });
                   },
                 ),
               ),
               const SizedBox(height: 20),
               //   CustomButton(onTap: () {}, text: 'Tiếp tục'),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          SignupScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
-                    ),
-                  );
-                },
+                // onTap: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) =>
+                //           SignupScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
+                //     ),
+                //   );
+                // },
                 child: const Text(
                   'Gửi lại mã',
                   style: TextStyle(
@@ -94,7 +113,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               CustomButton(
                   onTap: () {
-                    // checkExistEmail().checkOTP(widget.email, otpCode);
+                    checkOtp().fetchData(widget.email, otpCode);
                   },
                   text: 'Tiếp tục')
             ],
