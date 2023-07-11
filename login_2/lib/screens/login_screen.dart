@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/checkotp.dart';
+import 'package:login_2/data/checkExistEmail.dart';
+import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/widgets/login_text.dart';
@@ -23,29 +24,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void handleSubmit(BuildContext context) {
     final email = _emailController.text;
-
-    OTPData().fetchData(email).then((OTPStatus) => {
-          if (OTPStatus != null)
-            {
-              if (OTPStatus == 'false')
-                {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OtpScreen(
-                        email: email,
-                      ),
+    checkExistEmail().fetchData(email).then((OTPStatus) {
+      if (OTPStatus != null) {
+        if (OTPStatus == 'false') {
+          RegisterData().fetchData(email).then((registerStatus) {
+            if (registerStatus != null) {
+              if (registerStatus == 'true') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OtpScreen(
+                      email: email,
                     ),
                   ),
-                }
-              else if (OTPStatus == 'true')
-                {
-                  setState(() {
-                    passwordVisibility = true;
-                  })
-                }
+                );
+              } else {
+                print('khong thanh cong');
+              }
             }
-        });
+          });
+        } else if (OTPStatus == 'true') {
+          print('hello');
+        }
+      }
+    });
   }
 
   @override
