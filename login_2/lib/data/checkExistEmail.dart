@@ -10,9 +10,12 @@ class checkExistEmail {
       print(Api().convertApi(Api.apiCheckExistEmail) + email);
       final checkExistEmailResponse =
           await dio.get('${Api().convertApi(Api.apiCheckExistEmail)}/$email');
+
       if (checkExistEmailResponse.statusCode == 200) {
         String existEmail = '';
+
         final data = checkExistEmailResponse.data;
+
         final json = jsonDecode(data);
         existEmail = json['status'].toString();
         return existEmail;
@@ -102,7 +105,7 @@ class checkExistEmail {
 //   // convert.jsonEncode({"email": email, "otp": optCode});
 //   if ((jsonDecode(response.data))['status'] == true) {
 //     //Navigar to chỗ này chuyển trang
-//     Get.to(() => SignupScreen());
+//     Get.to(() => RegisterScreen());
 //   } else {}
 // }
 

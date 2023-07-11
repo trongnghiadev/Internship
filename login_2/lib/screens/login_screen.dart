@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/config/stringtext.dart';
 import 'package:login_2/data/checkExistEmail.dart';
 import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp_screen.dart';
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => OtpScreen(
@@ -74,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               //Welcome
               const Text(
-                'Xin chào',
+                textHello,
                 style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
               ),
               const SizedBox(
