@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/checkExistEmail.dart';
 import 'package:login_2/data/checkotp.dart';
-import 'package:login_2/screens/Signup_screen.dart';
-import 'package:login_2/widgets/button_bottom.dart';
+import 'package:login_2/data/resendOtp.dart';
+import 'package:login_2/screens/register_screen.dart';
+import 'package:login_2/widgets/coutdown.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -21,6 +21,10 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   OtpFieldController otpController = OtpFieldController();
   String otpCode = '';
+
+  void handleResendOTP() {
+    resendOtp().fetchData(widget.email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +51,11 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'Để xác minh, nhập mã gồm 6 chữ số vừa được gửi đến ${widget.email}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: dColorText),
+                  style: const TextStyle(color: dColorText),
                 ),
               ),
               const SizedBox(height: 30),
@@ -63,7 +67,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   onChanged: (value) {
                     otpCode = value;
                   },
-                  style: TextStyle(fontSize: 17),
+                  style: const TextStyle(fontSize: 17),
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
@@ -72,10 +76,10 @@ class _OtpScreenState extends State<OtpScreen> {
                         .then((checkOtpStatus) {
                       if (checkOtpStatus != null) {
                         if (checkOtpStatus == "true") {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupScreen(
+                              builder: (context) => RegisterScreen(
                                 email: email,
                               ),
                             ),
@@ -89,33 +93,13 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              //   CustomButton(onTap: () {}, text: 'Tiếp tục'),
-              GestureDetector(
-                // onTap: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) =>
-                //           SignupScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
-                //     ),
-                //   );
-                // },
-                child: const Text(
-                  'Gửi lại mã',
-                  style: TextStyle(
-                    color: AppColors.dColorMain,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
-              CustomButton(
-                  onTap: () {
-                    checkOtp().fetchData(widget.email, otpCode);
-                  },
-                  text: 'Tiếp tục')
+              CountdownWidget(
+                duration: 10,
+                onResendOTP: handleResendOTP,
+              ),
             ],
           ),
         ),

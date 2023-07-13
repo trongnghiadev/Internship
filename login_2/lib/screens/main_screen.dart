@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/screens/info_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
+import 'package:login_2/models/userModel.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({
     super.key,
+    required this.user,
   });
 
+  final User user;
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    final String fullname = widget.user.fullname ?? "Quan Tri Vien";
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -33,15 +42,15 @@ class MainScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            children: const [
-                              Icon(
+                            children: [
+                              const Icon(
                                 Icons.account_circle,
                                 color: Colors.white,
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
-                                'Xin chào, Hiếu Nghĩa',
-                                style: TextStyle(
+                                'Xin chào $fullname',
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold),
@@ -75,61 +84,45 @@ class MainScreen extends StatelessWidget {
                               color: const Color(0xffFFFBE7),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Column(
+                            child: const Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
+                                Text(
                                   'Chưa có thông tin công ty',
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(height: 15),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            AppColors.dColorMain),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            InfoScreen(), // Thay NewPage() bằng màn hình muốn chuyển đến
-                                      ),
-                                    );
-                                  },
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 80),
-                                    child: Text(
-                                      'Tạo ngay',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                )
+                                SizedBox(height: 15),
+                                // CustomButton(
+                                //     onTap: () {
+                                //       Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //             builder: (context) =>
+                                //                 InfoScreen(user: widget.user)),
+                                //       );
+                                //     },
+                                //     text: 'Tạo thông tin công ty'),
                               ],
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                 top: 30,
                 bottom: 0,
                 left: 20,
                 right: 0,
               ),
               child: Row(
-                children: const [
+                children: [
                   Text(
                     'Tiện ích',
                     style: TextStyle(

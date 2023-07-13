@@ -3,26 +3,24 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
-class checkOtp {
+class resendOtp {
   Dio dio = Dio();
 
-  Future<String?> fetchData(String email, String otp) async {
+  Future<String?> fetchData(String email) async {
     try {
-      print(Api().convertApi(Api.apiCheckOtp));
-
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
       );
 
-      final checkOtpResponse = await dio.post(
-        Api().convertApi(Api.apiCheckOtp),
-        data: {"email": email, "otp": otp},
+      final resendOtpResponse = await dio.post(
+        Api().convertApi(Api.apiResendOtp),
+        data: {"email": email},
         options: options,
       );
 
-      if (checkOtpResponse.statusCode == 200) {
+      if (resendOtpResponse.statusCode == 200) {
         String otpCheck = '';
-        final data = checkOtpResponse.data;
+        final data = resendOtpResponse.data;
         final json = jsonDecode(data);
 
         otpCheck = json['status'].toString();
