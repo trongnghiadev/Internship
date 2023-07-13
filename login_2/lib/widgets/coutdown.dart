@@ -64,12 +64,12 @@ class _CountdownWidgetState extends State<CountdownWidget> {
     return _countdownValue > 0
         ? Text(
             formatCountdown(_countdownValue),
-            style: TextStyle(fontSize: 48),
+            style: const TextStyle(fontSize: 48),
           )
         : ElevatedButton(
             onPressed:
                 handleResendOTP, // Trigger the handleResendOTP function when the button is pressed
-            child: Text('Gửi lại mã xác nhận'),
+            child: const Text('Gửi lại mã xác nhận'),
           );
   }
 }

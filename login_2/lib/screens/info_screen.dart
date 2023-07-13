@@ -1,19 +1,46 @@
 import 'package:flutter/material.dart';
-// import 'package:login_2/components/button_save.dart';
-import 'package:login_2/screens/main_screen.dart';
-import 'package:login_2/widgets/user_text.dart';
-// import 'package:login_2/components/textfiled_user.dart';
+import 'package:login_2/config/stringtext.dart';
+import 'package:login_2/utils/phonenumber_regex.dart';
+import 'package:login_2/utils/website_regex.dart';
+import 'package:login_2/widgets/button_bottom.dart';
 
-class InfoScreen extends StatelessWidget {
-  InfoScreen({super.key});
+class InfoScreen extends StatefulWidget {
+  const InfoScreen({super.key});
+
+  @override
+  State<InfoScreen> createState() => _InfoScreenState();
+}
+
+class _InfoScreenState extends State<InfoScreen> {
+  final _textIsRequired = 'Thông tin này là bắt buộc';
+  final _textPhoneNumberFormat = 'Số điện thoại không hợp lệ';
+  final _textWebsiteFormat = 'Website không hợp lệ';
+  final _formKey = GlobalKey<FormState>();
 
   final userManageController = TextEditingController();
   final nameCompanyController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final webController = TextEditingController();
-  final statusController = TextEditingController();
-  final dateCreateController = TextEditingController();
+
+  void handleSubmit(BuildContext context) {
+    final userManage = userManageController.text;
+    final nameCompany = nameCompanyController.text;
+    final phone = phoneController.text;
+    final address = addressController.text;
+    final website = webController.text;
+
+    // AddCompany().fetchData(
+    //     //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
+    //     widget.user.id ?? 0,
+    //     nameCompany,
+    //     phone,
+    //     address,
+    //     //logo
+    //     "",
+    //     website
+    //     );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,94 +50,120 @@ class InfoScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   'Thông tin công ty',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  decoration: BoxDecoration(color: Colors.amber),
+                  decoration: const BoxDecoration(color: Colors.amber),
                   height: 110,
                   width: 110,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Nhấn để thêm logo',
                   style: TextStyle(fontSize: 10),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                TextFieldUser(
-                    hintText: 'User quản lý', controller: userManageController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(
-                    hintText: 'Tên công ty', controller: nameCompanyController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(
-                    hintText: 'Số điện thoại', controller: phoneController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(
-                    hintText: 'Địa chỉ', controller: addressController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(hintText: 'Website', controller: webController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(
-                    hintText: 'Tình trạng', controller: statusController),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFieldUser(
-                    hintText: 'Ngày tạo', controller: dateCreateController),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(40.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 100),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Tên quản lý',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return _textIsRequired;
+                            }
+                            return null;
+                          },
+                          controller: userManageController),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      primary: Colors.green,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MainScreen(),
+                      TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Tên công ty',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          controller: nameCompanyController),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Số điện thoại',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return _textIsRequired;
+                            }
+                            if (!PhoneRegex.phonePattern.hasMatch(value)) {
+                              return _textPhoneNumberFormat;
+                            }
+                            return null;
+                          },
+                          controller: phoneController),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: 'Địa chỉ',
+                          prefixIcon: Icon(Icons.person),
                         ),
-                      );
-                    },
-                    child: Text(
-                      'Tiếp tục',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
+                        controller: addressController,
                       ),
-                    ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: 'Website',
+                          prefixIcon: Icon(Icons.person),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return _textIsRequired;
+                          }
+                          if (!WebsiteRegex.websitePattern.hasMatch(value)) {
+                            return null;
+                          }
+                          return null;
+                        },
+                        controller: webController,
+                      ),
+
+                      //Nút botton
+                      CustomButton(
+                          onTap: () {
+                            if (_formKey.currentState?.validate() == true) {
+                              handleSubmit(context);
+                            }
+                          },
+                          text: textButton)
+                    ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
-class addCompany {
+class AddCompany {
   Dio dio = Dio();
 
-  Future<String?> fetchData(String userId, String name, String phone,
+  Future<String?> fetchData(int userId, String name, String phone,
       String address, String logo, String website) async {
     try {
       final options = Options(

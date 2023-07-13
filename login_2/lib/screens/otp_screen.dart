@@ -3,7 +3,6 @@ import 'package:login_2/config/const.dart';
 import 'package:login_2/data/checkotp.dart';
 import 'package:login_2/data/resendOtp.dart';
 import 'package:login_2/screens/register_screen.dart';
-import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/widgets/coutdown.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -52,11 +51,11 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               const SizedBox(height: 10),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'Để xác minh, nhập mã gồm 6 chữ số vừa được gửi đến ${widget.email}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: dColorText),
+                  style: const TextStyle(color: dColorText),
                 ),
               ),
               const SizedBox(height: 30),
@@ -68,7 +67,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   onChanged: (value) {
                     otpCode = value;
                   },
-                  style: TextStyle(fontSize: 17),
+                  style: const TextStyle(fontSize: 17),
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
