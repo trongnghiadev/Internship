@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
@@ -165,12 +167,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           .then((status) {
                         if (status != null) {
                           if (status == 'true') {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            );
+                            Get.off(const LoginScreen());
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const LoginScreen(),
+                            //   ),
+                            // );
                           }
                         }
                       });

@@ -3,7 +3,7 @@ import 'package:login_2/config/const.dart';
 import 'package:login_2/data/checkotp.dart';
 import 'package:login_2/data/resendOtp.dart';
 import 'package:login_2/screens/register_screen.dart';
-import 'package:login_2/widgets/coutdown.dart';
+import 'package:login_2/widgets/coutdown_button.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -85,7 +85,12 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                           );
                         } else {
-                          print("that bai roi nha");
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  "Mã OTP không chính xác, mời kiểm tra lại"),
+                            ),
+                          );
                         }
                       }
                     });
@@ -97,7 +102,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 height: 100,
               ),
               CountdownWidget(
-                duration: 10,
+                duration: 59,
                 onResendOTP: handleResendOTP,
               ),
             ],

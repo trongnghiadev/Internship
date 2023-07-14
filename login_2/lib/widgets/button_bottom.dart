@@ -85,7 +85,7 @@ class _CustomButtonState extends State<CustomButton> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-          width: widget.width ?? 100,
+          width: widget.width ?? 250,
           height: 46,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),

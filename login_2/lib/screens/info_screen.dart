@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/stringtext.dart';
+import 'package:login_2/screens/main_screen.dart';
+import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/button_bottom.dart';
+import 'package:get/get.dart';
+import '../data/addCompany.dart';
 
 class InfoScreen extends StatefulWidget {
-  const InfoScreen({super.key});
+  InfoScreen({super.key});
+
+  final storeController = Get.find<StoreController>();
 
   @override
   State<InfoScreen> createState() => _InfoScreenState();
@@ -30,16 +36,17 @@ class _InfoScreenState extends State<InfoScreen> {
     final address = addressController.text;
     final website = webController.text;
 
-    // AddCompany().fetchData(
-    //     //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
-    //     widget.user.id ?? 0,
-    //     nameCompany,
-    //     phone,
-    //     address,
-    //     //logo
-    //     "",
-    //     website
-    //     );
+    AddCompany()
+        .fetchData(
+            //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
+            widget.storeController.storeUser.value.id ?? 0,
+            nameCompany,
+            phone,
+            address,
+            //logo
+            "",
+            website)
+        .then((value) => Get.to(() => MainScreen()));
   }
 
   @override
@@ -83,6 +90,10 @@ class _InfoScreenState extends State<InfoScreen> {
                           decoration: const InputDecoration(
                             hintText: 'Tên quản lý',
                             prefixIcon: Icon(Icons.person),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -94,11 +105,22 @@ class _InfoScreenState extends State<InfoScreen> {
                       const SizedBox(
                         height: 20,
                       ),
+
                       TextFormField(
                           decoration: const InputDecoration(
                             hintText: 'Tên công ty',
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: Icon(Icons.location_city),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return _textIsRequired;
+                            }
+                            return null;
+                          },
                           controller: nameCompanyController),
 
                       const SizedBox(
@@ -108,7 +130,11 @@ class _InfoScreenState extends State<InfoScreen> {
                       TextFormField(
                           decoration: const InputDecoration(
                             hintText: 'Số điện thoại',
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: Icon(Icons.phone),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -127,7 +153,10 @@ class _InfoScreenState extends State<InfoScreen> {
                       TextFormField(
                         decoration: const InputDecoration(
                           hintText: 'Địa chỉ',
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.map),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                         controller: addressController,
                       ),
@@ -138,20 +167,23 @@ class _InfoScreenState extends State<InfoScreen> {
                       TextFormField(
                         decoration: const InputDecoration(
                           hintText: 'Website',
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.web_asset),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return _textIsRequired;
                           }
                           if (!WebsiteRegex.websitePattern.hasMatch(value)) {
-                            return null;
+                            return _textWebsiteFormat;
                           }
                           return null;
                         },
                         controller: webController,
                       ),
-
+                      const SizedBox(height: 20),
                       //Nút botton
                       CustomButton(
                           onTap: () {

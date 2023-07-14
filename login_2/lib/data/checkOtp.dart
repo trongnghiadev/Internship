@@ -8,8 +8,6 @@ class checkOtp {
 
   Future<String?> fetchData(String email, String otp) async {
     try {
-      print(Api().convertApi(Api.apiCheckOtp));
-
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
       );

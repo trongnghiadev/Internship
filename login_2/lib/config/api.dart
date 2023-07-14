@@ -1,6 +1,6 @@
 class Api {
   String urlServer = 'https://stg.utrace.net';
-  static const String apiCheckExistEmail = '/users/';
+  static const String apiCheckExistEmail = '/users';
   static const String apiCheckOtp = '/users/checkOtp';
   static const String apiLogin = '/users/login';
   static const String apiRegister = '/users/register';
