@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/config/stringtext.dart';
 import 'package:login_2/data/checkExistEmail.dart';
@@ -31,26 +33,29 @@ class _LoginScreenState extends State<LoginScreen> {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => OtpScreen(
-                      email: email,
-                    ),
-                  ),
-                );
+                Get.off(OtpScreen(email: email));
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => OtpScreen(
+                //       email: email,
+                //     ),
+                //   ),
+                // );
               } else {
                 print('khong thanh cong');
               }
             }
           });
         } else if (existEmailStatus == 'true') {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PassScreen(email: email),
-            ),
-          );
+          Get.off(PassScreen(email: email));
+
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => PassScreen(email: email),
+          //   ),
+          // );
         }
       }
     });
@@ -101,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
+
                   const SizedBox(
                     height: 40,
                   ),
@@ -108,21 +114,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   Form(
                     key: _formKey,
                     child: Column(children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                          hintText: textEmail,
-                          prefixIcon: Icon(Icons.person),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 30),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            hintText: textEmail,
+                            prefixIcon: const Icon(Icons.person),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return textEmailAgain;
+                            }
+                            if (!EmailRegex.emailPattern.hasMatch(value)) {
+                              return textABC;
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return textEmailAgain;
-                          }
-                          if (!EmailRegex.emailPattern.hasMatch(value)) {
-                            return textABC;
-                          }
-                          return null;
-                        },
                       ),
                       const SizedBox(
                         height: 40,
@@ -133,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             handleSubmit(context);
                           }
                         },
-                        text: textButton,
+                        text: 'Tiếp tục',
                       ),
                       const SizedBox(
                         height: 40,

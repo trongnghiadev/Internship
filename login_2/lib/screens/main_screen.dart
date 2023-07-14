@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/widgets/item_main.dart';
-import 'package:login_2/models/userModel.dart';
+import 'package:get/get.dart';
+import '../store/storecontroller.dart';
+import '../widgets/button_bottom.dart';
+import 'info_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({
+  MainScreen({
     super.key,
-    required this.user,
   });
 
-  final User user;
+  final storeController = Get.find<StoreController>();
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -18,7 +20,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final String fullname = widget.user.fullname ?? "Quan Tri Vien";
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -48,13 +49,13 @@ class _MainScreenState extends State<MainScreen> {
                                 color: Colors.white,
                               ),
                               const SizedBox(width: 10),
-                              Text(
-                                'Xin chào $fullname',
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              )
+                              Obx(() => Text(
+                                    'Xin chào ${widget.storeController.storeUser.value.email ?? 'Quản trị viên'}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ))
                             ],
                           ),
                           Container(
@@ -84,26 +85,26 @@ class _MainScreenState extends State<MainScreen> {
                               color: const Color(0xffFFFBE7),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: const Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   'Chưa có thông tin công ty',
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(height: 15),
-                                // CustomButton(
-                                //     onTap: () {
-                                //       Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 InfoScreen(user: widget.user)),
-                                //       );
-                                //     },
-                                //     text: 'Tạo thông tin công ty'),
+                                const SizedBox(height: 15),
+                                CustomButton(
+                                    onTap: () {
+                                      Get.to(InfoScreen());
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) => InfoScreen()),
+                                      // );
+                                    },
+                                    text: 'Tạo thông tin công ty'),
                               ],
                             ),
                           ),

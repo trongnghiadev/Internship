@@ -24,11 +24,11 @@ class Login {
       if (loginResponse.statusCode == 200) {
         final data = loginResponse.data;
         final json = jsonDecode(data);
-
         final status = json['status'];
 
         if (status == 'true') {
-          final userModel = User.fromJson(json);
+          //coi lại đoạn này
+          final userModel = User.fromJson(json['data']['user']);
           return userModel;
         }
       }

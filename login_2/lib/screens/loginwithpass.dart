@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/models/userModel.dart';
+import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';
-
+import 'package:get/get.dart';
 import 'main_screen.dart';
 
 class PassScreen extends StatefulWidget {
-  const PassScreen({Key? key, required this.email}) : super(key: key);
+  PassScreen({Key? key, required this.email}) : super(key: key);
 
   final String email;
+  final storeController = Get.find<StoreController>();
 
   @override
   State<PassScreen> createState() => _PassScreenState();
@@ -87,11 +90,12 @@ class _PassScreenState extends State<PassScreen> {
                       .fetchData(email, passwordController.text)
                       .then((value) {
                     if (value != null) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MainScreen(user: value)),
-                      );
+                      widget.storeController.updateUser(value);
+                      Get.offAll(MainScreen());
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => MainScreen()),
+                      // );
                     }
                   });
                 },

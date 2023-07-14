@@ -8,8 +8,6 @@ class RegisterData {
 
   Future<String?> fetchData(String email) async {
     try {
-      print(Api().convertApi(Api.apiRegister));
-
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
       );
