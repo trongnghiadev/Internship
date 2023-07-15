@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/config/stringtext.dart';
+import 'package:login_2/models/companyModel.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
@@ -9,9 +9,10 @@ import 'package:get/get.dart';
 import '../data/addCompany.dart';
 
 class InfoScreen extends StatefulWidget {
-  InfoScreen({super.key});
-
   final storeController = Get.find<StoreController>();
+  final CompanyModel company; // Thêm tham số company
+
+  InfoScreen({Key? key, required this.company}) : super(key: key);
 
   @override
   State<InfoScreen> createState() => _InfoScreenState();
@@ -21,16 +22,26 @@ class _InfoScreenState extends State<InfoScreen> {
   final _textIsRequired = 'Thông tin này là bắt buộc';
   final _textPhoneNumberFormat = 'Số điện thoại không hợp lệ';
   final _textWebsiteFormat = 'Website không hợp lệ';
-  final _formKey = GlobalKey<FormState>();
 
+  final _formKey = GlobalKey<FormState>();
   final userManageController = TextEditingController();
   final nameCompanyController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final webController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // Đặt giá trị ban đầu cho các TextFormField từ widget.company
+    if (widget.company != null) {
+      nameCompanyController.text = widget.company.name ?? '';
+      phoneController.text = widget.company.phone ?? '';
+      addressController.text = widget.company.address ?? '';
+      webController.text = widget.company.website ?? '';
+    }
+  }
 
   void handleSubmit(BuildContext context) {
-    final userManage = userManageController.text;
     final nameCompany = nameCompanyController.text;
     final phone = phoneController.text;
     final address = addressController.text;
@@ -57,6 +68,14 @@ class _InfoScreenState extends State<InfoScreen> {
           child: Center(
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back_ios_new)),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -86,26 +105,6 @@ class _InfoScreenState extends State<InfoScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Tên quản lý',
-                            prefixIcon: Icon(Icons.person),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _textIsRequired;
-                            }
-                            return null;
-                          },
-                          controller: userManageController),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
                       TextFormField(
                           decoration: const InputDecoration(
                             hintText: 'Tên công ty',
@@ -191,7 +190,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               handleSubmit(context);
                             }
                           },
-                          text: textButton)
+                          text: 'Thay đổi')
                     ],
                   ),
                 ),
