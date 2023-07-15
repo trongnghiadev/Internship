@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/models/companyModel.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:get/get.dart';
 import '../store/storecontroller.dart';
 import '../widgets/button_bottom.dart';
+import 'package:login_2/data/getCompanyByIdUser.dart';
+import '../widgets/flutter_widget_from_html.dart';
 import 'info_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,12 +15,38 @@ class MainScreen extends StatefulWidget {
   });
 
   final storeController = Get.find<StoreController>();
+  CompanyModel company = CompanyModel();
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
+  late String companyName = "Bạn chưa có công ty";
+  late String addCompany = "Tạo công ty";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCompanyData(); // Gọi phương thức để lấy dữ liệu công ty khi MainScreen được khởi tạo
+  }
+
+  Future<void> _fetchCompanyData() async {
+    final userId = widget.storeController.storeUser.value
+        .id; // Lấy ID người dùng từ storeController
+    final company = await _companyByUserId.fetchData(userId!);
+
+    if (company != null) {
+      setState(() {
+        widget.company = company;
+        companyName = company.name!;
+        addCompany = "Xem Thông Tin Công Ty";
+        // Cập nhật thông tin công ty trong MainScreen
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               const SizedBox(width: 10),
                               Obx(() => Text(
-                                    'Xin chào ${widget.storeController.storeUser.value.email ?? 'Quản trị viên'}',
+                                    'Xin chào ${widget.storeController.storeUser.value.fullname}',
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
@@ -88,23 +117,20 @@ class _MainScreenState extends State<MainScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
-                                  'Chưa có thông tin công ty',
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
+                                Text(
+                                  companyName,
+                                  style: const TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                                 const SizedBox(height: 15),
                                 CustomButton(
-                                    onTap: () {
-                                      Get.to(InfoScreen());
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) => InfoScreen()),
-                                      // );
-                                    },
-                                    text: 'Tạo thông tin công ty'),
+                                  onTap: () {
+                                    Get.to(InfoScreen(company: widget.company));
+                                  },
+                                  text: addCompany,
+                                ),
                               ],
                             ),
                           ),
@@ -145,35 +171,36 @@ class _MainScreenState extends State<MainScreen> {
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 50,
                 crossAxisCount: 2,
-                children: const <Widget>[
-                  ItemMain(
+                children: <Widget>[
+                  const ItemMain(
                     icon: Icons.account_circle,
                     textName: 'Quản lý sản phẩm',
                     color: Colors.blue,
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  ItemMain(
+                  const ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý log book',
                     color: Color(0xffEE7C35),
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  ItemMain(
+                  const ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
                     color: AppColors.dColorMain,
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  ItemMain(
+                  const ItemMain(
                     icon: Icons.qr_code,
                     textName: 'Quản lý QRCode',
                     color: Color(0xffDDDDDD),
                     colorIt: Colors.black,
                     colorIc: Colors.black,
                   ),
+                  GoogleMapsWidget(), // Add GoogleMapsWidget here
                 ],
               ),
             ),
