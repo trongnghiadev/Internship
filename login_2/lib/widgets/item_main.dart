@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ItemMain extends StatelessWidget {
-  final colorIt;
-  final colorIc;
-  final color;
-  final icon;
+  final Color colorIt; // Thêm type annotation cho colorIt
+  final Color colorIc;
+  final Color color;
+  final IconData icon;
   final String textName;
   const ItemMain(
       {super.key,
@@ -23,24 +23,23 @@ class ItemMain extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(8),
       child: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 50,
-                color: colorIc,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                textName,
-                style: TextStyle(color: colorIt, fontSize: 15),
-              )
-            ],
-          ),
+        //Đã xoá Container ở đây
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 50,
+              color: colorIc,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              textName,
+              style: TextStyle(color: colorIt, fontSize: 15),
+            )
+          ],
         ),
       ),
     );

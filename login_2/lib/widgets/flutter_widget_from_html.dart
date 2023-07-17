@@ -11,9 +11,11 @@ abstract class IWebView {
 }
 
 class GoogleMapsWidget extends StatelessWidget {
+  const GoogleMapsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final src = '''
+    const src = '''
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4602949547116!2d106.66478987475163!3d10.776014689372714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f56076e63b9%3A0xbb46bf41e57b0bc3!2zQnVmZmV0IEzhuql1IE7GsOG7m25nIDg4IENOMg!5e0!3m2!1svi!2s!4v1689411810939!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     ''';
 
@@ -24,14 +26,13 @@ class GoogleMapsWidget extends StatelessWidget {
   }
 }
 
-class _IframeWidgetFactory extends WidgetFactory {
-  final BuildContext context;
+// class _IframeWidgetFactory extends WidgetFactory {
+//   final BuildContext context;
 
-  _IframeWidgetFactory(this.context);
+//   _IframeWidgetFactory(this.context);
 
-  @override
-  IWebView createWebView() => MyWebView(context: context);
-}
+//   IWebView createWebView() => MyWebView(context: context);
+// }
 
 class MyWebView extends IWebView {
   final BuildContext context;

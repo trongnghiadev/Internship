@@ -1,4 +1,6 @@
-import 'dart:convert';
+// ignore_for_file: file_names
+
+import 'dart:convert' show jsonDecode;
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
@@ -34,6 +36,7 @@ class AddCompany {
         return addCompany;
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
     return null;

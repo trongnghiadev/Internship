@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:login_2/models/userModel.dart';
+import 'package:login_2/models/user_model.dart';
 import '../config/api.dart';
 
 class Login {

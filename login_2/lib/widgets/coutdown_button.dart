@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+// đổi toàn bộ _CountdownWidgetState thành CountdownWidgetState
 class CountdownWidget extends StatefulWidget {
   final int duration;
   final VoidCallback onResendOTP;
@@ -12,10 +13,12 @@ class CountdownWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CountdownWidgetState createState() => _CountdownWidgetState();
+  CountdownWidgetState createState() =>
+      CountdownWidgetState(); // Updated return type
 }
 
-class _CountdownWidgetState extends State<CountdownWidget> {
+class CountdownWidgetState extends State<CountdownWidget> {
+  // Removed underscore prefix
   int _countdownValue = 0;
   late Timer _countdownTimer;
 
@@ -68,12 +71,13 @@ class _CountdownWidgetState extends State<CountdownWidget> {
           )
         : ElevatedButton(
             onPressed: handleResendOTP,
-            child: const Text('Gửi lại mã xác nhận'),
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff11A44A),
+              //Thay primary thành backgroundColor
+              backgroundColor: const Color(0xff11A44A),
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
               textStyle: const TextStyle(fontSize: 16),
             ),
+            child: const Text('Gửi lại mã xác nhận'),
           );
   }
 }

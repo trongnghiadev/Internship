@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/config/stringtext.dart';
-import 'package:login_2/data/checkExistEmail.dart';
+import 'package:login_2/config/string_text.dart';
+import 'package:login_2/data/check_exist_email.dart';
 import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/utils/email_regex.dart';
-
-import 'loginwithpass.dart';
+import 'login_with_pass_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   // static const routeName = "/LoginScreen";
@@ -27,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void handleSubmit(BuildContext context) {
     final email = _emailController.text;
-    checkExistEmail().fetchData(email).then((existEmailStatus) {
+    CheckExistEmail().fetchData(email).then((existEmailStatus) {
       if (existEmailStatus != null) {
         if (existEmailStatus == 'false') {
           RegisterData().fetchData(email).then((registerStatus) {

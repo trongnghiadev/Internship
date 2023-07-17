@@ -4,7 +4,7 @@ import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/store/storebinding.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

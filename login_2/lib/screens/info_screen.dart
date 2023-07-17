@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:login_2/models/companyModel.dart';
+import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:get/get.dart';
-import '../data/addCompany.dart';
+import '../data/add_company.dart';
 
 class InfoScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -33,6 +33,8 @@ class _InfoScreenState extends State<InfoScreen> {
   void initState() {
     super.initState();
     // Đặt giá trị ban đầu cho các TextFormField từ widget.company
+    //Đã fix ở đây
+    // ignore: unnecessary_null_comparison
     if (widget.company != null) {
       nameCompanyController.text = widget.company.name ?? '';
       phoneController.text = widget.company.phone ?? '';

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
-import 'package:login_2/data/setNewPass.dart';
+import 'package:login_2/data/set_new_pass.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, required this.email}) : super(key: key);
@@ -42,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (password.isEmpty) {
       // Password is empty
-      // TODO: Display error message or handle validation error
+
       return;
     }
 

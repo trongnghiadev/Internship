@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 
 class TextFieldUser extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String hintText;
 
   const TextFieldUser({

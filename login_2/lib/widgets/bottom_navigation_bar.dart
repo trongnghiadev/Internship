@@ -7,13 +7,13 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _buildScreens() {
+    List<Widget> buildScreens() {
       return [
         // MainScreen(),
       ];
     }
 
-    List<PersistentBottomNavBarItem> _navBarsItems() {
+    List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
@@ -65,8 +65,8 @@ class BottomNav extends StatelessWidget {
     return PersistentTabView(
       context,
       controller: controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
+      screens: buildScreens(),
+      items: navBarsItems(),
       confineInSafeArea: true,
       backgroundColor: Colors.white, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.

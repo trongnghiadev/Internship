@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
-import 'package:dio/src/form_data.dart' as FormData;
 
 class AuthorizationData {
   Dio dio = Dio();
@@ -9,8 +8,13 @@ class AuthorizationData {
     try {
       final response = await dio.post(
         Api().convertApi(Api.apiLogin),
-        data: FormData.FormData.fromMap({email: email, password: password}),
+        data: {
+          email: email,
+          password: password
+        }, // Sử dụng Map thay vì FormData.FormData
       );
+      //fix lỗi biến response chưa được sử dụng
+      print(response.data);
     } catch (e) {
       return;
     }

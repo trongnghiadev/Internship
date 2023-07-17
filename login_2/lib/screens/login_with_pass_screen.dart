@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/models/userModel.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/models/companyModel.dart';
+import 'package:login_2/models/company_model.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:get/get.dart';
 import '../store/storecontroller.dart';
 import '../widgets/button_bottom.dart';
-import 'package:login_2/data/getCompanyByIdUser.dart';
+import 'package:login_2/data/get_company_by_id_user.dart';
 import '../widgets/flutter_widget_from_html.dart';
 import 'info_screen.dart';
 
+//Đã fix ở đây
+// ignore: must_be_immutable
 class MainScreen extends StatefulWidget {
   MainScreen({
     super.key,
@@ -171,29 +173,29 @@ class _MainScreenState extends State<MainScreen> {
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 50,
                 crossAxisCount: 2,
-                children: <Widget>[
-                  const ItemMain(
+                children: const <Widget>[
+                  ItemMain(
                     icon: Icons.account_circle,
                     textName: 'Quản lý sản phẩm',
                     color: Colors.blue,
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  const ItemMain(
+                  ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý log book',
                     color: Color(0xffEE7C35),
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  const ItemMain(
+                  ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
                     color: AppColors.dColorMain,
                     colorIt: Colors.white,
                     colorIc: Colors.white,
                   ),
-                  const ItemMain(
+                  ItemMain(
                     icon: Icons.qr_code,
                     textName: 'Quản lý QRCode',
                     color: Color(0xffDDDDDD),
