@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:login_2/models/companyModel.dart';
+import 'package:flutter/services.dart';
+
+import 'package:image_picker/image_picker.dart';
+import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:get/get.dart';
-import '../data/addCompany.dart';
+import '../data/add_company.dart';
 
 class InfoScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -19,6 +24,7 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
+  File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
   final _textPhoneNumberFormat = 'Số điện thoại không hợp lệ';
   final _textWebsiteFormat = 'Website không hợp lệ';
@@ -29,15 +35,30 @@ class _InfoScreenState extends State<InfoScreen> {
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
   final webController = TextEditingController();
+  final ImagePicker picker = ImagePicker();
   @override
   void initState() {
     super.initState();
     // Đặt giá trị ban đầu cho các TextFormField từ widget.company
+    //Đã fix ở đây
+    // ignore: unnecessary_null_comparison
     if (widget.company != null) {
       nameCompanyController.text = widget.company.name ?? '';
       phoneController.text = widget.company.phone ?? '';
       addressController.text = widget.company.address ?? '';
       webController.text = widget.company.website ?? '';
+    }
+  }
+
+  Future pickImage(ImageSource source) async {
+    try {
+      XFile? image = await picker.pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('that bai : $e');
     }
   }
 
@@ -86,17 +107,32 @@ class _InfoScreenState extends State<InfoScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  decoration: const BoxDecoration(color: Colors.amber),
-                  height: 110,
-                  width: 110,
-                ),
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'Nhấn để thêm logo',
-                  style: TextStyle(fontSize: 10),
+                InkWell(
+                  onTap: () => pickImage(ImageSource.gallery),
+                  child: Column(
+                    children: [
+                      image != null
+                          ? Image.file(
+                              image!,
+                              height: 110,
+                              width: 110,
+                              fit: BoxFit.cover,
+                            )
+                          : Container(
+                              decoration: const BoxDecoration(
+                                  color: Color.fromARGB(255, 156, 155, 153)),
+                              height: 110,
+                              width: 110,
+                            ),
+                      const Text(
+                        'Nhấn để thêm logo',
+                        style: TextStyle(fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

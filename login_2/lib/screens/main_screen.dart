@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/models/companyModel.dart';
+import 'package:login_2/models/company_model.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:get/get.dart';
 import '../store/storecontroller.dart';
 import '../widgets/button_bottom.dart';
 import 'package:login_2/data/getCompanyByIdUser.dart';
-import '../widgets/flutter_widget_from_html.dart';
 import 'info_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -200,7 +199,6 @@ class _MainScreenState extends State<MainScreen> {
                     colorIt: Colors.black,
                     colorIc: Colors.black,
                   ),
-                  GoogleMapsWidget(), // Add GoogleMapsWidget here
                 ],
               ),
             ),
