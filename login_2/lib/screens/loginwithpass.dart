@@ -89,9 +89,10 @@ class _PassScreenState extends State<PassScreen> {
                   Login()
                       .fetchData(email, passwordController.text)
                       .then((value) {
+                    print(value);
                     if (value != null) {
                       widget.storeController.updateUser(value);
-                      Get.offAll(MainScreen());
+                      Get.offAll(() => MainScreen());
                       // Navigator.pushReplacement(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MainScreen()),
