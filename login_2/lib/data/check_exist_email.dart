@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:login_2/config/api.dart';
 
-class checkExistEmail {
+class CheckExistEmail {
   Dio dio = Dio();
 
   Future<String?> fetchData(String email) async {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 
 class MyTextField extends StatelessWidget {
-  final controller;
+  final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final Widget? prefixIcon;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/checkotp.dart';
-import 'package:login_2/data/resendOtp.dart';
+import 'package:login_2/data/check_otp.dart';
+import 'package:login_2/data/resend_otp.dart';
 import 'package:login_2/screens/register_screen.dart';
 import 'package:login_2/widgets/coutdown_button.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -23,7 +23,7 @@ class _OtpScreenState extends State<OtpScreen> {
   String otpCode = '';
 
   void handleResendOTP() {
-    resendOtp().fetchData(widget.email);
+    ResendOtp().fetchData(widget.email);
   }
 
   @override
@@ -31,7 +31,7 @@ class _OtpScreenState extends State<OtpScreen> {
     final email = widget.email;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: dColorBG,
+        backgroundColor: AppColors.dColorBG,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
-                    checkOtp()
+                    CheckOtp()
                         .fetchData(widget.email, pin)
                         .then((checkOtpStatus) {
                       if (checkOtpStatus != null) {

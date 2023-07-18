@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
-import 'package:login_2/data/setNewPass.dart';
+import 'package:login_2/data/set_new_pass.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, required this.email}) : super(key: key);
@@ -55,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: dColorBG,
+        backgroundColor: AppColors.dColorBG,
         body: SingleChildScrollView(
           reverse: true,
           child: Center(
@@ -81,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
 
                 //Nhắc nhở
@@ -107,51 +106,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
 
                 const SizedBox(
-                  height: 40,
+                  height: 36,
                 ),
 
                 //Login
-                TextFormField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    hintText: 'Vui lòng nhập mật khẩu',
-                    prefixIcon: Icon(Icons.lock),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: TextFormField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      hintText: 'Vui lòng nhập mật khẩu',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    obscureText: true,
+                    onChanged: (value) {
+                      checkPasswordsMatch();
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      return null;
+                    },
                   ),
-                  obscureText: true,
-                  onChanged: (value) {
-                    checkPasswordsMatch();
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
                 ),
 
                 const SizedBox(
-                  height: 20,
+                  height: 24,
                 ),
 
-                TextFormField(
-                  controller: confirmPasswordController,
-                  decoration: const InputDecoration(
-                    hintText: 'Xác nhận mật khẩu',
-                    prefixIcon: Icon(Icons.lock),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: TextFormField(
+                    controller: confirmPasswordController,
+                    decoration: InputDecoration(
+                      hintText: 'Xác nhận mật khẩu',
+                      prefixIcon: Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                    ),
+                    obscureText: true,
+                    onChanged: (value) {
+                      checkPasswordsMatch();
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Vui lòng không để trống';
+                      }
+                      if (value != passwordController.text) {
+                        return 'Mật khẩu không khớp';
+                      }
+                      return null;
+                    },
                   ),
-                  obscureText: true,
-                  onChanged: (value) {
-                    checkPasswordsMatch();
-                  },
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Vui lòng không để trống';
-                    }
-                    if (value != passwordController.text) {
-                      return 'Mật khẩu không khớp';
-                    }
-                    return null;
-                  },
                 ),
 
                 const SizedBox(

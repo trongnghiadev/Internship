@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
-
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
 

@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/main_screen.dart';
@@ -50,6 +48,7 @@ class _InfoScreenState extends State<InfoScreen> {
     }
   }
 
+//Thêm hình ảnh
   Future pickImage(ImageSource source) async {
     try {
       XFile? image = await picker.pickImage(source: source);
@@ -127,6 +126,9 @@ class _InfoScreenState extends State<InfoScreen> {
                               height: 110,
                               width: 110,
                             ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         'Nhấn để thêm logo',
                         style: TextStyle(fontSize: 10),
@@ -141,10 +143,80 @@ class _InfoScreenState extends State<InfoScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      TextFormField(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Tên công ty',
+                              prefixIcon: Icon(Icons.location_city),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return _textIsRequired;
+                              }
+                              return null;
+                            },
+                            controller: nameCompanyController),
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Số điện thoại',
+                              prefixIcon: Icon(Icons.phone),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return _textIsRequired;
+                              }
+                              if (!PhoneRegex.phonePattern.hasMatch(value)) {
+                                return _textPhoneNumberFormat;
+                              }
+                              return null;
+                            },
+                            controller: phoneController),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
                           decoration: const InputDecoration(
-                            hintText: 'Tên công ty',
-                            prefixIcon: Icon(Icons.location_city),
+                            hintText: 'Địa chỉ',
+                            prefixIcon: Icon(Icons.map),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                          controller: addressController,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: TextFormField(
+                          decoration: const InputDecoration(
+                            hintText: 'Website',
+                            prefixIcon: Icon(Icons.web_asset),
                             border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
@@ -154,71 +226,15 @@ class _InfoScreenState extends State<InfoScreen> {
                             if (value == null || value.isEmpty) {
                               return _textIsRequired;
                             }
-                            return null;
-                          },
-                          controller: nameCompanyController),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Số điện thoại',
-                            prefixIcon: Icon(Icons.phone),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _textIsRequired;
-                            }
-                            if (!PhoneRegex.phonePattern.hasMatch(value)) {
-                              return _textPhoneNumberFormat;
+                            if (!WebsiteRegex.websitePattern.hasMatch(value)) {
+                              return _textWebsiteFormat;
                             }
                             return null;
                           },
-                          controller: phoneController),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Địa chỉ',
-                          prefixIcon: Icon(Icons.map),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
+                          controller: webController,
                         ),
-                        controller: addressController,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Website',
-                          prefixIcon: Icon(Icons.web_asset),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return _textIsRequired;
-                          }
-                          if (!WebsiteRegex.websitePattern.hasMatch(value)) {
-                            return _textWebsiteFormat;
-                          }
-                          return null;
-                        },
-                        controller: webController,
-                      ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 40),
                       //Nút botton
                       CustomButton(
                           onTap: () {

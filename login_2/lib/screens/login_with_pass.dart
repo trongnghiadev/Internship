@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/models/userModel.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';
@@ -34,7 +33,7 @@ class _PassScreenState extends State<PassScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: dColorBG,
+        backgroundColor: AppColors.dColorBG,
         body: Center(
           child: Column(
             children: [
@@ -66,22 +65,28 @@ class _PassScreenState extends State<PassScreen> {
               ),
 
               //Login
-              TextFormField(
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  hintText: 'Vui lòng nhập mật khẩu',
-                  prefixIcon: Icon(Icons.lock),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: TextFormField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                      hintText: 'Vui lòng nhập mật khẩu',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Vui lòng nhập mật khẩu';
+                    }
+                    return null;
+                  },
                 ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Vui lòng nhập mật khẩu';
-                  }
-                  return null;
-                },
               ),
+
               const SizedBox(
-                height: 40,
+                height: 70,
               ),
 
               CustomButton(
