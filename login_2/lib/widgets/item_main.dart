@@ -23,24 +23,22 @@ class ItemMain extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(8),
       child: Center(
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 50,
-                color: colorIc,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                textName,
-                style: TextStyle(color: colorIt, fontSize: 15),
-              )
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 50,
+              color: colorIc,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              textName,
+              style: TextStyle(color: colorIt, fontSize: 15),
+            )
+          ],
         ),
       ),
     );

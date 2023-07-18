@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../models/userModel.dart';
+import '../models/user_model.dart';
 
 class StoreController extends GetxController {
   final Rx<User> storeUser = User().obs;
