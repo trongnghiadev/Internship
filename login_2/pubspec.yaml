@@ -18,6 +18,7 @@ dependencies:
   get: ^4.6.5
   image_picker: ^1.0.1
   shared_preferences: ^2.2.0
+  flutter_widget_from_html: 0.10.3
   # flutter_widget_from_html: ^0.6.0
   # webview_flutter: ^2.0.14
 
