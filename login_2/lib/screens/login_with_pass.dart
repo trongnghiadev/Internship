@@ -109,8 +109,10 @@ class _PassScreenState extends State<PassScreen> {
                       Get.offAll(() => MainScreen());
                     } else {
                       toast.showToast(
-                        child: const ToastMessage(
-                            message: 'Mật khẩu không chính xác'),
+                        child: ToastMessage(
+                          message: 'Mật khẩu không chính xác',
+                          backgroundColor: Colors.grey.withOpacity(0.5),
+                        ),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }

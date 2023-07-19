@@ -90,8 +90,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           );
                         } else {
                           toast.showToast(
-                            child: const ToastMessage(
-                                message: 'Mã OTP không chính xác'),
+                            child: ToastMessage(
+                              message: 'Mã OTP không chính xác',
+                              backgroundColor: Colors.grey.withOpacity(0.5),
+                            ),
                             gravity: ToastGravity.BOTTOM,
                           );
                         }

@@ -86,31 +86,31 @@ class _MemberListScreenState extends State<MemberListScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           hintText: 'Tìm Kiếm',
-                          suffixIcon: Icon(Icons.search),
+                          suffixIcon: const Icon(Icons.search),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'Danh sách xã viên',
                 style: TextStyle(
                     color: AppColors.dColorMain,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               if (isLoading == true)
-                SizedBox(
+                const SizedBox(
                   height: 50,
                   width: 50,
-                  child: const LoadingIndicator(
+                  child: LoadingIndicator(
                     indicatorType: Indicator.circleStrokeSpin,
                     strokeWidth: 2,
                   ),
@@ -132,21 +132,34 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         child: ListTile(
                           title: Text(
                             member.name ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold), //
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold), //
                           ),
                           subtitle: Text(
                             member.acreage.toString(),
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ),
-                          trailing: Icon(
+                          trailing: const Icon(
                             Icons.keyboard_arrow_right,
                             color: AppColors.dColorMain,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            // Xử lý khi người dùng nhấn vào một thành viên trong danh sách
+                          },
                         ),
                       ),
                     );
                   },
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pop(); // Chuyển hướng về lại trang MainScreen khi bấm vào nút mũi tên
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: AppColors.dColorMain, // Thêm màu xanh lá cho mũi tên
                 ),
               ),
             ],
@@ -156,14 +169,14 @@ class _MemberListScreenState extends State<MemberListScreen> {
       ),
     );
   }
-}
 
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => InfoMemberScreen());
-    },
-    child: Icon(Icons.add),
-    backgroundColor: AppColors.dColorMain,
-  );
+  Widget buildAddContactFAB() {
+    return FloatingActionButton(
+      onPressed: () {
+        Get.to(() => InfoMemberScreen());
+      },
+      child: Icon(Icons.add),
+      backgroundColor: AppColors.dColorMain,
+    );
+  }
 }

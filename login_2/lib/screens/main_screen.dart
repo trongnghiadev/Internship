@@ -208,11 +208,11 @@ class _MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
-                    icon: Icons.qr_code,
+                    icon: Icons.group,
                     textName: 'Quản lý thành viên',
-                    color: Color(0xffDDDDDD),
-                    colorIt: Colors.black,
-                    colorIc: Colors.black,
+                    color: Color(0xff4764D1),
+                    colorIt: Colors.white,
+                    colorIc: Colors.white,
                   ),
                 ),
               ],

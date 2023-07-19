@@ -1,9 +1,10 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+    localProperties.load(new FileInputStream(localPropertiesFile))
 }
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
@@ -49,8 +50,11 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         
-        minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
-        targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
+        def minSdkVersionInt = localProperties.getProperty('flutter.minSdkVersion')?.toInteger() ?: 21
+        def targetSdkVersionInt = localProperties.getProperty('flutter.targetSdkVersion')?.toInteger() ?: 30
+        
+        minSdkVersion minSdkVersionInt
+        targetSdkVersion targetSdkVersionInt
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

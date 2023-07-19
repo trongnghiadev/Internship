@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:login_2/config/const.dart';
 
 class LazyLoadIframeHtmlWidget extends StatefulWidget {
   final String iframeHtml;
@@ -44,7 +45,8 @@ class _LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lazy Load Iframe Widget'),
+        title: Text('Google Map'),
+        backgroundColor: AppColors.dColorMain,
       ),
       body: ListView(
         controller: _scrollController,
