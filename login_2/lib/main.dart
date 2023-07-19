@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/screens/info_member_screen.dart';
 import 'package:login_2/screens/login_screen.dart';
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialBinding: StoreBinding(),
+        builder: FToastBuilder(),
         // home: LoginScreen(),
-        home: const LoginScreen());
+        home: LoginScreen());
   }
 }

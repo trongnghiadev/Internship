@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';
 import 'package:get/get.dart';
+import 'package:login_2/widgets/toast_message.dart';
 import 'main_screen.dart';
 
 class PassScreen extends StatefulWidget {
@@ -18,6 +20,14 @@ class PassScreen extends StatefulWidget {
 
 class _PassScreenState extends State<PassScreen> {
   final passwordController = TextEditingController();
+  late FToast toast;
+
+  @override
+  void initState() {
+    super.initState();
+    toast = FToast();
+    toast.init(context);
+  }
 
   @override
   void dispose() {
@@ -33,7 +43,7 @@ class _PassScreenState extends State<PassScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColors.dColorBG,
+        backgroundColor: AppColors.dColorBG2,
         body: Center(
           child: Column(
             children: [
@@ -94,14 +104,15 @@ class _PassScreenState extends State<PassScreen> {
                   Login()
                       .fetchData(email, passwordController.text)
                       .then((value) {
-                    print(value);
                     if (value != null) {
                       widget.storeController.updateUser(value);
                       Get.offAll(() => MainScreen());
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => MainScreen()),
-                      // );
+                    } else {
+                      toast.showToast(
+                        child: const ToastMessage(
+                            message: 'Mật khẩu không chính xác'),
+                        gravity: ToastGravity.BOTTOM,
+                      );
                     }
                   });
                 },
