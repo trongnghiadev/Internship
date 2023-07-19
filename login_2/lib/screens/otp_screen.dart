@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/check_otp.dart';
 import 'package:login_2/data/resend_otp.dart';
 import 'package:login_2/screens/register_screen.dart';
 import 'package:login_2/widgets/coutdown_button.dart';
+import 'package:login_2/widgets/toast_message.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;
+
   // static const routeName = "/OtpScreen";
   // final GlobalKey<NavigatorState> navigatorKey;
 
@@ -21,7 +24,8 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   OtpFieldController otpController = OtpFieldController();
   String otpCode = '';
-
+  late FToast toast;
+  bool otpMatch = false;
   void handleResendOTP() {
     ResendOtp().fetchData(widget.email);
   }
@@ -85,11 +89,10 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                           );
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "Mã OTP không chính xác, mời kiểm tra lại"),
-                            ),
+                          toast.showToast(
+                            child: const ToastMessage(
+                                message: 'Mã OTP không chính xác'),
+                            gravity: ToastGravity.BOTTOM,
                           );
                         }
                       }

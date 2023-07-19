@@ -1,10 +1,10 @@
-class MemberId {
+class Member {
   String? name;
   int? companyId;
   double? acreage;
   String? location;
 
-  MemberId({this.name, this.companyId, this.acreage, this.location});
+  Member({this.name, this.companyId, this.acreage, this.location});
 
   // MemberId.fromCompanyModel(CompanyModel company) {
   //   name = company.name;
@@ -13,12 +13,10 @@ class MemberId {
   //   location = ""; // Giá trị mặc định cho location, bạn có thể thay đổi theo ý muốn.
   // }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = name;
-    data['companyId'] = companyId;
-    data['acreage'] = acreage;
-    data['location'] = location;
-    return data;
+  Member.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    companyId = json['companyId'];
+    acreage = json['acreage'];
+    location = json['location'];
   }
 }

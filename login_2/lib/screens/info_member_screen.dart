@@ -1,12 +1,20 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_2/data/add_member.dart';
+import 'package:login_2/models/member_model.dart';
 import 'package:login_2/screens/main_screen.dart';
+import 'package:login_2/screens/member_list_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 
+import '../store/storecontroller.dart';
+
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
+
+  InfoMemberScreen({super.key, this.member});
+  final Member? member;
 
   @override
   State<InfoMemberScreen> createState() => _InfoMemberScreenState();
@@ -23,18 +31,20 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
   final acreageController = TextEditingController();
   final locationController = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Đặt giá trị ban đầu cho các TextFormField từ widget.company
-  //   //Đã fix ở đây
-  //   // ignore: unnecessary_null_comparison
-  //   if (widget.member != null) {
-  //     nameMemberController.text = widget.member.name ?? '';
-  //     acreageController.text = widget.member.acreage ?? '';
-  //     locationController.text = widget.member.location ?? '';
-  //   }
-  // }
+  final storeController = Get.find<StoreController>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Đặt giá trị ban đầu cho các TextFormField từ widget.company
+    //Đã fix ở đây
+    // ignore: unnecessary_null_comparison
+    if (widget.member != null) {
+      nameMemberController.text = widget.member?.name ?? '';
+      acreageController.text = widget.member?.acreage.toString() ?? '';
+      locationController.text = widget.member?.location ?? '';
+    }
+  }
 
   void handleSubmit(BuildContext context) {
     final name = nameMemberController.text;
@@ -42,7 +52,10 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
     final location = locationController.text;
 
     // Thực hiện các xử lý hoặc gọi API tương ứng ở đây
-    Get.to(() => MainScreen());
+    AddMember()
+        .fetchData(widget.storeController.storeCompany.value.id ?? 0, name,
+            double.parse(acreage), location)
+        .then((value) => Get.offAll(() => MemberListScreen()));
   }
 
   @override

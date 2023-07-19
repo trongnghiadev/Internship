@@ -40,6 +40,10 @@ class _MainScreenState extends State<MainScreen> {
     final company = await _companyByUserId.fetchData(userId!);
 
     if (company != null) {
+      widget.storeController.updateCompany(company);
+    }
+
+    if (company != null) {
       setState(() {
         widget.company = company;
         companyName = company.name!;
@@ -172,7 +176,7 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisCount: 2,
               children: <Widget>[
                 InkWell(
-                  onTap: () => Get.to(() => ContactListScreen()),
+                  onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
                     icon: Icons.account_circle,
                     textName: 'Quản lý sản phẩm',
@@ -182,7 +186,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => ContactListScreen()),
+                  onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý log book',
@@ -192,7 +196,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => ContactListScreen()),
+                  onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
@@ -202,7 +206,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => ContactListScreen()),
+                  onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
                     icon: Icons.qr_code,
                     textName: 'Quản lý thành viên',
