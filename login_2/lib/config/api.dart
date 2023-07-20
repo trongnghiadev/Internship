@@ -10,7 +10,9 @@ class Api {
   static const String apiGetCompanyById = '/companies';
   static const String apiGetListByCompanyId = '/members/getListByCompanyId';
   static const String apiAddMember = '/members/addMember';
-  static const String apiUpdateMember = 'members/updateMember';
+  static const String apiUpdateMember = '/members/updateMember';
+  static const String apiAddProduct = '/products/addProduct';
+  static const String apiGetListProduct = '/products';
   String convertApi(String url) {
     return urlServer + url;
   }
