@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/models/company_model.dart';
+import 'package:login_2/screens/info_product_screen.dart';
 import 'package:login_2/screens/member_list_screen.dart';
+import 'package:login_2/screens/products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:get/get.dart';
 import '../store/storecontroller.dart';
@@ -176,7 +178,7 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisCount: 2,
               children: <Widget>[
                 InkWell(
-                  onTap: () => Get.to(() => MemberListScreen()),
+                  onTap: () => Get.to(() => ProductsListScreen()),
                   child: const ItemMain(
                     icon: Icons.account_circle,
                     textName: 'Quản lý sản phẩm',
@@ -186,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => MemberListScreen()),
+                  onTap: () => Get.to(() => ProductsListScreen()),
                   child: const ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý log book',
@@ -196,7 +198,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => MemberListScreen()),
+                  onTap: () => Get.to(() => ProductScreen()),
                   child: const ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
