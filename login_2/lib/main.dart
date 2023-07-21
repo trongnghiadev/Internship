@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:login_2/screens/info_member_screen.dart';
 import 'package:login_2/screens/login_screen.dart';
-import 'package:login_2/screens/main_screen.dart';
-import 'package:login_2/screens/member_list_screen.dart';
 import 'package:login_2/store/storebinding.dart';
 import 'package:login_2/store/storecontroller.dart';
 
 void main() {
   Get.put(StoreController());
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +21,6 @@ class MyApp extends StatelessWidget {
         initialBinding: StoreBinding(),
         builder: FToastBuilder(),
         // home: LoginScreen(),
-        home: LoginScreen());
+        home: const LoginScreen());
   }
 }

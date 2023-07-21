@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
@@ -21,7 +19,7 @@ class MemberListScreen extends StatefulWidget {
 }
 
 class _MemberListScreenState extends State<MemberListScreen> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<Member> memberList = [];
   bool isLoading = false;
 
@@ -72,7 +70,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -86,31 +84,31 @@ class _MemberListScreenState extends State<MemberListScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           hintText: 'Tìm Kiếm',
-                          suffixIcon: Icon(Icons.search),
+                          suffixIcon: const Icon(Icons.search),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'Danh sách xã viên',
                 style: TextStyle(
                     color: AppColors.dColorMain,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               if (isLoading == true)
-                SizedBox(
+                const SizedBox(
                   height: 50,
                   width: 50,
-                  child: const LoadingIndicator(
+                  child: LoadingIndicator(
                     indicatorType: Indicator.circleStrokeSpin,
                     strokeWidth: 2,
                   ),
@@ -118,7 +116,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
               Expanded(
                 child: ListView.separated(
                   itemCount: memberList.length,
-                  separatorBuilder: (context, index) => SizedBox(height: 20.0),
+                  separatorBuilder: (context, index) => const SizedBox(height: 20.0),
                   itemBuilder: (context, index) {
                     final member = memberList[index];
                     return ListTileTheme(
@@ -132,13 +130,13 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         child: ListTile(
                           title: Text(
                             member.name ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold), //
+                            style: const TextStyle(fontWeight: FontWeight.bold), //
                           ),
                           subtitle: Text(
                             member.acreage.toString(),
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ),
-                          trailing: Icon(
+                          trailing: const Icon(
                             Icons.keyboard_arrow_right,
                             color: AppColors.dColorMain,
                           ),
@@ -163,7 +161,7 @@ Widget buildAddContactFAB() {
     onPressed: () {
       Get.to(() => InfoMemberScreen());
     },
-    child: Icon(Icons.add),
     backgroundColor: AppColors.dColorMain,
+    child: const Icon(Icons.add),
   );
 }
