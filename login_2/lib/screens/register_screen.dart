@@ -143,7 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: confirmPasswordController,
                     decoration: InputDecoration(
                       hintText: 'Xác nhận mật khẩu',
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: const Icon(Icons.lock),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),

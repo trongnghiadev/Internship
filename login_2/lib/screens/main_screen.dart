@@ -170,7 +170,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             GridView.count(
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               primary: false,
               padding: const EdgeInsets.all(20),
               crossAxisSpacing: 30,

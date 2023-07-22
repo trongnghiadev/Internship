@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/data/add_member.dart';
 import 'package:login_2/models/member_model.dart';
-import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/screens/member_list_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 
-import '../store/storecontroller.dart';
 
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();

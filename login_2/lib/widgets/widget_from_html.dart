@@ -14,7 +14,7 @@ class LazyLoadIframeHtmlWidget extends StatefulWidget {
 
 class _LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
   bool _isVisible = false;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lazy Load Iframe Widget'),
+        title: const Text('Lazy Load Iframe Widget'),
       ),
       body: ListView(
         controller: _scrollController,
@@ -53,7 +53,7 @@ class _LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
             visible: _isVisible,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 width: 500,
                 height: 400,
                 child: HtmlWidget(
