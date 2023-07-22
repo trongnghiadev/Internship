@@ -8,7 +8,7 @@ import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/utils/email_regex.dart';
 
-import 'login_with_pass.dart';
+import 'login_with_pass_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   // static const routeName = "/LoginScreen";

@@ -2,16 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:login_2/config/const.dart';
 import 'package:login_2/data/add_product.dart';
-import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
-import 'package:login_2/utils/phonenumber_regex.dart';
-import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:get/get.dart';
-import '../data/add_company.dart';
 
 class ProductScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -221,16 +216,16 @@ class _ProductScreenState extends State<ProductScreen> {
                         fit: BoxFit.cover,
                       )
                     : Container(
-                        child: Center(child: Text('Thêm hình ảnh')),
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Color.fromARGB(255, 204, 201, 201),
+                            color: const Color.fromARGB(255, 204, 201, 201),
                             width: 2.0,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         height: 60,
                         width: 360,
+                        child: const Center(child: Text('Thêm hình ảnh')),
                       ),
                 const SizedBox(height: 20),
                 InkWell(
@@ -245,16 +240,16 @@ class _ProductScreenState extends State<ProductScreen> {
                               fit: BoxFit.cover,
                             )
                           : Container(
-                              child: Center(child: Text('Thêm video')),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: Color.fromARGB(255, 204, 201, 201),
+                                  color: const Color.fromARGB(255, 204, 201, 201),
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               height: 60,
                               width: 360,
+                              child: const Center(child: Text('Thêm video')),
                             ),
                       const SizedBox(height: 20),
                       InkWell(
@@ -269,17 +264,17 @@ class _ProductScreenState extends State<ProductScreen> {
                                     fit: BoxFit.cover,
                                   )
                                 : Container(
-                                    child: Center(child: Text('Thêm QRcode')),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         color:
-                                            Color.fromARGB(255, 204, 201, 201),
+                                            const Color.fromARGB(255, 204, 201, 201),
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     height: 60,
                                     width: 360,
+                                    child: const Center(child: Text('Thêm QRcode')),
                                   ),
                             const SizedBox(height: 20),
                             //Nút botton

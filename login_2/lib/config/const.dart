@@ -17,6 +17,7 @@ const styleTitleItem = TextStyle(
 class AppColors {
   static const Color buttonColor = Color(0xff11A44A);
   static const Color dColorMain = Color(0xff11A44A);
+  static const Color dColorIG = Color(0xff11A44A);
   static const Color dButoonInActive = Color(0xff798699);
   static const Color dColorBG = Color(0xffF7F7F7);
   static const Color dColorBG2 = Color(0xffF3F3F3);
