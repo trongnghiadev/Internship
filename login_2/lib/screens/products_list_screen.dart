@@ -6,13 +6,12 @@ import 'package:login_2/data/get_list_product.dart';
 import 'package:login_2/models/product_model.dart';
 import 'package:login_2/screens/info_product_screen.dart';
 import 'package:login_2/screens/products_detail_screen.dart';
-
 import '../store/storecontroller.dart';
 
 class ProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({super.key});
+  ProductsListScreen({Key? key});
 
   @override
   _ProductsListScreenState createState() => _ProductsListScreenState();
@@ -39,7 +38,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
     setState(() {
       isLoading = true;
     });
-    //thêm link ở đây((
+    // Thêm link ở đây (chưa có thông tin về GetListProduct)
     GetListProduct()
         .fetchData(widget.storeController.storeCompany.value.id ?? 0)
         .then((value) {
@@ -108,68 +107,102 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                     strokeWidth: 2,
                   ),
                 ),
-
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.separated(
+                  padding: const EdgeInsets.all(30.0),
+                  child: ListView.builder(
                     itemCount: productlist.length,
-                    separatorBuilder: (context, index) => const SizedBox(height: 20.0),
                     itemBuilder: (context, index) {
                       final ProductModel product = productlist[index];
-                      return ListTileTheme(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        tileColor: AppColors.dColorTF, // Màu nền của ListTile
-
-                        child: InkWell(
-
-                          onTap: () => Get.to(ProductsDetailScreen(product: product,)),
-                          child: Row(
-
-                              children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              color: AppColors.dColorIG,
+                      return Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.dColorTF, // Màu nền của ô
+                              borderRadius:
+                              BorderRadius.circular(10.0), // Bo góc của ô
                             ),
-
-                            const SizedBox(
-                                width: 10
-                            ),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  product.name ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600
-
-                                  ),
-                                ),
-                                Wrap(
-                                  children: [Text(
-                                    product.recipe ?? '',
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                            // Màu nền của ListTile
+                            child: InkWell(
+                              onTap: () => Get.to(
+                                  ProductsDetailScreen(product: product)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          color:
+                                          AppColors.dColorIG, // Màu nền của ô
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10.0), // Bo góc của ô
+                                        ),
+                                      ),
                                     ),
-                                    maxLines: 2,
-                                  ),]
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3),
+                                            child: Text(
+                                              product.name ?? '',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3),
+                                            child: Wrap(
+                                              children: [
+                                                Text(
+                                                  'Diện tích: ${product.recipe}',
+                                                  // product.recipe ?? '',
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                  TextOverflow.ellipsis,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 3),
+                                            child: Text(
+                                              'Mô tả: ${product.description}',
+                                              // product.description ?? '',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  product.description ?? '',
-                                  style:const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                  maxLines: 2,
-                                ),
-                              ],
-                            )
-                          ]),
-                        ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20), // Khoảng cách giữa các phần tử
+                        ],
                       );
                     },
                   ),

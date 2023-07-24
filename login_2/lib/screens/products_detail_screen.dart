@@ -1,68 +1,32 @@
-import 'package:timelines/timelines.dart';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_indicator/loading_indicator.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:login_2/config/const.dart';
-
 import 'package:login_2/models/product_model.dart';
-import 'package:login_2/screens/info_product_screen.dart';
-
-import '../data/get_logbook_product.dart';
+import '../models/product_detail_model.dart';
 import '../store/storecontroller.dart';
+import 'info_product_screen.dart';
 
 class ProductsDetailScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsDetailScreen({super.key, required this.product});
-
   //Khi nhấn sản phẩm nào thì nó sẽ vào đây
   final ProductModel product;
+
+  ProductsDetailScreen({super.key, required this.product});
 
   @override
   State<ProductsDetailScreen> createState() => _ProductsDetailScreenState();
 }
 
 class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
-  final TextEditingController _searchController = TextEditingController();
-
-  // final logbook
-  // bool isLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // loadDetailProduct();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  // Future<void> loadDetailProduct() async {
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //thêm link ở đây((
-
-  // GetLogBook()
-  //     .fetchData(widget.product.id ?? 0)
-  //     .then((value) {
-  //   setState(() {
-  //     productdetail = value;
-  //     isLoading = false;
-  //   });
-  // });
-
-  // setState(() {
-  //   contacts = jsonList.cast<Map<String, dynamic>>();
-  // });
-  // }
+  final String jsonString =
+      '{"id":4,"productId":14,"content":"[{\\"number_of_day\\":0,\\"content\\":\\"Bón lót, phun cải tạo đất, diệt ốc bươu vàng\\"},{\\"number_of_day\\":2,\\"content\\":\\"Sạ lúa, diệt mầm\\"},{\\"number_of_day\\":9,\\"content\\":\\"Phun thuốc cải tạo đất, bón dinh dưỡng, kiểm tra ngừa bọ trĩ, muỗi hành và cỏ cây\\"},{\\"number_of_day\\":20,\\"content\\":\\"Bón NPK hữu cơ, cải tạo đất, phun ngừa sâu\\"},{\\"number_of_day\\":30,\\\"content\\":\\"Phun dinh dưỡng hữu cơ, phát triển rễ, nở bụi, phun thuốc cứng cây, ngừa nấm, sâu bệnh cây\\"},{\\"number_of_day\\":40,\\"content\\":\\"Phun dinh dưỡng hữu cơ, bổ sung vi lượng, cải tạo đất, ngừa sâu\\"},{\\"number_of_day\\":57,\\"content\\":\\"Phun dinh dưỡng, ngừa nấp bệnh, phân hữu cơ cứng cây, chống sâu bệnh\\"},{\\"number_of_day\\":70,\\\"content\\":\\"Bón đoán đòng, ngừa bệnh lem lép hạt, bổ sung NPK, phun dinh dưỡng, ngừa rầy nâu\\"},{\\"number_of_day\\":82,\\"content\\":\\"Phun dinh dưỡng, vô gạo nhanh, ngừa rầy nâu\\"},{\\"number_of_day\\":92,\\"content\\":\\"Phun dinh dưỡng, vô gạo nhanh, ngừa rầy nâu\\"},{\\"number_of_day\\":105,\\"content\\":\\"Thu hoạch\\"}]"}';
 
   @override
   Widget build(BuildContext context) {
+    Data data = Data.fromJson(json.decode(jsonString));
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
@@ -78,111 +42,95 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
           title: Text(widget.product.name ?? ''),
         ),
         body: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Column(
-              children: [
-                Container(
-                  height: 200, // Điều chỉnh kích thước hình ảnh theo ý muốn
-                  width: double.infinity,
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-                    fit: BoxFit.cover,
-                  ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: Image.network(
+                  'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                  fit: BoxFit.cover,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          const Text(
-                            'Hoạt động',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9.0),
-                            decoration: BoxDecoration(
-                              color: AppColors.dColorMain,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: const Text(
-                              'Hoạt động',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.dColorTF,
-                              ),
-                            ),
-                          ),
-                        ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Trạng Thái:',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 10),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 14),
-                        height: 2,
-                        width: double.infinity,
-                        color: const Color(0xffBFBFBF),
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.all(9.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.dColorMain,
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
-                      const Text(
-                        'Nhật ký canh tác',
+                      child: const Text(
+                        'Hoạt động',
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: AppColors.dColorTF,
                         ),
                       ),
-                      //coi lại đoạn code này tối ưu hơn
-                      Flexible(
-                        child: Timeline.tileBuilder(
-                          theme: TimelineThemeData(
-                            nodePosition: 0,
-                            connectorTheme: const ConnectorThemeData(
-                              thickness: 3.0,
-                              color: Color(0xffd3d3d3),
-                            ),
-                            indicatorTheme: const IndicatorThemeData(
-                              size: 15.0,
-                            ),
-                          ),
-                          builder: TimelineTileBuilder.connected(
-                            contentsAlign: ContentsAlign.alternating,
-                            contentsBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.all(24.0),
-                              child: Text('Timeline Event $index'),
-                            ),
-                            itemCount: 10,
-                          ),
-                        ),
-                      ),
-
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Divider(
+                color: Color(0xffBFBFBF),
+                thickness: 2,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  left: 10,
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Nhật ký canh tác',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              // Hiển thị danh sách nhật ký canh tác dưới dạng ListView.builder
+              Expanded(
+                child: ListView.builder(
+                  itemCount: data.steps.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text('Bước ${data.steps[index].numberOfDay}'),
+                      subtitle: Text(data.steps[index].content),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
-        floatingActionButton: buildAddContactFAB(),
       ),
     );
   }
-}
+  //coi lại đoạn code này tối ưu h
 
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => ProductScreen());
-    },
-    backgroundColor: AppColors.dColorMain,
-    child: const Icon(Icons.add),
-  );
+  Widget buildAddContactFAB() {
+    return FloatingActionButton(
+      onPressed: () {
+        Get.to(() => ProductScreen());
+      },
+      backgroundColor: AppColors.dColorMain,
+      child: const Icon(Icons.add),
+    );
+  }
 }
