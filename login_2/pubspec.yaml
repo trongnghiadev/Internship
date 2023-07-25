@@ -23,6 +23,7 @@ dependencies:
   fluttertoast: ^8.2.2
   timelines: ^0.1.0
   lecle_bubble_timeline: ^0.0.1+1
+
   # flutter_widget_from_html: ^0.6.0
   # webview_flutter: ^2.0.14
 
@@ -37,8 +38,22 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: fonts/Roboto-Italic.ttf
+          style: italic
+        - asset: fonts/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+
   assets:
     - assets/image/
+
+
 
   # https://flutter.dev/assets-and-images/#resolution-aware
 

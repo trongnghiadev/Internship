@@ -66,7 +66,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
         body: Padding(
-          padding: const EdgeInsets.only(top: 30),
+          padding: const EdgeInsets.only(top: 20),
           child: Column(
             children: [
               Padding(
@@ -83,7 +83,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          hintText: 'Tìm Kiếm',
+                          hintText: 'Nhập tên xã viên',
                           suffixIcon: const Icon(Icons.search),
                         ),
                       ),

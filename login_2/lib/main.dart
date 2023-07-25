@@ -17,10 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialBinding: StoreBinding(),
-        builder: FToastBuilder(),
-        // home: LoginScreen(),
-        home: const LoginScreen());
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+      ),
+      debugShowCheckedModeBanner: false,
+      initialBinding: StoreBinding(),
+      builder: FToastBuilder(),
+      home: const LoginScreen(),
+    );
   }
 }

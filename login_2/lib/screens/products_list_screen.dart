@@ -11,7 +11,7 @@ import '../store/storecontroller.dart';
 class ProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({Key? key});
+  ProductsListScreen({super.key, Key? key});
 
   @override
   _ProductsListScreenState createState() => _ProductsListScreenState();
@@ -70,7 +70,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
           title: const Text('Danh sách sản phẩm'),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 5),
+          padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
               Padding(
@@ -87,7 +87,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                             borderSide: BorderSide.none,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-                          hintText: 'Tìm Kiếm',
+                          hintText: 'Tìm kiếm',
                           suffixIcon: const Icon(Icons.search),
                         ),
                       ),
@@ -109,7 +109,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                 ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.all(30),
                   child: ListView.builder(
                     itemCount: productlist.length,
                     itemBuilder: (context, index) {
@@ -201,7 +201,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20), // Khoảng cách giữa các phần tử
+                          const SizedBox(height: 20), // Khoảng cách giữa các phần tử
                         ],
                       );
                     },
