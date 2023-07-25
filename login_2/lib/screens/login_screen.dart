@@ -32,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
+
+                //Không xài được get to (xài trên máy thật không đăng nhập được)
                 Get.off(OtpScreen(email: email));
                 // Navigator.pushReplacement(
                 //   context,
