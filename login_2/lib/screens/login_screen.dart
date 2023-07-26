@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/config/icons.dart';
 import 'package:login_2/config/stringtext.dart';
 import 'package:login_2/data/check_exist_email.dart';
 import 'package:login_2/data/register.dart';
@@ -73,10 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //Logo
-                  Image.asset(
-                    'assets/image/logo--footer 2.png',
-                    height: 60,
-                  ),
+                  const LogoImage(),
 
                   const SizedBox(
                     height: 20,
@@ -150,6 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 32,
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 30),
                         child: Row(
@@ -160,9 +161,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Color.fromARGB(255, 91, 90, 90),
                               ),
                             ),
-                            Text(
-                              'Hoặc',
-                              style: TextStyle(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                'Hoặc',
+                                style: TextStyle(),
+                              ),
                             ),
                             Expanded(
                               child: Divider(

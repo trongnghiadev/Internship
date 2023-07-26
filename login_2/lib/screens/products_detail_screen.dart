@@ -110,7 +110,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
                   itemCount: data.steps.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text('Bước ${data.steps[index].numberOfDay}'),
+                      title: Text('Ngày ${data.steps[index].numberOfDay}'),
                       subtitle: Text(data.steps[index].content),
                     );
                   },

@@ -6,6 +6,7 @@ import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';
 import 'package:get/get.dart';
 import 'package:login_2/widgets/toast_message.dart';
+import '../config/icons.dart';
 import 'main_screen.dart';
 
 class PassScreen extends StatefulWidget {
@@ -52,10 +53,7 @@ class _PassScreenState extends State<PassScreen> {
               ),
 
               //logo
-              Image.asset(
-                'assets/image/logo--footer 2.png',
-                height: 60,
-              ),
+              const LogoImage(),
 
               const SizedBox(
                 height: 20,

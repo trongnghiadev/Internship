@@ -5,6 +5,8 @@ import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/set_new_pass.dart';
 
+import '../config/icons.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, required this.email}) : super(key: key);
 
@@ -65,10 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
 
                 //logo
-                Image.asset(
-                  'assets/image/logo--footer 2.png',
-                  height: 60,
-                ),
+                const LogoImage(),
 
                 const SizedBox(
                   height: 20,
