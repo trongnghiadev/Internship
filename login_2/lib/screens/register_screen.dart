@@ -58,16 +58,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG,
-        body: SingleChildScrollView(
-          reverse: true,
-          child: Center(
+        resizeToAvoidBottomInset: true,
+        body: ListView(
+          children: [Center(
             child: Column(
               children: [
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       onPressed: () {
-                        Get.to(LoginScreen());
+                        Get.to( () => const LoginScreen());
                       },
                       icon: const Icon(Icons.arrow_back_ios_new)),
                 ),
@@ -222,7 +222,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ],
             ),
-          ),
+          ),]
         ),
       ),
     );

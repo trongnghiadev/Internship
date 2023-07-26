@@ -14,19 +14,17 @@ class ToastMessage extends StatelessWidget {
         color: dButoonInActive,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(
-            width: 12.0,
-          ),
-          Wrap(children: [
-            Text(
+          Flexible(
+            child: Text(
               message,
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.dColorTF),
             ),
-          ]),
+          ),
         ],
       ),
     );

@@ -3,21 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_2/data/add_product.dart';
+import 'package:login_2/models/product_model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:get/get.dart';
 
-class ProductScreen extends StatefulWidget {
+class InfoProductScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductScreen({Key? key}) : super(key: key);
+  InfoProductScreen({Key? key, this.product}) : super(key: key);
+
+  final ProductModel? product;
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  State<InfoProductScreen> createState() => _InfoProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _InfoProductScreenState extends State<InfoProductScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
 
@@ -42,6 +45,22 @@ class _ProductScreenState extends State<ProductScreen> {
     // Đặt giá trị ban đầu cho các TextFormField từ widget.company
     //Đã fix ở đây
     // ignore: unnecessary_null_comparison
+    if (widget.product == null) return;
+
+    nameProductController.text = widget.product!.name!;
+    keyProductController.text = widget.product!.productKey!;
+    descriptionProductController.text = widget.product!.description!;
+    contentProductController.text = widget.product!.content!;
+    productionUnitCodeController.text = widget.product!.productionUnitCode!;
+    acreageProductController.text =
+        widget.product!.acreage!.toString(); // kiểu double nên xài toString
+    rawMaterialAreaProductController.text = widget.product!.rawMaterialArea!;
+    photosController.text = widget.product!.photos!;
+    recipeProductController.text = widget.product!.recipe!;
+    recipePhotosProductController.text = widget.product!.recipePhotos!;
+    farmingPhotosController.text = widget.product!.farmingPhotos!;
+    videoProductController.text = widget.product!.video!;
+    certificationController.text = widget.product!.certification!;
   }
 
 //Thêm hình ảnh
@@ -57,7 +76,43 @@ class _ProductScreenState extends State<ProductScreen> {
     }
   }
 
-  void handleSubmit(BuildContext context) {
+  void handleAddProduct(BuildContext context) {
+    final name = nameProductController.text;
+    final key = keyProductController.text;
+    final description = descriptionProductController.text;
+    final content = contentProductController.text;
+    final productionUnitCode = descriptionProductController.text;
+    final acreage = acreageProductController.text;
+    final rawMaterialArea = rawMaterialAreaProductController.text;
+    final photos = photosController.text;
+    final recipe = recipeProductController.text;
+    final recipePhotos = recipePhotosProductController.text;
+    final farmingPhotos = farmingPhotosController.text;
+    final video = videoProductController.text;
+    final certification = certificationController.text;
+
+    AddProduct()
+        .fetchData(
+          //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
+          widget.storeController.storeCompany.value.id ?? 0,
+          key,
+          name,
+          description,
+          content,
+          productionUnitCode,
+          double.parse(acreage),
+          rawMaterialArea,
+          photos,
+          recipe,
+          recipePhotos,
+          farmingPhotos,
+          video,
+          certification,
+        )
+        .then((value) => Get.to(() => MainScreen()));
+  }
+
+  void handleUpdateProduct(BuildContext context) {
     final name = nameProductController.text;
     final key = keyProductController.text;
     final description = descriptionProductController.text;
@@ -242,7 +297,8 @@ class _ProductScreenState extends State<ProductScreen> {
                           : Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: const Color.fromARGB(255, 204, 201, 201),
+                                  color:
+                                      const Color.fromARGB(255, 204, 201, 201),
                                   width: 2.0,
                                 ),
                                 borderRadius: BorderRadius.circular(10.0),
@@ -266,15 +322,16 @@ class _ProductScreenState extends State<ProductScreen> {
                                 : Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color:
-                                            const Color.fromARGB(255, 204, 201, 201),
+                                        color: const Color.fromARGB(
+                                            255, 204, 201, 201),
                                         width: 2.0,
                                       ),
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     height: 60,
                                     width: 360,
-                                    child: const Center(child: Text('Thêm QRcode')),
+                                    child: const Center(
+                                        child: Text('Thêm QRcode')),
                                   ),
                             const SizedBox(height: 20),
                             //Nút botton
@@ -282,10 +339,17 @@ class _ProductScreenState extends State<ProductScreen> {
                                 onTap: () {
                                   if (_formKey.currentState?.validate() ==
                                       true) {
-                                    handleSubmit(context);
+                                    if (widget.product == null) {
+                                      handleAddProduct(context);
+                                    } else {
+                                      //Todo : handleUpdateProduct
+                                    }
                                   }
                                 },
-                                text: 'Thay đổi')
+                                //Coi kĩ áp dụng nhiều
+                                text: widget.product != null
+                                    ? 'Thay đổi'
+                                    : 'Thêm')
                           ],
                         ),
                       ),

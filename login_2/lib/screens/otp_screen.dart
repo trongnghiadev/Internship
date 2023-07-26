@@ -43,7 +43,7 @@ class _OtpScreenState extends State<OtpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LogoImage(),
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
               const Text(
                 'Nhập mã xác minh',
                 style: TextStyle(

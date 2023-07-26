@@ -218,7 +218,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
 Widget buildAddContactFAB() {
   return FloatingActionButton(
     onPressed: () {
-      Get.to(() => ProductScreen());
+      Get.to(() => InfoProductScreen());
     },
     backgroundColor: AppColors.dColorMain,
     child: const Icon(Icons.add),
