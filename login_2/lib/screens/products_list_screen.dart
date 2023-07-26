@@ -11,7 +11,7 @@ import '../store/storecontroller.dart';
 class ProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({super.key, Key? key});
+  ProductsListScreen({Key? key});
 
   @override
   _ProductsListScreenState createState() => _ProductsListScreenState();
@@ -74,7 +74,8 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.only(
+                    top: 30.0, right: 30.0, bottom: 0.0, left: 30.0),
                 child: Row(
                   children: [
                     Expanded(
@@ -94,9 +95,6 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
               if (isLoading == true)
                 const SizedBox(
@@ -120,7 +118,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                             decoration: BoxDecoration(
                               color: AppColors.dColorTF, // Màu nền của ô
                               borderRadius:
-                              BorderRadius.circular(10.0), // Bo góc của ô
+                                  BorderRadius.circular(10.0), // Bo góc của ô
                             ),
                             // Màu nền của ListTile
                             child: InkWell(
@@ -137,10 +135,9 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                                         height: 80,
                                         width: 80,
                                         decoration: BoxDecoration(
-                                          color:
-                                          AppColors.dColorIG, // Màu nền của ô
-                                          borderRadius:
-                                          BorderRadius.circular(
+                                          color: AppColors
+                                              .dColorIG, // Màu nền của ô
+                                          borderRadius: BorderRadius.circular(
                                               10.0), // Bo góc của ô
                                         ),
                                       ),
@@ -149,7 +146,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -175,7 +172,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                                                   ),
                                                   maxLines: 2,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -201,7 +198,8 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20), // Khoảng cách giữa các phần tử
+                          const SizedBox(
+                              height: 20), // Khoảng cách giữa các phần tử
                         ],
                       );
                     },
@@ -220,7 +218,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
 Widget buildAddContactFAB() {
   return FloatingActionButton(
     onPressed: () {
-      Get.to(() => ProductScreen());
+      Get.to(() => InfoProductScreen());
     },
     backgroundColor: AppColors.dColorMain,
     child: const Icon(Icons.add),

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/config/icons.dart';
 import 'package:login_2/config/stringtext.dart';
 import 'package:login_2/data/check_exist_email.dart';
 import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp_screen.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/utils/email_regex.dart';
-
+import '../widgets/toast_message.dart';
 import 'login_with_pass_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,17 +26,43 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  late FToast toast;
+
+  @override
+  void initState() {
+    super.initState();
+    toast = FToast();
+    toast.init(context);
+  }
+
   void handleSubmit(BuildContext context) {
     final email = _emailController.text;
+
+      if (email == '' || email.isEmpty) {
+        toast.showToast(
+          child:
+              const ToastMessage(message: textEmailAgain),
+          gravity: ToastGravity.BOTTOM,
+        );
+        return;
+      }
+      if (!EmailRegex.emailPattern.hasMatch(email)) {
+        toast.showToast(
+          child: const ToastMessage(message: textABC),
+          gravity: ToastGravity.BOTTOM,
+        );
+        return;
+      }
+
+
     CheckExistEmail().fetchData(email).then((existEmailStatus) {
       if (existEmailStatus != null) {
         if (existEmailStatus == 'false') {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
-
                 //Không xài được get to (xài trên máy thật không đăng nhập được)
-                Get.off(OtpScreen(email: email));
+                Get.off( () => OtpScreen(email: email));
                 // Navigator.pushReplacement(
                 //   context,
                 //   MaterialPageRoute(
@@ -49,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           });
         } else if (existEmailStatus == 'true') {
-          Get.off(PassScreen(email: email));
+          Get.off( () => PassScreen(email: email));
 
           // Navigator.pushReplacement(
           //   context,
@@ -75,10 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //Logo
-                  Image.asset(
-                    'assets/image/logo--footer 2.png',
-                    height: 60,
-                  ),
+                  const LogoImage(),
 
                   const SizedBox(
                     height: 20,
@@ -127,15 +152,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return textEmailAgain;
-                            }
-                            if (!EmailRegex.emailPattern.hasMatch(value)) {
-                              return textABC;
-                            }
-                            return null;
-                          },
                         ),
                       ),
                       const SizedBox(
@@ -152,6 +168,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 32,
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 30),
                         child: Row(
@@ -162,9 +181,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Color.fromARGB(255, 91, 90, 90),
                               ),
                             ),
-                            Text(
-                              'Hoặc',
-                              style: TextStyle(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: Text(
+                                'Hoặc',
+                                style: TextStyle(),
+                              ),
                             ),
                             Expanded(
                               child: Divider(

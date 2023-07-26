@@ -14,21 +14,21 @@ class StepContent {
   }
 }
 
-class Data {
+class LogBooks {
   int id;
   int productId;
   List<StepContent> steps;
 
-  Data({required this.id, required this.productId, required this.steps});
+  LogBooks({required this.id, required this.productId, required this.steps});
 
-  factory Data.fromJson(Map<String, dynamic> json) {
+  factory LogBooks.fromJson(Map<String, dynamic> json) {
     var contentString = json['content'];
     List<dynamic> contentList = jsonDecode(contentString);
 
     List<StepContent> stepsList =
     contentList.map((e) => StepContent.fromJson(e)).toList();
 
-    return Data(
+    return LogBooks(
       id: json['id'],
       productId: json['productId'],
       steps: stepsList,

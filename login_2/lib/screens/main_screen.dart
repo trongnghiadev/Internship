@@ -31,17 +31,21 @@ class _MainScreenState extends State<MainScreen> {
   late String addCompany = "Tạo công ty";
   late FToast toast;
   static String iframeHtml = Uri.dataFromString('''
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.548592550928!2d106.65568031082478!3d10.7692307592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eea038d8985%3A0xaf4b41b414c7ad73!2zMjIxIEzDvSBUaMaw4budbmcgS2nhu4d0LCBQaMaw4budbmcgMTUsIFF14bqtbiAxMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1689700838935!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.548592550928!2d106.65568031082478!3d10.7692307592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eea038d8985%3A0xaf4b41b414c7ad73!2zMjIxIEzDvSBUaMaw4budbmcgS2nhu4d0LCBQaMaw4budbmcgMTUsIFF14bqtbiAxMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1689700838935!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 ''', mimeType: 'text/html').toString();
+
 
   @override
   void initState() {
     super.initState();
     _fetchCompanyData(); // Gọi phương thức để lấy dữ liệu công ty khi MainScreen được khởi tạo
+    toast = FToast(); // 2 dòng cuối khởi tạo để hiện toast
+    toast.init(context);
   }
 
   Future<void> _fetchCompanyData() async {
-    final userId = widget.storeController.storeUser.value.id; // Lấy ID người dùng từ storeController
+    final userId = widget.storeController.storeUser.value
+        .id; // Lấy ID người dùng từ storeController
     final company = await _companyByUserId.fetchData(userId!);
 
     if (company != null) {
@@ -89,12 +93,12 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             const SizedBox(width: 10),
                             Obx(() => Text(
-                              'Xin chào ${widget.storeController.storeUser.value.fullname}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ))
+                                  'Xin chào ${widget.storeController.storeUser.value.fullname}',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ))
                           ],
                         ),
                         Container(
@@ -184,16 +188,17 @@ class _MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () {
                     if (companyexist) {
-                      Get.to(() => ProductsListScreen());
+                      Get.to( () => ProductsListScreen());
                     } else {
                       toast.showToast(
-                        child: const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        child:
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
                   },
                   child: const ItemMain(
-                    icon: Icons.account_circle,
+                    icon: Icons.drive_folder_upload,
                     textName: 'Quản lý sản phẩm',
                     color: Colors.blue,
                     colorIt: Colors.white,
@@ -202,7 +207,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 // Thêm các child widget khác vào đây (nếu có)
                 InkWell(
-                  onTap: () => Get.to(() => ProductsListScreen()),
+                  onTap: () => Get.to( () => ProductsListScreen()),
                   child: const ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý canh tác',
@@ -212,7 +217,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => ProductScreen()),
+                  onTap: () => Get.to(() => InfoProductScreen()),
                   child: const ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
@@ -224,7 +229,7 @@ class _MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () => Get.to(() => MemberListScreen()),
                   child: const ItemMain(
-                    icon: Icons.qr_code,
+                    icon: Icons.account_circle,
                     textName: 'Quản lý thành viên',
                     color: Color(0xffDDDDDD),
                     colorIt: Colors.black,
