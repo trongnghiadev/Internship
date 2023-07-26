@@ -19,7 +19,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  bool isPasswordVisible1 = false;
+  bool isPasswordVisible2 = false;
   bool passwordsMatch = false;
 
   @override
@@ -62,6 +63,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Center(
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        Get.to(LoginScreen());
+                      },
+                      icon: const Icon(Icons.arrow_back_ios_new)),
+                ),
                 const SizedBox(
                   height: 100,
                 ),
@@ -117,9 +126,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Vui lòng nhập mật khẩu',
                       prefixIcon: const Icon(Icons.lock),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isPasswordVisible1 = !isPasswordVisible1;
+                          });
+                        },
+                        child: Icon(
+                          isPasswordVisible1
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: !isPasswordVisible1,
                     onChanged: (value) {
                       checkPasswordsMatch();
                     },
@@ -145,8 +167,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: const Icon(Icons.lock),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isPasswordVisible2 = !isPasswordVisible2;
+                          });
+                        },
+                        child: Icon(
+                          isPasswordVisible2
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: !isPasswordVisible2,
                     onChanged: (value) {
                       checkPasswordsMatch();
                     },
@@ -176,12 +210,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (status != null) {
                           if (status == 'true') {
                             Get.off(const LoginScreen());
-                            // Navigator.pushReplacement(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const LoginScreen(),
-                            //   ),
-                            // );
                           }
                         }
                       });

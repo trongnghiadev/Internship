@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_2/config/const.dart';
 
 class ToastMessage extends StatelessWidget {
   const ToastMessage({super.key, required this.message});
@@ -10,7 +11,7 @@ class ToastMessage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.indigo,
+        color: dButoonInActive,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -18,7 +19,14 @@ class ToastMessage extends StatelessWidget {
           const SizedBox(
             width: 12.0,
           ),
-          Text(message),
+          Wrap(children: [
+            Text(
+              message,
+              softWrap: true,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: AppColors.dColorTF),
+            ),
+          ]),
         ],
       ),
     );

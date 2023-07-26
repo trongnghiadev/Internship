@@ -33,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
-
                 //Không xài được get to (xài trên máy thật không đăng nhập được)
                 Get.off(OtpScreen(email: email));
                 // Navigator.pushReplacement(
@@ -134,6 +133,22 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     toast.showToast(
+                          //       child:
+                          //           const ToastMessage(message: textEmailAgain),
+                          //       gravity: ToastGravity.BOTTOM,
+                          //     );
+                          //   }
+                          //   if (!EmailRegex.emailPattern.hasMatch(value!)) {
+                          //     toast.showToast(
+                          //       child: const ToastMessage(message: textABC),
+                          //       gravity: ToastGravity.BOTTOM,
+                          //     );
+                          //   }
+                          //   return null;
+                          // },
                         ),
                       ),
                       const SizedBox(
