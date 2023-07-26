@@ -65,8 +65,19 @@ class _MemberListScreenState extends State<MemberListScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
+        appBar: AppBar(
+          backgroundColor: AppColors.dColorMain,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          centerTitle: true,
+          title: const Text('Danh sách xã viên'),
+        ),
         body: Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
               Padding(
@@ -91,19 +102,6 @@ class _MemberListScreenState extends State<MemberListScreen> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                'Danh sách xã viên',
-                style: TextStyle(
-                    color: AppColors.dColorMain,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
               if (isLoading == true)
                 const SizedBox(
                   height: 50,
@@ -116,7 +114,8 @@ class _MemberListScreenState extends State<MemberListScreen> {
               Expanded(
                 child: ListView.separated(
                   itemCount: memberList.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 20.0),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 20.0),
                   itemBuilder: (context, index) {
                     final member = memberList[index];
                     return ListTileTheme(
@@ -130,7 +129,8 @@ class _MemberListScreenState extends State<MemberListScreen> {
                         child: ListTile(
                           title: Text(
                             member.name ?? '',
-                            style: const TextStyle(fontWeight: FontWeight.bold), //
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold), //
                           ),
                           subtitle: Text(
                             member.acreage.toString(),

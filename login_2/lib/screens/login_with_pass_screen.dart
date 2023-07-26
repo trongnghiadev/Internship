@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/screens/login_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/login.dart';
@@ -21,7 +22,7 @@ class PassScreen extends StatefulWidget {
 class _PassScreenState extends State<PassScreen> {
   final passwordController = TextEditingController();
   late FToast toast;
-
+  bool isPasswordVisible = false;
   @override
   void initState() {
     super.initState();
@@ -47,6 +48,14 @@ class _PassScreenState extends State<PassScreen> {
         body: Center(
           child: Column(
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                    onPressed: () {
+                      Get.to(const LoginScreen());
+                    },
+                    icon: const Icon(Icons.arrow_back_ios_new)),
+              ),
               const SizedBox(
                 height: 100,
               ),
@@ -80,12 +89,25 @@ class _PassScreenState extends State<PassScreen> {
                 child: TextFormField(
                   controller: passwordController,
                   decoration: InputDecoration(
-                      hintText: 'Vui lòng nhập mật khẩu',
-                      prefixIcon: const Icon(Icons.lock),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      )),
-                  obscureText: true,
+                    hintText: 'Vui lòng nhập mật khẩu',
+                    prefixIcon: const Icon(Icons.lock),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        setState(() {
+                          isPasswordVisible = !isPasswordVisible;
+                        });
+                      },
+                      child: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                    ),
+                  ),
+                  obscureText: !isPasswordVisible,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Vui lòng nhập mật khẩu';

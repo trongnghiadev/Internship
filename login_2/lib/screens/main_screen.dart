@@ -41,7 +41,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _fetchCompanyData() async {
-    final userId = widget.storeController.storeUser.value.id; // Lấy ID người dùng từ storeController
+    final userId = widget.storeController.storeUser.value
+        .id; // Lấy ID người dùng từ storeController
     final company = await _companyByUserId.fetchData(userId!);
 
     if (company != null) {
@@ -89,12 +90,12 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             const SizedBox(width: 10),
                             Obx(() => Text(
-                              'Xin chào ${widget.storeController.storeUser.value.fullname}',
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ))
+                                  'Xin chào ${widget.storeController.storeUser.value.fullname}',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ))
                           ],
                         ),
                         Container(
@@ -187,7 +188,8 @@ class _MainScreenState extends State<MainScreen> {
                       Get.to(() => ProductsListScreen());
                     } else {
                       toast.showToast(
-                        child: const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        child:
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }

@@ -38,8 +38,15 @@ class _OtpScreenState extends State<OtpScreen> {
         backgroundColor: AppColors.dColorBG,
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios_new)),
+              ),
               Image.asset(
                 'assets/image/logo--footer 2.png',
                 height: 60,
