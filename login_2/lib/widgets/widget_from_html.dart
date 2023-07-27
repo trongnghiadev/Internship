@@ -8,11 +8,11 @@ class LazyLoadIframeHtmlWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _LazyLoadIframeHtmlWidgetState createState() =>
-      _LazyLoadIframeHtmlWidgetState();
+  LazyLoadIframeHtmlWidgetState createState() =>
+      LazyLoadIframeHtmlWidgetState();
 }
 
-class _LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
+class LazyLoadIframeHtmlWidgetState extends State<LazyLoadIframeHtmlWidget> {
   bool _isVisible = false;
   final ScrollController _scrollController = ScrollController();
 

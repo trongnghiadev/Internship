@@ -7,29 +7,29 @@ class BottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _buildScreens() {
+    List<Widget> buildScreens() {
       return [
         // MainScreen(),
       ];
     }
 
-    List<PersistentBottomNavBarItem> _navBarsItems() {
+    List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.home),
           title: ("Home"),
-          textStyle: dStyleTexNav,
+          textStyle: styleTitleItem,
           //Button Active
           activeColorPrimary: AppColors.buttonColor,
-          inactiveColorPrimary: dButoonInActive,
+          inactiveColorPrimary: AppColors.dButoonInActive,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.bookmark),
           title: ("LogBook"),
-          textStyle: dStyleTexNav,
+          textStyle: styleTitleItem,
           //Button Active
           activeColorPrimary: AppColors.buttonColor,
-          inactiveColorPrimary: dButoonInActive,
+          inactiveColorPrimary: AppColors.dButoonInActive,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(
@@ -38,23 +38,23 @@ class BottomNav extends StatelessWidget {
           ),
           //Button Active
           activeColorPrimary: AppColors.buttonColor,
-          inactiveColorPrimary: dButoonInActive,
+          inactiveColorPrimary: AppColors.dButoonInActive,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.date_range_rounded),
           title: ("Lịch Làm Việc"),
-          textStyle: dStyleTexNav,
+          textStyle: styleTitleItem,
           //Button Active
           activeColorPrimary: AppColors.buttonColor,
-          inactiveColorPrimary: dButoonInActive,
+          inactiveColorPrimary: AppColors.dButoonInActive,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.person),
           title: ("Tài Khoản"),
-          textStyle: dStyleTexNav,
+          textStyle: styleTitleItem,
           //Button Active
           activeColorPrimary: AppColors.buttonColor,
-          inactiveColorPrimary: dButoonInActive,
+          inactiveColorPrimary: AppColors.dButoonInActive,
         ),
       ];
     }
@@ -65,16 +65,19 @@ class BottomNav extends StatelessWidget {
     return PersistentTabView(
       context,
       controller: controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
+      screens: buildScreens(),
+      items: navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.white, // Default is Colors.white.
-      handleAndroidBackButtonPress: true, // Default is true.
-      resizeToAvoidBottomInset:
-          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-      stateManagement: true, // Default is true.
-      hideNavigationBarWhenKeyboardShows:
-          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      backgroundColor: Colors.white,
+      // Default is Colors.white.
+      handleAndroidBackButtonPress: true,
+      // Default is true.
+      resizeToAvoidBottomInset: true,
+      // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      stateManagement: true,
+      // Default is true.
+      hideNavigationBarWhenKeyboardShows: true,
+      // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
         colorBehindNavBar: Colors.white,

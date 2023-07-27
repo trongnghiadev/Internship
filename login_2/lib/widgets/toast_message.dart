@@ -11,7 +11,7 @@ class ToastMessage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: dButoonInActive,
+        color: AppColors.dButoonInActive,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +22,7 @@ class ToastMessage extends StatelessWidget {
               message,
               softWrap: true,
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColors.dColorTF),
+              style: const TextStyle(color: AppColors.dColorTF),
             ),
           ),
         ],

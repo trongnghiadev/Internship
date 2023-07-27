@@ -21,11 +21,11 @@ class TextFieldUser extends StatelessWidget {
           hintStyle: const TextStyle(color: Color.fromARGB(255, 174, 170, 170)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),
-            borderSide: const BorderSide(color: dButoonInActive),
+            borderSide: const BorderSide(color: AppColors.dButoonInActive),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),
-            borderSide: const BorderSide(color: dButoonInActive),
+            borderSide: const BorderSide(color: AppColors.dButoonInActive),
           ),
           hintText: hintText,
         ),

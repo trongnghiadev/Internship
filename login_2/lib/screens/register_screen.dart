@@ -98,13 +98,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       const Text(
                         'Thiết lập mật khẩu ',
-                        style: TextStyle(color: dColorText),
+                        style: TextStyle(color: AppColors.dColorText),
+
                         textAlign: TextAlign.center,
                       ),
                       Text(
                         email,
                         style: const TextStyle(
-                          color: dColorText,
+                          color: AppColors.dColorText,
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
