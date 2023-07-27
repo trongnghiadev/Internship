@@ -11,7 +11,7 @@ import '../store/storecontroller.dart';
 class ProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({Key? key});
+  ProductsListScreen({super.key});
 
   @override
   _ProductsListScreenState createState() => _ProductsListScreenState();

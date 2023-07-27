@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/data/get_company_by_id_user.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/info_product_screen.dart';
 import 'package:login_2/screens/member_list_screen.dart';
 import 'package:login_2/screens/products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
-import 'package:get/get.dart';
+
 import '../store/storecontroller.dart';
 import '../widgets/button_bottom.dart';
-import 'package:login_2/data/get_company_by_id_user.dart';
 import '../widgets/toast_message.dart';
 import '../widgets/widget_from_html.dart';
 import 'info_company_screen.dart';
@@ -18,13 +19,13 @@ class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
 
   final storeController = Get.find<StoreController>();
-  CompanyModel company = CompanyModel();
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
+  CompanyModel company = CompanyModel();
   final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
   late String companyName = "Bạn chưa có công ty";
   late bool companyexist = false;
@@ -33,7 +34,6 @@ class _MainScreenState extends State<MainScreen> {
   static String iframeHtml = Uri.dataFromString('''
   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.548592550928!2d106.65568031082478!3d10.7692307592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eea038d8985%3A0xaf4b41b414c7ad73!2zMjIxIEzDvSBUaMaw4budbmcgS2nhu4d0LCBQaMaw4budbmcgMTUsIFF14bqtbiAxMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1689700838935!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 ''', mimeType: 'text/html').toString();
-
 
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _MainScreenState extends State<MainScreen> {
 
     if (company != null) {
       setState(() {
-        widget.company = company;
+        this.company = company;
         companyName = company.name!;
         companyexist = true;
         addCompany = "Xem Thông Tin Công Ty";
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                               const SizedBox(height: 15),
                               CustomButton(
                                 onTap: () {
-                                  Get.to(InfoScreen(company: widget.company));
+                                  Get.to(InfoScreen(company: company));
                                 },
                                 text: addCompany,
                               ),
@@ -188,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () {
                     if (companyexist) {
-                      Get.to( () => ProductsListScreen());
+                      Get.to(() => ProductsListScreen());
                     } else {
                       toast.showToast(
                         child:
@@ -207,7 +207,17 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 // Thêm các child widget khác vào đây (nếu có)
                 InkWell(
-                  onTap: () => Get.to( () => ProductsListScreen()),
+                  onTap: () {
+                    if (companyexist) {
+                      Get.to(() => ProductsListScreen());
+                    } else {
+                      toast.showToast(
+                        child:
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                    }
+                  },
                   child: const ItemMain(
                     icon: Icons.library_books,
                     textName: 'Quản lý canh tác',
@@ -217,7 +227,17 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => InfoProductScreen()),
+                  onTap: () {
+                    if (companyexist) {
+                      Get.to(() => InfoProductScreen());
+                    } else {
+                      toast.showToast(
+                        child:
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                    }
+                  },
                   child: const ItemMain(
                     icon: Icons.local_florist,
                     textName: 'Quản lý mùa vụ',
@@ -227,7 +247,17 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () => Get.to(() => MemberListScreen()),
+                  onTap: () {
+                    if (companyexist) {
+                      Get.to(() => MemberListScreen());
+                    } else {
+                      toast.showToast(
+                        child:
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        gravity: ToastGravity.BOTTOM,
+                      );
+                    }
+                  },
                   child: const ItemMain(
                     icon: Icons.account_circle,
                     textName: 'Quản lý thành viên',

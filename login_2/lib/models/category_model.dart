@@ -34,7 +34,7 @@ List<Category> categoryList = [
     thumbnail: 'assets/image/sprout.png',
   ),
   Category(
-    color: dButoonInActive,
+    color: AppColors.dButoonInActive,
     name: 'Quản lý QRCode',
     noOfCourses: 18,
     thumbnail: 'assets/image/qr.png',

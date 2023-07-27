@@ -46,99 +46,103 @@ class _PassScreenState extends State<PassScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
-        body: Center(
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(
+        body: SingleChildScrollView(
+          // Wrap the content with SingleChildScrollView
+          child: Center(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
                     onPressed: () {
                       Get.to(const LoginScreen());
                     },
-                    icon: const Icon(Icons.arrow_back_ios_new)),
-              ),
-              const SizedBox(
-                height: 100,
-              ),
+                    icon: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
 
-              //logo
-              const LogoImage(),
+                //logo
+                const LogoImage(),
 
-              const SizedBox(
-                height: 20,
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
 
-              //Đăng Ký
-              const Text(
-                'Đăng Nhập',
-                style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
+                //Đăng Ký
+                const Text(
+                  'Đăng Nhập',
+                  style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
 
-              const SizedBox(
-                height: 40,
-              ),
+                const SizedBox(
+                  height: 40,
+                ),
 
-              //Login
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    hintText: 'Vui lòng nhập mật khẩu',
-                    prefixIcon: const Icon(Icons.lock),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        setState(() {
-                          isPasswordVisible = !isPasswordVisible;
-                        });
-                      },
-                      child: Icon(
-                        isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                //Login
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: TextFormField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      hintText: 'Vui lòng nhập mật khẩu',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isPasswordVisible = !isPasswordVisible;
+                          });
+                        },
+                        child: Icon(
+                          isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
                       ),
                     ),
+                    obscureText: !isPasswordVisible,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Vui lòng nhập mật khẩu';
+                      }
+                      return null;
+                    },
                   ),
-                  obscureText: !isPasswordVisible,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Vui lòng nhập mật khẩu';
-                    }
-                    return null;
-                  },
                 ),
-              ),
 
-              const SizedBox(
-                height: 70,
-              ),
+                const SizedBox(
+                  height: 70,
+                ),
 
-              CustomButton(
-                onTap: () {
-                  Login()
-                      .fetchData(email, passwordController.text)
-                      .then((value) {
-                    if (value != null) {
-                      widget.storeController.updateUser(value);
-                      Get.offAll(() => MainScreen());
-                    } else {
-                      toast.showToast(
-                        child: const ToastMessage(
-                            message: 'Mật khẩu không chính xác'),
-                        gravity: ToastGravity.BOTTOM,
-                      );
-                    }
-                  });
-                },
-                text: 'Đăng nhập',
-              ),
-            ],
+                CustomButton(
+                  onTap: () {
+                    Login()
+                        .fetchData(email, passwordController.text)
+                        .then((value) {
+                      if (value != null) {
+                        widget.storeController.updateUser(value);
+                        Get.offAll(() => MainScreen());
+                      } else {
+                        toast.showToast(
+                          child: const ToastMessage(
+                              message: 'Mật khẩu không chính xác'),
+                          gravity: ToastGravity.BOTTOM,
+                        );
+                      }
+                    });
+                  },
+                  text: 'Đăng nhập',
+                ),
+              ],
+            ),
           ),
         ),
       ),

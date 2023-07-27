@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: StoreBinding(),
       builder: FToastBuilder(),
-      home: const LoginScreen(),
+      home:const LoginScreen(),
     );
   }
 }

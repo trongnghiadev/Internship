@@ -26,7 +26,17 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   OtpFieldController otpController = OtpFieldController();
   String otpCode = '';
+
   late FToast toast;
+
+  //Khởi tạo lần đầu mỗi lần vào trang này
+  @override
+  void initState() {
+    super.initState();
+    toast = FToast(); // 2 dòng cuối khởi tạo để hiện toast
+    toast.init(context);
+  }
+
   bool otpMatch = false;
   void handleResendOTP() {
     ResendOtp().fetchData(widget.email);
@@ -43,7 +53,7 @@ class _OtpScreenState extends State<OtpScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const LogoImage(),
-               SizedBox(height: 20),
+              const SizedBox(height: 20),
               const Text(
                 'Nhập mã xác minh',
                 style: TextStyle(
@@ -58,7 +68,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: Text(
                   'Để xác minh, nhập mã gồm 6 chữ số vừa được gửi đến ${widget.email}',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: dColorText),
+                  style: const TextStyle(color: AppColors.dColorText),
                 ),
               ),
               const SizedBox(height: 30),
@@ -74,6 +84,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
+                    //Xử lý tắt bàn phím khi người dùng nhập xong mã OTP
+                    FocusScope.of(context).unfocus();
+                    //Xử lý kiểm tra OTP
                     CheckOtp()
                         .fetchData(widget.email, pin)
                         .then((checkOtpStatus) {
