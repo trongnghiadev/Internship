@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
@@ -37,8 +38,6 @@ class AddProduct {
           "acreage": acreage,
           "rawMaterialArea": rawMaterialArea,
           "photos": photos,
-          "description": description,
-          "content": content,
           "recipe": recipe,
           "recipePhotos": recipePhotos,
           "farmingPhotos": farmingPhotos,

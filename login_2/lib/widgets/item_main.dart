@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ItemMain extends StatelessWidget {
-  final colorIt;
-  final colorIc;
-  final color;
-  final icon;
+  final Color colorIt;
+  final Color colorIc;
+  final Color color;
+  final IconData icon;
   final String textName;
+
   const ItemMain(
       {super.key,
       required this.icon,

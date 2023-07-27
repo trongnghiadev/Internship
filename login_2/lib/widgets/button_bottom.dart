@@ -4,9 +4,9 @@ import 'package:login_2/widgets/custom_text.dart';
 
 class ButtonBottom extends StatelessWidget {
   final String imagePath;
-  final colors;
-  final text;
-  final colorText;
+  final Color colors;
+  final String text;
+  final Color colorText;
   final void Function() onTap;
 
   // final controller;
