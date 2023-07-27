@@ -25,7 +25,7 @@ dependencies:
   lecle_bubble_timeline: ^0.0.1+1
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
-
+  url_launcher: ^6.1.12
   # flutter_widget_from_html: ^0.6.0
   # webview_flutter: ^2.0.14
 
@@ -62,7 +62,7 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Regular.ttf
-       
+
 
   assets:
     - assets/image/
