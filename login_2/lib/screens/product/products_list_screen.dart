@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/get_list_product.dart';
-import 'package:login_2/models/product_model.dart';
-import 'package:login_2/screens/info_product_screen.dart';
-import 'package:login_2/screens/products_detail_screen.dart';
-import '../store/storecontroller.dart';
+import 'package:login_2/models/product.model.dart';
+import 'package:login_2/screens/product/info_product_screen.dart';
+import 'package:login_2/screens/product/products_detail_screen.dart';
+import '../../store/storecontroller.dart';
 
 class ProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();

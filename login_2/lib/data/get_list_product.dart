@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
-import 'package:login_2/models/product_model.dart';
-
+import 'package:login_2/models/product.model.dart';
 
 class GetListProduct {
   Dio dio = Dio();

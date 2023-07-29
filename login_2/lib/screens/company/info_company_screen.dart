@@ -1,15 +1,17 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:login_2/models/company_model.dart';
+import 'package:login_2/models/company.model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
-import 'package:login_2/widgets/button_bottom.dart';
-import 'package:get/get.dart';
-import '../data/add_company.dart';
+import 'package:login_2/widgets/buttons/button_bottom.dart';
+
+import '../../data/add_company.dart';
 
 class InfoScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -34,6 +36,7 @@ class _InfoScreenState extends State<InfoScreen> {
   final addressController = TextEditingController();
   final webController = TextEditingController();
   final ImagePicker picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();

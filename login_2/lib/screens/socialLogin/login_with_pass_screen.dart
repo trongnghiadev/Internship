@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:login_2/config/const.dart';
-import 'package:login_2/screens/login_screen.dart';
-import 'package:login_2/store/storecontroller.dart';
-import 'package:login_2/widgets/button_bottom.dart';
-import 'package:login_2/data/login.dart';
 import 'package:get/get.dart';
+import 'package:login_2/config/const.dart';
+import 'package:login_2/data/login.dart';
+import 'package:login_2/screens/socialLogin/login_screen.dart';
+import 'package:login_2/store/storecontroller.dart';
+import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/toast_message.dart';
-import '../config/icons.dart';
-import 'main_screen.dart';
+
+import '../../config/icons.dart';
+import '../main_screen.dart';
 
 class PassScreen extends StatefulWidget {
   PassScreen({Key? key, required this.email}) : super(key: key);
@@ -24,6 +25,7 @@ class _PassScreenState extends State<PassScreen> {
   final passwordController = TextEditingController();
   late FToast toast;
   bool isPasswordVisible = false;
+
   @override
   void initState() {
     super.initState();
@@ -132,8 +134,14 @@ class _PassScreenState extends State<PassScreen> {
                         Get.offAll(() => MainScreen());
                       } else {
                         toast.showToast(
-                          child: const ToastMessage(
-                              message: 'Mật khẩu không chính xác'),
+                          child: ToastMessage(
+                            message: 'Nhập sai mật khẩu',
+                            icon: Icons.close,
+                            // Red X icon
+                            backgroundColor: Colors.red.shade300,
+                            // Light red background
+                            textColor: Colors.white, // Red text color
+                          ),
                           gravity: ToastGravity.BOTTOM,
                         );
                       }

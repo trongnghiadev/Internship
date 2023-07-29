@@ -1,17 +1,18 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/data/add_member.dart';
-import 'package:login_2/models/member_model.dart';
-import 'package:login_2/screens/member_list_screen.dart';
+import 'package:login_2/models/member.model.dart';
+import 'package:login_2/screens/member/member_list_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
-import 'package:login_2/widgets/button_bottom.dart';
-
+import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
   InfoMemberScreen({super.key, this.member});
+
   final Member? member;
 
   @override
@@ -21,8 +22,9 @@ class InfoMemberScreen extends StatefulWidget {
 class _InfoMemberScreenState extends State<InfoMemberScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
-  final _textAcreage = 'dịch tích này không hợp lệ';
-  final _textLocation = 'Địa chỉ này không hợp lệ';
+
+  // final _textAcreage = 'dịch tích này không hợp lệ';
+  // final _textLocation = 'Địa chỉ này không hợp lệ';
 
   final _formKey = GlobalKey<FormState>();
   final nameMemberController = TextEditingController();
