@@ -8,11 +8,11 @@ import 'package:login_2/screens/member/member_list_screen.dart';
 import 'package:login_2/screens/product/info_product_screen.dart';
 import 'package:login_2/screens/product/products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../store/storecontroller.dart';
 import '../widgets/buttons/button_bottom.dart';
 import '../widgets/toast_message.dart';
-import '../widgets/widget_from_html.dart';
 import 'company/info_company_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,9 +31,15 @@ class MainScreenState extends State<MainScreen> {
   late bool companyexist = false;
   late String addCompany = "Tạo công ty";
   late FToast toast;
-  static String iframeHtml = Uri.dataFromString('''
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.548592550928!2d106.65568031082478!3d10.7692307592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eea038d8985%3A0xaf4b41b414c7ad73!2zMjIxIEzDvSBUaMaw4budbmcgS2nhu4d0LCBQaMaw4budbmcgMTUsIFF14bqtbiAxMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1689700838935!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-''', mimeType: 'text/html').toString();
+
+//   static String iframeHtml = Uri.dataFromString('''
+//   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.548592550928!2d106.65568031082478!3d10.7692307592817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eea038d8985%3A0xaf4b41b414c7ad73!2zMjIxIEzDvSBUaMaw4budbmcgS2nhu4d0LCBQaMaw4budbmcgMTUsIFF14bqtbiAxMSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1689700838935!5m2!1svi!2s" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+// ''', mimeType: 'text/html').toString();
+
+  Future<void> clearSavedState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
 
   @override
   void initState() {
@@ -92,8 +98,10 @@ class MainScreenState extends State<MainScreen> {
                               color: Colors.white,
                             ),
                             const SizedBox(width: 10),
-                            Obx(() => Text(
-                                  'Xin chào ${widget.storeController.storeUser.value.fullname}',
+                            Obx(() =>
+                                Text(
+                                  'Xin chào ${widget.storeController.storeUser
+                                      .value.fullname}',
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 15,
@@ -192,7 +200,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -213,7 +221,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -233,7 +241,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -253,7 +261,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -268,11 +276,12 @@ class MainScreenState extends State<MainScreen> {
                 ),
               ],
             ),
-            SizedBox(
-              width: 500,
-              height: 400,
-              child: LazyLoadIframeHtmlWidget(iframeHtml: iframeHtml),
-            ),
+            // SizedBox(
+            //   width: 500,
+            //   height: 400,
+            //   child: LazyLoadIframeHtmlWidget(iframeHtml: iframeHtml),
+            // ),
+
           ],
         ),
       ),

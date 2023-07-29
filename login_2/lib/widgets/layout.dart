@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/screens/personal.screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-class BottomNav extends StatelessWidget {
-  const BottomNav({super.key});
+import '../screens/main_screen.dart';
+
+class Layout extends StatelessWidget {
+  const Layout({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<Widget> buildScreens() {
       return [
-        // MainScreen(),
+        MainScreen(),
+        MainScreen(),
+        MainScreen(),
+        MainScreen(),
+        MyAccountScreen.myAccount(),
       ];
     }
 

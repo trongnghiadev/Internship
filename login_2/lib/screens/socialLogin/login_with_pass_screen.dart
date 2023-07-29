@@ -7,6 +7,7 @@ import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/toast_message.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config/icons.dart';
 import '../main_screen.dart';
@@ -40,6 +41,11 @@ class _PassScreenState extends State<PassScreen> {
   }
 
   void checkPasswordsMatch() {}
+
+  void saveLoggedInStatus(int userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('userId', userId); // Lưu email đã đăng nhập
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +137,7 @@ class _PassScreenState extends State<PassScreen> {
                         .then((value) {
                       if (value != null) {
                         widget.storeController.updateUser(value);
+                        saveLoggedInStatus(value.id ?? -1);
                         Get.offAll(() => MainScreen());
                       } else {
                         toast.showToast(
