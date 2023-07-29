@@ -3,17 +3,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/get_company_by_id_user.dart';
-import 'package:login_2/models/company_model.dart';
-import 'package:login_2/screens/info_product_screen.dart';
-import 'package:login_2/screens/member_list_screen.dart';
-import 'package:login_2/screens/products_list_screen.dart';
+import 'package:login_2/models/company.model.dart';
+import 'package:login_2/screens/member/member_list_screen.dart';
+import 'package:login_2/screens/product/info_product_screen.dart';
+import 'package:login_2/screens/product/products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 
 import '../store/storecontroller.dart';
-import '../widgets/button_bottom.dart';
+import '../widgets/buttons/button_bottom.dart';
 import '../widgets/toast_message.dart';
 import '../widgets/widget_from_html.dart';
-import 'info_company_screen.dart';
+import 'company/info_company_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);

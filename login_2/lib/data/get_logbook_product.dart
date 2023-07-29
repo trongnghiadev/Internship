@@ -2,15 +2,15 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
-import '../models/product_detail_model.dart';
+import '../models/product_detail.model.dart';
 
 class GetLogBook {
   Dio dio = Dio();
 
   Future<LogBooks?> fetchData(int idCompany) async {
     try {
-      final getLogBookResponse = await dio
-          .get('${Api().convertApi(Api.apiGetLogBook)}/$idCompany');
+      final getLogBookResponse =
+          await dio.get('${Api().convertApi(Api.apiGetLogBook)}/$idCompany');
 
       if (getLogBookResponse.statusCode == 200) {
         final data = getLogBookResponse.data;

@@ -3,13 +3,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/check_otp.dart';
 import 'package:login_2/data/resend_otp.dart';
-import 'package:login_2/screens/register_screen.dart';
+import 'package:login_2/screens/socialRegister/register_screen.dart';
 import 'package:login_2/widgets/coutdown_button.dart';
 import 'package:login_2/widgets/toast_message.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
-import '../config/icons.dart';
+import '../../config/icons.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;
@@ -38,6 +38,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   bool otpMatch = false;
+
   void handleResendOTP() {
     ResendOtp().fetchData(widget.email);
   }

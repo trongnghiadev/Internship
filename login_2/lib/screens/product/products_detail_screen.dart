@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/models/product_model.dart';
-import '../data/get_logbook_product.dart';
-import '../models/product_detail_model.dart';
-import '../store/storecontroller.dart';
+import 'package:login_2/models/product.model.dart';
+import '../../data/get_logbook_product.dart';
+import '../../models/product_detail.model.dart';
+import '../../store/storecontroller.dart';
 import 'info_product_screen.dart';
 
 enum _MenuValues {
@@ -176,6 +176,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
       ),
     );
   }
+
   //coi lại đoạn code này tối ưu h
 
   Widget buildAddContactFAB() {

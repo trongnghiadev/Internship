@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/screens/login_screen.dart';
-import 'package:login_2/widgets/button_bottom.dart';
 import 'package:login_2/data/set_new_pass.dart';
+import 'package:login_2/screens/socialLogin/login_screen.dart';
+import 'package:login_2/widgets/buttons/button_bottom.dart';
 
-import '../config/icons.dart';
+import '../../config/icons.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, required this.email}) : super(key: key);
@@ -59,15 +59,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         backgroundColor: AppColors.dColorBG,
         resizeToAvoidBottomInset: true,
-        body: ListView(
-          children: [Center(
+        body: ListView(children: [
+          Center(
             child: Column(
               children: [
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       onPressed: () {
-                        Get.to( () => const LoginScreen());
+                        Get.to(() => const LoginScreen());
                       },
                       icon: const Icon(Icons.arrow_back_ios_new)),
                 ),
@@ -99,7 +99,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const Text(
                         'Thiết lập mật khẩu ',
                         style: TextStyle(color: AppColors.dColorText),
-
                         textAlign: TextAlign.center,
                       ),
                       Text(
@@ -148,7 +147,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Vui lòng nhập text';
                       }
                       return null;
                     },
@@ -223,8 +222,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ],
             ),
-          ),]
-        ),
+          ),
+        ]),
       ),
     );
   }

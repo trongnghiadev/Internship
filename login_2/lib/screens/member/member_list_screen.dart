@@ -4,10 +4,10 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/get_company_by_id_user.dart';
 import 'package:login_2/data/get_list_by_company_id.dart';
-import 'package:login_2/models/member_model.dart';
-import 'package:login_2/screens/info_member_screen.dart';
+import 'package:login_2/models/member.model.dart';
 
-import '../store/storecontroller.dart';
+import '../../store/storecontroller.dart';
+import 'info_member_screen.dart';
 
 class MemberListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
