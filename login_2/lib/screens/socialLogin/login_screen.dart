@@ -38,7 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
     toast.init(context);
   }
 
+
   void handleSubmit(BuildContext context) {
+    // ... (phần xử lý kiểm tra email hợp lệ)
     final email = _emailController.text;
 
     if (email == '' || email.isEmpty) {
@@ -55,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       return;
     }
+
     //set loading
     setState(() {
       isLoading = true;
