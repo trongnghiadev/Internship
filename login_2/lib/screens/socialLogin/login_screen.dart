@@ -5,7 +5,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/config/icons.dart';
 import 'package:login_2/config/stringtext.dart';
-import 'package:login_2/data/check_exist_email.dart';
+import 'package:login_2/data/author/check_exist_email.dart';
 import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp/otp_screen.dart';
 import 'package:login_2/utils/email_regex.dart';
@@ -38,10 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
     toast.init(context);
   }
 
-
   void handleSubmit(BuildContext context) {
     // ... (phần xử lý kiểm tra email hợp lệ)
-    final email = _emailController.text;
+    final email = _emailController.text.trim();
 
     if (email == '' || email.isEmpty) {
       toast.showToast(
@@ -219,6 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 30,
                         ),
+
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [

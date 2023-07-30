@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/check_otp.dart';
 import 'package:login_2/data/resend_otp.dart';
 import 'package:login_2/screens/socialRegister/register_screen.dart';
 import 'package:login_2/widgets/coutdown_button.dart';
@@ -10,6 +9,7 @@ import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 import '../../config/icons.dart';
+import '../../data/author/check_otp.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;

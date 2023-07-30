@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/set_new_pass.dart';
+import 'package:login_2/data/author/set_new_pass.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 

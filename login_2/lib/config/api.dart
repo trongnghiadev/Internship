@@ -16,6 +16,10 @@ class Api {
   static const String apiGetLogBook = '/logbooks';
   static const String apiAddLogBooks = '/logbooks/addlogbook';
   static const String apiUpdateLogBook = '/logbooks/updateLogbook';
+  static const String apiGetSeasonsList = '/seasons/products';
+  static const String apiAddSeasonsList = '/seasons/addSeason';
+  static const String apiUpdateSeasonsList = '/seasons/updateSeason';
+
   String convertApi(String url) {
     return urlServer + url;
   }

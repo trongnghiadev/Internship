@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:login_2/models/company.model.dart';
-import '../models/user.model.dart';
+import 'package:login_2/models/company_model.dart';
+
+import '../models/user_model.dart';
 
 class StoreController extends GetxController {
   final Rx<User> storeUser = User().obs;
