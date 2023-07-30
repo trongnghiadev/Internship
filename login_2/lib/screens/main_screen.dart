@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/get_company_by_id_user.dart';
-import 'package:login_2/models/company.model.dart';
-import 'package:login_2/screens/member/member_list_screen.dart';
-import 'package:login_2/screens/product/info_product_screen.dart';
+import 'package:login_2/models/company_model.dart';
+import 'package:login_2/screens/account/account.management.screen.dart';
 import 'package:login_2/screens/product/products_list_screen.dart';
+import 'package:login_2/screens/seasons/seasons_product_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/company/get_company_by_id_user.dart';
 import '../store/storecontroller.dart';
 import '../widgets/buttons/button_bottom.dart';
 import '../widgets/toast_message.dart';
 import 'company/info_company_screen.dart';
+import 'member/member_list_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -91,23 +92,24 @@ class MainScreenState extends State<MainScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.account_circle,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 10),
-                            Obx(() =>
-                                Text(
-                                  'Xin chào ${widget.storeController.storeUser
-                                      .value.fullname}',
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ))
-                          ],
+                        InkWell(
+                          onTap: () => Get.to(const AccountManagement()),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.account_circle,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 10),
+                              Obx(() => Text(
+                                    'Xin chào ${widget.storeController.storeUser.value.fullname}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ))
+                            ],
+                          ),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -200,7 +202,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                        const ToastMessage(message: 'Vui lòng tạo công ty'),
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -221,7 +223,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                        const ToastMessage(message: 'Vui lòng tạo công ty'),
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -237,11 +239,11 @@ class MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () {
                     if (companyexist) {
-                      Get.to(() => InfoProductScreen());
+                      Get.to(() => SeasonsProductsListScreen());
                     } else {
                       toast.showToast(
                         child:
-                        const ToastMessage(message: 'Vui lòng tạo công ty'),
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -261,7 +263,7 @@ class MainScreenState extends State<MainScreen> {
                     } else {
                       toast.showToast(
                         child:
-                        const ToastMessage(message: 'Vui lòng tạo công ty'),
+                            const ToastMessage(message: 'Vui lòng tạo công ty'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
@@ -281,7 +283,6 @@ class MainScreenState extends State<MainScreen> {
             //   height: 400,
             //   child: LazyLoadIframeHtmlWidget(iframeHtml: iframeHtml),
             // ),
-
           ],
         ),
       ),

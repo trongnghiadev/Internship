@@ -20,4 +20,5 @@ class AppColors {
   static const Color dColorText = Color(0xff090C27);
   static const Color dButoonInActive = Color(0xff798699);
   static const Color dColorText2 = Color(0xff9BA4B5);
+  static const Color dColorButtonContainer = Color.fromARGB(255, 218, 219, 219);
 }

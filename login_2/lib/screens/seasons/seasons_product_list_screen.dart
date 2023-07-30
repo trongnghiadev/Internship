@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/product/get_list_product.dart';
 import 'package:login_2/models/product_model.dart';
-import 'package:login_2/screens/product/info_product_screen.dart';
 import 'package:login_2/screens/product/products_detail_screen.dart';
 
+import '../../data/product/get_list_product.dart';
 import '../../store/storecontroller.dart';
 
-class ProductsListScreen extends StatefulWidget {
+class SeasonsProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({super.key});
+  SeasonsProductsListScreen({super.key});
 
   @override
-  _ProductsListScreenState createState() => _ProductsListScreenState();
+  _SeasonsProductsListScreenState createState() =>
+      _SeasonsProductsListScreenState();
 }
 
-class _ProductsListScreenState extends State<ProductsListScreen> {
+class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<ProductModel> productlist = [];
   bool isLoading = false;
@@ -74,6 +74,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
           padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
+
               Padding(
                 padding: const EdgeInsets.only(
                     top: 30.0, right: 30.0, bottom: 0.0, left: 30.0),
@@ -115,16 +116,21 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                       final ProductModel product = productlist[index];
                       return Column(
                         children: [
+                          Text(
+                              '${product.id} ${widget.storeController.storeUser
+                                  .value.id}'
+                          ),
                           Container(
                             decoration: BoxDecoration(
                               color: AppColors.dColorTF, // Màu nền của ô
                               borderRadius:
-                                  BorderRadius.circular(10.0), // Bo góc của ô
+                              BorderRadius.circular(10.0), // Bo góc của ô
                             ),
                             // Màu nền của ListTile
                             child: InkWell(
-                              onTap: () => Get.to(
-                                  ProductsDetailScreen(product: product)),
+                              onTap: () =>
+                                  Get.to(
+                                      ProductsDetailScreen(product: product)),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -147,7 +153,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -166,14 +172,15 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                                             child: Wrap(
                                               children: [
                                                 Text(
-                                                  'Diện tích: ${product.recipe}',
+                                                  'Diện tích: ${product
+                                                      .recipe}',
                                                   // product.recipe ?? '',
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                   ),
                                                   maxLines: 2,
                                                   overflow:
-                                                      TextOverflow.ellipsis,
+                                                  TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -210,18 +217,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
             ],
           ),
         ),
-        floatingActionButton: buildAddContactFAB(),
       ),
     );
   }
-}
-
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => InfoProductScreen());
-    },
-    backgroundColor: AppColors.dColorMain,
-    child: const Icon(Icons.add),
-  );
 }

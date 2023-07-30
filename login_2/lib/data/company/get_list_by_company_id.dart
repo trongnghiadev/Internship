@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
-import '../models/member.model.dart';
+import '../../models/member_model.dart';
 
 class GetListByCompanyId {
   Dio dio = Dio();
