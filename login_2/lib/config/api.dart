@@ -19,6 +19,8 @@ class Api {
   static const String apiGetSeasonsList = '/seasons/products';
   static const String apiAddSeasonsList = '/seasons/addSeason';
   static const String apiUpdateSeasonsList = '/seasons/updateSeason';
+  static const String apiGetImage = '/images/';
+  static const String apiAddImage = '/images/upload';
 
   String convertApi(String url) {
     return urlServer + url;
