@@ -10,8 +10,6 @@ import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
-import '../../data/image/get_image_data.dart';
-
 class InfoProductScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
@@ -130,30 +128,13 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     final farmingPhotos = farmingPhotosController.text;
     final video = videoProductController.text;
     final certification = certificationController.text;
-
-    GetImage getImage = GetImage();
-
     @override
     void initState() {
       super.initState();
-      // Initialize the GetImage instance here
-      getImage = GetImage();
+      // Initialize the GetImage instance hert
 
       // Rest of the initState code...
     }
-
-    getImage
-        .fetchData(widget.storeController.storeCompany.value.id ?? 0)
-        .then((imageUrl) {
-      if (imageUrl != null) {
-        print('Đường dẫn hình ảnh: $imageUrl');
-        // Do something with the image URL
-      } else {
-        print('Không thể lấy đường dẫn hình ảnh từ máy chủ.');
-      }
-    }).catchError((error) {
-      print('Lỗi khi lấy đường dẫn hình ảnh: $error');
-    });
 
     AddProduct()
         .fetchData(

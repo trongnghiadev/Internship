@@ -1,33 +1,30 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:login_2/config/api.dart';
 
-import '../../config/api.dart';
-
-class AddImage {
+class UploadImage {
   Dio dio = Dio();
 
-  Future<void> addImage() async {
+  Future<String?> upload(File imageFile) async {
     try {
-      var image;
       FormData formData = FormData.fromMap({
-        'uploaded_file': await MultipartFile.fromFile(image.path),
+        'uploaded_file': await MultipartFile.fromFile(imageFile.path),
       });
 
-      final imageResponse = await dio.post(
+      final response = await dio.post(
         Api().convertApi(Api.apiAddImage),
         data: formData,
       );
 
-      if (imageResponse.statusCode == 200) {
-        final data = imageResponse.data;
-        final json = jsonDecode(data);
-
-        return json[
-            'uploaded_file']; // Đây là đường dẫn của hình ảnh đã được thêm vào
+      if (response.statusCode == 200) {
+        final jsonData = jsonDecode(response.data);
+        String imageUrl = jsonData['data'];
+        return imageUrl;
       }
     } catch (e) {
-      print('Lỗi khi thêm hình ảnh: $e');
+      print('Error uploading image: $e');
     }
     return null;
   }
