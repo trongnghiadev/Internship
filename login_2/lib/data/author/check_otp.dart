@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
@@ -26,7 +27,7 @@ class CheckOtp {
         return otpCheck;
       }
     } catch (e) {
-      print(e);
+      print('Lỗi API getCheckOtp: $e');
     }
     return null;
   }

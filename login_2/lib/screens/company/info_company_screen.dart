@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
-import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 import '../../data/company/add_company.dart';
+import '../../data/company/get_company_by_id_user.dart';
+import '../../data/image/add_image_data.dart';
 
 class InfoScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -36,6 +38,8 @@ class _InfoScreenState extends State<InfoScreen> {
   final addressController = TextEditingController();
   final webController = TextEditingController();
   final ImagePicker picker = ImagePicker();
+  final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
+  String? imageUrl;
 
   @override
   void initState() {
@@ -48,19 +52,47 @@ class _InfoScreenState extends State<InfoScreen> {
       phoneController.text = widget.company.phone ?? '';
       addressController.text = widget.company.address ?? '';
       webController.text = widget.company.website ?? '';
+      imageUrl = '${Api().convertApi(Api.apiGetImage)}/${widget.company.logo}';
+    }
+  }
+
+  Future<void> uploadImage() async {
+    if (image == null) {
+      print('No image selected.');
+      return;
+    }
+
+    UploadImage uploadImageApi = UploadImage();
+
+    try {
+      String? imageUrl = await uploadImageApi.upload(image!);
+      if (imageUrl != null) {
+        print('Image uploaded successfully. URL: $imageUrl');
+        setState(() {
+          this.imageUrl =
+              '${Api().convertApi(Api.apiGetImage)}/${image!.path.split('/').last}';
+        });
+      } else {
+        print('Failed to upload image.');
+      }
+    } catch (error) {
+      print('Error uploading image: $error');
     }
   }
 
 //Thêm hình ảnh
   Future pickImage(ImageSource source) async {
     try {
-      XFile? image = await picker.pickImage(source: source);
-      if (image == null) return;
+      XFile? pickedImage = await picker.pickImage(source: source);
+      if (pickedImage == null) return;
 
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
+      final imageFile = File(pickedImage.path);
+      setState(() => this.image = imageFile);
+
+      // Call the uploadImage function here to upload the selected image
+      await uploadImage();
     } on PlatformException catch (e) {
-      print('that bai : $e');
+      print('Failed to pick image: $e');
     }
   }
 
@@ -77,10 +109,11 @@ class _InfoScreenState extends State<InfoScreen> {
             nameCompany,
             phone,
             address,
-            //logo
-            "",
+            image!.path.split('/').last,
             website)
-        .then((value) => Get.to(() => MainScreen()));
+        .then((value) {
+      widget.storeController.updateCompany(value as CompanyModel);
+    });
   }
 
   @override
@@ -114,29 +147,34 @@ class _InfoScreenState extends State<InfoScreen> {
                 ),
                 InkWell(
                   onTap: () => pickImage(ImageSource.gallery),
-                  child: Column(
-                    children: [
-                      image != null
-                          ? Image.file(
-                              image!,
-                              height: 110,
-                              width: 110,
-                              fit: BoxFit.cover,
-                            )
-                          : Container(
-                              decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 156, 155, 153)),
-                              height: 110,
-                              width: 110,
-                            ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        'Nhấn để thêm logo',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
+                  child: Center(
+                    child: Column(
+                      children: [
+                        imageUrl != null
+                            ? Image.network(
+                                imageUrl!,
+                                height: 110,
+                                width: 110,
+                                fit: BoxFit.cover,
+                              )
+                            : Container(
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 156, 155, 153)),
+                                height: 110,
+                                width: 110,
+                              ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Nhấn để thêm logo',
+                          style: TextStyle(fontSize: 10),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(

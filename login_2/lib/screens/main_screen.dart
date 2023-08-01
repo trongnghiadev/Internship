@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/account/account.management.screen.dart';
+import 'package:login_2/screens/otp/qr_scanner_screen.dart';
 import 'package:login_2/screens/product/products_list_screen.dart';
 import 'package:login_2/screens/seasons/seasons_product_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
@@ -111,14 +112,19 @@ class MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: const Color(0xffDCDCDC),
-                          ),
-                          child: const Icon(
-                            Icons.notifications,
-                            color: Colors.amber,
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => const QRViewExample());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              color: const Color(0xffDCDCDC),
+                            ),
+                            child: const Icon(
+                              Icons.qr_code_scanner_sharp,
+                              color: Colors.black,
+                            ),
                           ),
                         )
                       ],

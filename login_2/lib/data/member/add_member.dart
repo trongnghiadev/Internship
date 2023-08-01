@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 
@@ -12,6 +13,7 @@ class AddMember {
     String location,
   ) async {
     try {
+      //kiểu dữ liệu tiêu chuẩn khi gửi dữ liệu dạng form-url-encoded
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
       );

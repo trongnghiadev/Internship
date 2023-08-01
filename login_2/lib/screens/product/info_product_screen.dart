@@ -128,6 +128,13 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     final farmingPhotos = farmingPhotosController.text;
     final video = videoProductController.text;
     final certification = certificationController.text;
+    @override
+    void initState() {
+      super.initState();
+      // Initialize the GetImage instance hert
+
+      // Rest of the initState code...
+    }
 
     AddProduct()
         .fetchData(
