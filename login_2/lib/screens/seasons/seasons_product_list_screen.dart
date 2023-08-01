@@ -4,6 +4,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/models/product_model.dart';
 import 'package:login_2/screens/product/products_detail_screen.dart';
+import 'package:login_2/screens/seasons/info_seasons_screen.dart';
 
 import '../../data/product/get_list_product.dart';
 import '../../store/storecontroller.dart';
@@ -68,35 +69,15 @@ class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
             },
           ),
           centerTitle: true,
-          title: const Text('Danh sách sản phẩm'),
+          title: const Text('Quản lý mùa vụ'),
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
-
               Padding(
                 padding: const EdgeInsets.only(
                     top: 30.0, right: 30.0, bottom: 0.0, left: 30.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.dColorTF,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintText: 'Tìm kiếm',
-                          suffixIcon: const Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
               if (isLoading == true)
                 const SizedBox(
@@ -117,20 +98,17 @@ class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
                       return Column(
                         children: [
                           Text(
-                              '${product.id} ${widget.storeController.storeUser
-                                  .value.id}'
-                          ),
+                              '${product.id} ${widget.storeController.storeUser.value.id}'),
                           Container(
                             decoration: BoxDecoration(
                               color: AppColors.dColorTF, // Màu nền của ô
                               borderRadius:
-                              BorderRadius.circular(10.0), // Bo góc của ô
+                                  BorderRadius.circular(10.0), // Bo góc của ô
                             ),
                             // Màu nền của ListTile
                             child: InkWell(
-                              onTap: () =>
-                                  Get.to(
-                                      ProductsDetailScreen(product: product)),
+                              onTap: () => Get.to(
+                                  ProductsDetailScreen(product: product)),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -153,7 +131,7 @@ class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -172,15 +150,14 @@ class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
                                             child: Wrap(
                                               children: [
                                                 Text(
-                                                  'Diện tích: ${product
-                                                      .recipe}',
+                                                  'Diện tích: ${product.recipe}',
                                                   // product.recipe ?? '',
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                   ),
                                                   maxLines: 2,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -217,7 +194,18 @@ class _SeasonsProductsListScreenState extends State<SeasonsProductsListScreen> {
             ],
           ),
         ),
+        floatingActionButton: buildAddContactFAB(),
       ),
     );
   }
+}
+
+Widget buildAddContactFAB() {
+  return FloatingActionButton(
+    onPressed: () {
+      Get.to(() => InfoSeason());
+    },
+    backgroundColor: AppColors.dColorMain,
+    child: const Icon(Icons.add),
+  );
 }
