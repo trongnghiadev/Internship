@@ -4,21 +4,21 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/product/get_list_product.dart';
 import 'package:login_2/models/product_model.dart';
-import 'package:login_2/screens/product/info_product_screen.dart';
-import 'package:login_2/screens/product/products_detail_screen.dart';
+import 'package:login_2/screens/seasons/seasons_list_screen.dart';
 
 import '../../store/storecontroller.dart';
 
-class ProductsListScreen extends StatefulWidget {
+class SeasonProductsListScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
-  ProductsListScreen({super.key});
+  SeasonProductsListScreen({super.key});
 
   @override
-  _ProductsListScreenState createState() => _ProductsListScreenState();
+  _SeasonProductsListScreenState createState() =>
+      _SeasonProductsListScreenState();
 }
 
-class _ProductsListScreenState extends State<ProductsListScreen> {
+class _SeasonProductsListScreenState extends State<SeasonProductsListScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<ProductModel> productlist = [];
   bool isLoading = false;
@@ -100,8 +100,8 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                             ),
                             // Màu nền của ListTile
                             child: InkWell(
-                              onTap: () => Get.to(
-                                  ProductsDetailScreen(product: product)),
+                              onTap: () =>
+                                  Get.to(SeasonsListScreen(product: product)),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -187,18 +187,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
             ],
           ),
         ),
-        floatingActionButton: buildAddContactFAB(),
       ),
     );
   }
-}
-
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => InfoProductScreen());
-    },
-    backgroundColor: AppColors.dColorMain,
-    child: const Icon(Icons.add),
-  );
 }

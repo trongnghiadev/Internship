@@ -1,3 +1,4 @@
 class PhoneRegex {
-  static RegExp phonePattern = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+  static RegExp phonePattern = RegExp(
+      r'^(\\+\\d{1,2}\\s?)?1?\\-?\\.?\\s?\\(\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$');
 }

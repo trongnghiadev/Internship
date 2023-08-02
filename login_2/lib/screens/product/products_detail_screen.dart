@@ -177,10 +177,9 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
       ),
     );
   }
+}
 
-  //coi lại đoạn code này tối ưu h
-
-  Widget buildAddContactFAB() {
+/*  Widget buildAddContactFAB() {
     return FloatingActionButton(
       onPressed: () {
         Get.to(() => InfoProductScreen());
@@ -189,4 +188,4 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
       child: const Icon(Icons.add),
     );
   }
-}
+}*/

@@ -6,7 +6,7 @@ import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/account/account.management.screen.dart';
 import 'package:login_2/screens/otp/qr_scanner_screen.dart';
 import 'package:login_2/screens/product/products_list_screen.dart';
-import 'package:login_2/screens/seasons/seasons_product_list_screen.dart';
+import 'package:login_2/screens/seasons/season_products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -54,6 +54,9 @@ class MainScreenState extends State<MainScreen> {
   Future<void> _fetchCompanyData() async {
     final userId = widget.storeController.storeUser.value
         .id; // Lấy ID người dùng từ storeController
+
+    if (userId == null) return;
+
     final company = await _companyByUserId.fetchData(userId!);
 
     if (company != null) {
@@ -116,14 +119,18 @@ class MainScreenState extends State<MainScreen> {
                           onTap: () {
                             Get.to(() => const QRViewExample());
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              color: const Color(0xffDCDCDC),
-                            ),
-                            child: const Icon(
-                              Icons.qr_code_scanner_sharp,
-                              color: Colors.black,
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xffDCDCDC),
+                              ),
+                              child: const Icon(
+                                Icons.qr_code_scanner_sharp,
+                                color: Colors.black,
+                              ),
                             ),
                           ),
                         )
@@ -245,7 +252,7 @@ class MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () {
                     if (companyexist) {
-                      Get.to(() => SeasonsProductsListScreen());
+                      Get.to(() => SeasonProductsListScreen());
                     } else {
                       toast.showToast(
                         child:

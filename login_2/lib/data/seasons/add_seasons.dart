@@ -6,15 +6,15 @@ import 'package:login_2/config/api.dart';
 class AddSeasons {
   Dio dio = Dio();
 
-  Future<String?> fetchData(
-    String name,
-    int memberId,
-    int productId,
-    String logbook,
-    String harvest,
-    String pack,
-    String logistic,
-  ) async {
+  Future<String?> fetchData({
+    required String name,
+    required int memberId,
+    required int productId,
+    required String logbook,
+    required String harvest,
+    required String pack,
+    String? logistic,
+  }) async {
     try {
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
@@ -30,7 +30,7 @@ class AddSeasons {
           "logbook": logbook,
           "harvest": harvest,
           "pack": pack,
-          "logistic": logistic,
+          "logistic": logistic ?? 'null',
         },
         options: options,
       );

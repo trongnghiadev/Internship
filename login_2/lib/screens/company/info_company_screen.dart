@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/store/storecontroller.dart';
+import 'package:login_2/utils/name_value_input_regex.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
@@ -28,6 +29,8 @@ class InfoScreen extends StatefulWidget {
 class _InfoScreenState extends State<InfoScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
+  final _textNameValueFormat =
+      'Vui lòng nhập từ 2 đến 60 ký tự và không có ký tự đặt biệt';
   final _textPhoneNumberFormat = 'Số điện thoại không hợp lệ';
   final _textWebsiteFormat = 'Website không hợp lệ';
 
@@ -196,8 +199,16 @@ class _InfoScreenState extends State<InfoScreen> {
                               ),
                             ),
                             validator: (value) {
+                              print('Value: $value');
                               if (value == null || value.isEmpty) {
+                                print('Returning required error message.');
                                 return _textIsRequired;
+                              }
+                              if (!NameValueInputRegex.nameValuePattern
+                                  .hasMatch(value)) {
+                                print(
+                                    'Returning invalid format error message.');
+                                return _textNameValueFormat;
                               }
                               return null;
                             },

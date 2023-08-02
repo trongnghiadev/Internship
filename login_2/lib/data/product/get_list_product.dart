@@ -18,11 +18,11 @@ class GetListProduct {
         final status = jsonData['status'];
         if (status == 'true') {
           List<dynamic> productData = json.decode(jsonData['data']);
-          List<ProductModel> productlist = [];
+          List<ProductModel> productList = [];
           for (var element in productData) {
-            productlist.add(ProductModel.fromJson(element));
+            productList.add(ProductModel.fromJson(element));
           }
-          return productlist;
+          return productList;
         }
       }
     } catch (e) {

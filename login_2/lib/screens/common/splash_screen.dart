@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
-import 'package:login_2/widgets/layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../models/user_model.dart';
+import '../../store/storecontroller.dart';
+
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  SplashScreen({super.key});
+
+  final storeController = Get.find<StoreController>();
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,23 +26,23 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    nextScreen();
+    // nextScreen();
     loadSavedState();
   }
 
   //Shared_Preferences
   void loadSavedState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      // Kiểm tra trạng thái đăng nhập và chuyển hướng đến màn hình chính nếu đã đăng nhập
-      int? isLoggedIn = prefs.getInt('userId');
-      if (isLoggedIn != null) {
-        Get.off(() => const Layout()); // Điều hướng đến trang chủ (MainScreen)
-      } else {
-        Get.offAll(() => const LoginScreen(), transition: Transition.native);
-      }
-      // ... Cập nhật các trạng thái khác tương tự (nếu có) ...
-    });
+
+    // Kiểm tra trạng thái đăng nhập và chuyển hướng đến màn hình chính nếu đã đăng nhập
+    User? prevUser = await User.getUserFromSharedPreferences();
+    if (prevUser != null) {
+      widget.storeController.updateUser(prevUser);
+      Get.off(() => MainScreen()); // Điều hướng đến trang chủ (MainScreen)
+    } else {
+      Get.offAll(() => const LoginScreen(), transition: Transition.native);
+    }
+    // ... Cập nhật các trạng thái khác tương tự (nếu có) ...
   }
 
   @override

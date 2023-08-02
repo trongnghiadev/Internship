@@ -12,7 +12,7 @@ class Api {
   static const String apiAddMember = '/members/addMember';
   static const String apiUpdateMember = '/members/updateMember';
   static const String apiAddProduct = '/products/addProduct';
-  static const String apiGetListProduct = '/products';
+  static const String apiGetListProduct = '/products/company';
   static const String apiGetLogBook = '/logbooks';
   static const String apiAddLogBooks = '/logbooks/addlogbook';
   static const String apiUpdateLogBook = '/logbooks/updateLogbook';
