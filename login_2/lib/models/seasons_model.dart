@@ -12,6 +12,13 @@ class StepContent {
       content: json['content'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'number_of_day': numberOfDay,
+      'content': content,
+    };
+  }
 }
 
 class SeasonsModel {
@@ -19,9 +26,9 @@ class SeasonsModel {
   int memberId;
   int productId;
   LogBooks logBook;
-  Harvest harvest;
-  Pack pack;
-  Logistic logistic;
+  int harvest;
+  int pack;
+  Logistic? logistic;
 
   SeasonsModel({
     required this.name,
@@ -30,7 +37,7 @@ class SeasonsModel {
     required this.logBook,
     required this.harvest,
     required this.pack,
-    required this.logistic,
+    this.logistic,
   });
 
   factory SeasonsModel.fromJson(Map<String, dynamic> json) {
@@ -38,15 +45,19 @@ class SeasonsModel {
     var harvestJson = json['harvest'];
     var packJson = json['pack'];
     var logisticJson = json['logistic'];
+    var productIdJson = json['productId'];
+    var memberIdJson = json['memberId'];
+    // TODO: Err Loi o day
+    var nameJson = json['name'];
 
     return SeasonsModel(
-      name: json['name'],
-      memberId: json['memberId'],
-      productId: json['productId'],
+      name: nameJson,
+      memberId: int.parse(memberIdJson),
+      productId: int.parse(productIdJson),
       logBook: LogBooks.fromJson(logBookJson),
-      harvest: Harvest.fromJson(harvestJson),
-      pack: Pack.fromJson(packJson),
-      logistic: Logistic.fromJson(logisticJson),
+      harvest: int.parse(harvestJson),
+      pack: int.parse(packJson),
+      logistic: logisticJson,
     );
   }
 }
@@ -68,6 +79,16 @@ class LogBooks {
       id: json['id'],
       steps: stepsList,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> stepsListJson =
+        steps.map((step) => step.toJson()).toList();
+
+    return {
+      'id': id,
+      'steps': stepsListJson,
+    };
   }
 }
 

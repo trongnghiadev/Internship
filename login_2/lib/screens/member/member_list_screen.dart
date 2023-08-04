@@ -80,27 +80,30 @@ class _MemberListScreenState extends State<MemberListScreen> {
           padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppColors.dColorTF,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          hintText: 'Nhập tên xã viên',
-                          suffixIcon: const Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              // Padding(
+              //   padding: const EdgeInsets.all(30.0),
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: TextField(
+              //           controller: _searchController,
+              //           decoration: InputDecoration(
+              //             filled: true,
+              //             fillColor: AppColors.dColorTF,
+              //             border: OutlineInputBorder(
+              //               borderSide: BorderSide.none,
+              //               borderRadius: BorderRadius.circular(10.0),
+              //             ),
+              //             hintText: 'Nhập tên xã viên',
+              //             suffixIcon: const Icon(Icons.search),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              const SizedBox(
+                height: 12,
               ),
               if (isLoading == true)
                 const SizedBox(
@@ -120,7 +123,6 @@ class _MemberListScreenState extends State<MemberListScreen> {
                     final member = memberList[index];
                     return Column(
                       children: [
-                        Text('${member.id}'),
                         ListTileTheme(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),

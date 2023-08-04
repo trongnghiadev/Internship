@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class UserModel {
   String? token;
   User? user;
@@ -65,5 +67,30 @@ class User {
     data['updatedAt'] = updatedAt;
     data['password'] = password;
     return data;
+  }
+
+  static Future<User?> getUserFromSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    int? userId = prefs.getInt('user_id');
+    String? userEmail = prefs.getString('user_email');
+    bool? userEmailVerified = prefs.getBool('user_emailVerified');
+    String? userFullname = prefs.getString('user_fullname');
+    String? userPhone = prefs.getString('user_phone');
+
+    if (userId != null &&
+        userEmail != null &&
+        userEmailVerified != null &&
+        userFullname != null &&
+        userPhone != null) {
+      return User()
+        ..id = userId
+        ..email = userEmail
+        ..emailVerified = userEmailVerified
+        ..fullname = userFullname
+        ..phone = userPhone;
+    }
+
+    return null; // Trả về null nếu không tìm thấy dữ liệu trong shared preferences
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/author/set_new_pass.dart';
@@ -6,6 +7,7 @@ import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 import '../../config/icons.dart';
+import '../../widgets/toast_message.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key, required this.email}) : super(key: key);
@@ -22,6 +24,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPasswordVisible1 = false;
   bool isPasswordVisible2 = false;
   bool passwordsMatch = false;
+  late FToast toast;
+
+  @override
+  void initState() {
+    super.initState();
+    toast = FToast();
+    toast.init(context);
+  }
 
   @override
   void dispose() {
@@ -210,6 +220,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         if (status != null) {
                           if (status == 'true') {
                             Get.off(const LoginScreen());
+                            toast.showToast(
+                              child: ToastMessage(
+                                message: 'Tạo tài khoản thành công',
+                                icon: Icons.check_circle_sharp,
+                                // Red X icon
+                                backgroundColor: Colors.green[300],
+                                // Light red background
+                                textColor: Colors.white, // Red text color
+                              ),
+                              gravity: ToastGravity.BOTTOM,
+                            );
                           }
                         }
                       });

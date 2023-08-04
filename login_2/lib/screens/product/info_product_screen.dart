@@ -9,6 +9,7 @@ import 'package:login_2/models/product_model.dart';
 import 'package:login_2/screens/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class InfoProductScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -64,6 +65,8 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     videoProductController.text = widget.product!.video!;
     certificationController.text = widget.product!.certification!;
   }
+
+  String qrData = 'https://trongnghiadev.github.io/template_page/';
 
 //Thêm hình ảnh
   Future pickImage(ImageSource source) async {
@@ -128,13 +131,6 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     final farmingPhotos = farmingPhotosController.text;
     final video = videoProductController.text;
     final certification = certificationController.text;
-    @override
-    void initState() {
-      super.initState();
-      // Initialize the GetImage instance hert
-
-      // Rest of the initState code...
-    }
 
     AddProduct()
         .fetchData(
@@ -365,6 +361,14 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                       const SizedBox(
                         height: 20,
                       ),
+                      widget.product != null
+                          ? SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              height: MediaQuery.of(context).size.width * 0.4,
+                              child: QrImageView(data: qrData))
+                          : const SizedBox(
+                              width: 0,
+                            )
                     ],
                   ),
                 ),

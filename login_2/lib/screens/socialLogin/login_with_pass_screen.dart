@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/login.dart';
+import 'package:login_2/models/user_model.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
@@ -42,9 +43,15 @@ class _PassScreenState extends State<PassScreen> {
 
   void checkPasswordsMatch() {}
 
-  void saveLoggedInStatus(int userId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('userId', userId); // Lưu email đã đăng nhập
+  void saveLoggedInStatus(User user) async {
+    SharedPreferences prefs =
+        await SharedPreferences.getInstance(); // Lưu email đã đăng nhập
+    prefs.setInt('user_id', user.id ?? 0);
+    prefs.setString('user_email', user.email ?? '');
+    prefs.setBool('user_emailVerified', user.emailVerified ?? false);
+    prefs.setString('user_fullname', user.fullname ?? '');
+    prefs.setString('user_phone', user.phone ?? '');
+    Get.offAll(() => MainScreen());
   }
 
   @override
@@ -137,8 +144,7 @@ class _PassScreenState extends State<PassScreen> {
                         .then((value) {
                       if (value != null) {
                         widget.storeController.updateUser(value);
-                        saveLoggedInStatus(value.id ?? -1);
-                        Get.offAll(() => MainScreen());
+                        saveLoggedInStatus(value);
                       } else {
                         toast.showToast(
                           child: ToastMessage(

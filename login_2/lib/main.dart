@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:login_2/screens/socialLogin/login_screen.dart';
+import 'package:login_2/screens/common/splash_screen.dart';
 import 'package:login_2/store/storebinding.dart';
 import 'package:login_2/store/storecontroller.dart';
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: StoreBinding(),
       builder: FToastBuilder(),
-      home: const LoginScreen(),
+      home: SplashScreen(),
     );
   }
 }

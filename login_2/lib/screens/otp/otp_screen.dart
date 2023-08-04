@@ -4,12 +4,12 @@ import 'package:login_2/config/const.dart';
 import 'package:login_2/data/resend_otp.dart';
 import 'package:login_2/screens/socialRegister/register_screen.dart';
 import 'package:login_2/widgets/coutdown_button.dart';
-import 'package:login_2/widgets/toast_message.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 import '../../config/icons.dart';
 import '../../data/author/check_otp.dart';
+import '../../widgets/toast_message.dart';
 
 class OtpScreen extends StatefulWidget {
   final String email;
@@ -103,8 +103,14 @@ class _OtpScreenState extends State<OtpScreen> {
                           );
                         } else {
                           toast.showToast(
-                            child: const ToastMessage(
-                                message: 'Mã OTP không chính xác'),
+                            child: ToastMessage(
+                              message: 'Mã OTP không chính xác',
+                              icon: Icons.close_rounded,
+                              // Red X icon
+                              backgroundColor: Colors.red.shade300,
+                              // Light red background
+                              textColor: Colors.white, // Red text color
+                            ),
                             gravity: ToastGravity.BOTTOM,
                           );
                         }
