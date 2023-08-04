@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_2/data/seasons/add_seasons.dart';
 import 'package:login_2/models/seasons_model.dart';
+import 'package:login_2/screens/seasons/seasons_list_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 
+import '../../data/seasons/get_seasons_product_list.dart';
 import '../../widgets/buttons/button_bottom.dart';
 
 class InfoSeasonProductScreen extends StatefulWidget {
@@ -45,7 +47,7 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
     nameSeasonController.text = widget.season!.name.toString();
     memberIdController.text = widget.season!.memberId.toString();
 
-    logBookController.text = jsonEncode(widget.season!.logBook.toJson());
+    logBookController.text = jsonEncode(widget.season!.logBook.toString());
     harvestController.text =
         widget.season!.harvest.toString(); // kiểu int nên xài toString
     packController.text = widget.season!.pack.toString();
@@ -82,7 +84,16 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
       logbook: logBook,
     )
         .then((value) {
-      Get.back();
+      setState(() {
+        widget.storeController.updateLoading(true);
+      });
+      GetSeasonsList().fetchData(widget.productId).then((value) {
+        setState(() {
+          widget.storeController.updateSeasonsModel(value);
+
+          widget.storeController.updateLoading(false);
+        });
+      }).then((value) => Get.to(() => SeasonsListScreen()));
     });
   }
 

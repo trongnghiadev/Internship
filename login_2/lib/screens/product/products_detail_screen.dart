@@ -68,9 +68,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
                 switch (value) {
                   case _MenuValues.productDetail:
                     {
-                      Get.to(() => InfoProductScreen(
-                            product: widget.product,
-                          ));
+                      Get.to(() => InfoProductScreen(product: widget.product));
                       break;
                     }
                   case _MenuValues.logbookDetail:

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/product_model.dart';
 
-class GetListProduct {
+class GetProductList {
   Dio dio = Dio();
 
   Future<List<ProductModel>> fetchData(int idCompany) async {
