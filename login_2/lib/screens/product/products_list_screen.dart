@@ -40,7 +40,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
       isLoading = true;
     });
     // Thêm link ở đây (chưa có thông tin về GetListProduct)
-    GetListProduct()
+    GetProductList()
         .fetchData(widget.storeController.storeCompany.value.id ?? 0)
         .then((value) {
       setState(() {

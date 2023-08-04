@@ -22,41 +22,43 @@ class StepContent {
 }
 
 class SeasonsModel {
-  String name;
-  int memberId;
-  int productId;
-  LogBooks logBook;
-  int harvest;
-  int pack;
-  Logistic? logistic;
+  String? name;
+  int? memberId;
+  int? productId;
+  String? logBook;
+
+  // LogBooks logBook;
+  int? harvest;
+  int? pack;
+  String? logistic;
 
   SeasonsModel({
-    required this.name,
-    required this.memberId,
-    required this.productId,
-    required this.logBook,
-    required this.harvest,
-    required this.pack,
+    this.name,
+    this.memberId,
+    this.productId,
+    this.logBook,
+    this.harvest,
+    this.pack,
     this.logistic,
   });
 
   factory SeasonsModel.fromJson(Map<String, dynamic> json) {
-    var logBookJson = json['log_book'];
+    // TODO: Err Loi o day
+    var logBookJson = json['logbook'];
     var harvestJson = json['harvest'];
     var packJson = json['pack'];
     var logisticJson = json['logistic'];
     var productIdJson = json['productId'];
     var memberIdJson = json['memberId'];
-    // TODO: Err Loi o day
     var nameJson = json['name'];
 
     return SeasonsModel(
       name: nameJson,
-      memberId: int.parse(memberIdJson),
-      productId: int.parse(productIdJson),
-      logBook: LogBooks.fromJson(logBookJson),
-      harvest: int.parse(harvestJson),
-      pack: int.parse(packJson),
+      memberId: memberIdJson,
+      productId: productIdJson,
+      logBook: logBookJson,
+      harvest: harvestJson,
+      pack: packJson,
       logistic: logisticJson,
     );
   }

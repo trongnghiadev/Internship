@@ -22,8 +22,6 @@ class SeasonsListScreen extends StatefulWidget {
 
 class _SeasonsListScreenState extends State<SeasonsListScreen> {
   final TextEditingController _searchController = TextEditingController();
-  List<SeasonsModel> seasonsList = [];
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -39,7 +37,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
 
   Future<void> loadContacts() async {
     setState(() {
-      isLoading = true;
+      widget.storeController.updateLoading(true);
     });
 
     if (widget.product == null || widget.product?.id == null) return;
@@ -47,8 +45,8 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
     //can xem lai
     GetSeasonsList().fetchData(widget.product?.id ?? -1).then((value) {
       setState(() {
-        seasonsList = value;
-        isLoading = false;
+        widget.storeController.updateSeasonsModel(value);
+        widget.storeController.updateLoading(false);
       });
     });
 
@@ -77,7 +75,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
           padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
-              if (isLoading == true)
+              if (widget.storeController.storeLoading.value)
                 const SizedBox(
                   height: 50,
                   width: 50,
@@ -90,9 +88,10 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(30),
                   child: ListView.builder(
-                    itemCount: seasonsList.length,
+                    itemCount: widget.storeController.storeSeasonsList.length,
                     itemBuilder: (context, index) {
-                      final SeasonsModel seasons = seasonsList[index];
+                      final SeasonsModel seasons =
+                          widget.storeController.storeSeasonsList[index];
                       return Column(
                         children: [
                           Container(

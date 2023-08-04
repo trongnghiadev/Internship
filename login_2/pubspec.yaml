@@ -27,6 +27,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   url_launcher: ^6.1.12
   flutter_animate: ^4.2.0
+  share_plus: ^7.1.0
   # flutter_widget_from_html: ^0.6.0
   # webview_flutter: ^2.0.14
 
