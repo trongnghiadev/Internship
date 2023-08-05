@@ -10,12 +10,12 @@ import 'package:login_2/screens/seasons/season_products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/company/get_company_by_id_user.dart';
-import '../store/storecontroller.dart';
-import '../widgets/buttons/button_bottom.dart';
-import '../widgets/toast_message.dart';
-import 'company/info_company_screen.dart';
-import 'member/member_list_screen.dart';
+import '../../data/company/get_company_by_id_user.dart';
+import '../../store/storecontroller.dart';
+import '../../widgets/buttons/button_bottom.dart';
+import '../../widgets/toast_message.dart';
+import '../company/info_company_screen.dart';
+import '../member/member_list_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -97,7 +97,7 @@ class MainScreenState extends State<MainScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: () => Get.to(const AccountManagement()),
+                          onTap: () => Get.to(AccountManagement()),
                           child: Row(
                             children: [
                               const Icon(
