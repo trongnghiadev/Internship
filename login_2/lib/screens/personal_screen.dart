@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_2/screens/main_screen.dart';
+import 'package:login_2/screens/main/main_screen.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

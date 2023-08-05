@@ -18,8 +18,6 @@ class _QRViewExampleState extends State<QRViewExample> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
   @override
   void reassemble() {
     super.reassemble();
@@ -37,15 +35,24 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    //Url
     if (result != null) {
-      //thêm link sau
       Uri url = Uri.parse('http:/asddadsasd.com/product/${result?.code}');
       _launchUrl(url);
 
       return const Spacer();
     }
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.brown.withOpacity(0.5),
+        centerTitle: true,
+        title: const Text('QR Scanner'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
@@ -79,41 +86,12 @@ class _QRViewExampleState extends State<QRViewExample> {
                               },
                             )),
                       ),
-                      // Container(
-                      //   margin: const EdgeInsets.all(8),
-                      //   child: ElevatedButton(
-                      //       onPressed: () async {
-                      //         await controller?.flipCamera();
-                      //         setState(() {});
-                      //       },
-                      //       child: FutureBuilder(
-                      //         future: controller?.getCameraInfo(),
-                      //         builder: (context, snapshot) {
-                      //           if (snapshot.data != null) {
-                      //             return Text(
-                      //                 'Quay camera ${describeEnum(snapshot.data!)}');
-                      //           } else {
-                      //             return const Text('loading');
-                      //           }
-                      //         },
-                      //       )),
-                      // )
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      // Container(
-                      //   margin: const EdgeInsets.all(8),
-                      //   child: ElevatedButton(
-                      //     onPressed: () async {
-                      //       await controller?.pauseCamera();
-                      //     },
-                      //     child: const Text('Dừng',
-                      //         style: TextStyle(fontSize: 20)),
-                      //   ),
-                      // ),
                       Container(
                         margin: const EdgeInsets.all(8),
                         child: ElevatedButton(
@@ -136,13 +114,10 @@ class _QRViewExampleState extends State<QRViewExample> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,

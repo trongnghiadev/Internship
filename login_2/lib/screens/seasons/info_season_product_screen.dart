@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:login_2/data/seasons/add_seasons.dart';
 import 'package:login_2/models/seasons_model.dart';
 import 'package:login_2/screens/seasons/seasons_list_screen.dart';
@@ -35,6 +37,9 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
   final logBookController = TextEditingController();
   final harvestController = TextEditingController();
   final packController = TextEditingController();
+
+  int harvestValue = 0;
+  int packValue = 0;
 
   @override
   void initState() {
@@ -70,8 +75,8 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
     final name = nameSeasonController.text;
     final memberId = memberIdController.text;
     final logBook = logBookController.text;
-    final harvest = harvestController.text;
-    final pack = packController.text;
+    final harvest = harvestValue;
+    final pack = packValue;
 
     AddSeasons()
         .fetchData(
@@ -128,6 +133,35 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> selectHarvestDate() async {
+      DateTime? value = await showRoundedDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          borderRadius: 8,
+          theme: Theme.of(context),
+          height: MediaQuery.of(context).size.height * 0.45);
+      if (value != null) {
+        harvestValue = value.millisecondsSinceEpoch;
+        harvestController.text = DateFormat.yMMMMd('vi').format(value);
+      } else {
+        harvestController.text = '';
+      }
+    }
+
+    Future<void> selectPackDate() async {
+      DateTime? value = await showRoundedDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          borderRadius: 8,
+          theme: Theme.of(context),
+          height: MediaQuery.of(context).size.height * 0.45);
+      if (value != null) {
+        packController.text = DateFormat.yMMMMd('vi').format(value);
+      } else {
+        packController.text = '';
+      }
+    }
+
     return SafeArea(
         child: Scaffold(
             body: SingleChildScrollView(
@@ -207,10 +241,11 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
             const SizedBox(
               height: 20,
             ),
-            // TODO: chuyển dạng textfỏm field sang thành dạng date picker nhe!!!
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: TextFormField(
+                readOnly: true,
+                onTap: () => selectHarvestDate(),
                 decoration: const InputDecoration(
                   hintText: 'Thời gian thu hoạch',
                   // prefixIcon: Icon(Icons.map),
@@ -224,10 +259,11 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
             const SizedBox(
               height: 20,
             ),
-            // TODO: chuyển dạng textfỏm field sang thành dạng date picker nhe!!!
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: TextFormField(
+                readOnly: true,
+                onTap: () => selectPackDate(),
                 decoration: const InputDecoration(
                   hintText: 'Thời gian đóng gói',
                   // prefixIcon: Icon(Icons.map),
