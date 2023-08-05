@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
+import 'package:login_2/screens/account/account.management.screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
+import '../../store/storecontroller.dart';
+
 class EditAccount extends StatefulWidget {
-  const EditAccount({super.key});
+  EditAccount({super.key});
+
+  final storeController = Get.find<StoreController>();
 
   @override
   State<EditAccount> createState() => _EditAccountState();
@@ -70,19 +76,24 @@ class _EditAccountState extends State<EditAccount> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Email ',
-                  border: OutlineInputBorder(
+                readOnly: true,
+                decoration: InputDecoration(
+                  hintText: '${widget.storeController.storeUser.value.email}',
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
                 controller: emailcontroller,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            CustomButton(onTap: () {}, text: 'Cập nhật')
+            CustomButton(
+                onTap: () {
+                  Get.to(() => AccountManagement());
+                },
+                text: 'Cập nhật')
           ],
         ),
       ),

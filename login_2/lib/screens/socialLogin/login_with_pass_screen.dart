@@ -11,7 +11,7 @@ import 'package:login_2/widgets/toast_message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config/icons.dart';
-import '../main_screen.dart';
+import '../main/main_screen.dart';
 
 class PassScreen extends StatefulWidget {
   PassScreen({Key? key, required this.email}) : super(key: key);

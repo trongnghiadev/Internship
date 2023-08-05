@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/screens/account/edit_account_screen.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../store/storecontroller.dart';
+
 class AccountManagement extends StatefulWidget {
-  const AccountManagement({super.key});
+  AccountManagement({super.key});
+
+  final storeController = Get.find<StoreController>();
 
   @override
   State<AccountManagement> createState() => _AccountManagementState();
@@ -65,15 +68,16 @@ class _AccountManagementState extends State<AccountManagement> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  'Hiếu Nghĩa',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                Text(
+                  '${widget.storeController.storeUser.value.email}',
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () => Get.to(const EditAccount()),
+                  onTap: () => Get.to(EditAccount()),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

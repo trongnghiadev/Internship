@@ -11,8 +11,8 @@ class AddSeasons {
     required int memberId,
     required int productId,
     required String logbook,
-    required String harvest,
-    required String pack,
+    required int harvest,
+    required int pack,
     String? logistic,
   }) async {
     try {
