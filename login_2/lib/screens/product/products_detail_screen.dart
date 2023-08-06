@@ -40,9 +40,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
           '${Api().convertApi(Api.apiGetImage)}/${widget.product.photos}';
     }
 
-    GetLogBook()
-        .fetchData(widget.storeController.storeCompany.value.id ?? 0)
-        .then((value) {
+    GetLogBook().fetchData(widget.product.id ?? 0).then((value) {
       setState(() {
         if (value != null) {
           data = value;

@@ -63,7 +63,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
         widget.product!.acreage!.toString(); // kiểu double nên xài toString
     rawMaterialAreaProductController.text = widget.product!.rawMaterialArea!;
 
-    if (widget.product!.photos != null) {
+    if (widget.product!.photos != null && widget.product!.photos!.isNotEmpty) {
       imageUrl =
           '${Api().convertApi(Api.apiGetImage)}/${widget.product!.photos}';
     }
@@ -328,13 +328,21 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                           child: const Center(child: Text('Thêm hình ảnh')),
                         )
                 else
-                  widget.product?.photos != null
-                      ? Image.network(
-                          imageUrl!,
-                          height: 110,
-                          width: 110,
-                          fit: BoxFit.cover,
-                        )
+                  widget.product!.photos != null &&
+                          widget.product!.photos!.isNotEmpty
+                      ? image == null
+                          ? Image.network(
+                              imageUrl!,
+                              height: 110,
+                              width: 110,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              image!,
+                              height: 110,
+                              width: 110,
+                              fit: BoxFit.cover,
+                            )
                       : Container(
                           decoration: BoxDecoration(
                             border: Border.all(
