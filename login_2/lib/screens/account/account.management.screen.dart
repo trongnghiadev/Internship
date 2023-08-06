@@ -24,6 +24,41 @@ class _AccountManagementState extends State<AccountManagement> {
     prefs.clear();
   }
 
+  Widget buildIconContainer(IconData icon, String text, Function()? onTap) {
+    return Container(
+      width: double.infinity,
+      height: 40.0,
+      decoration: const BoxDecoration(
+        color: AppColors.dColorButtonContainer,
+        border: Border(
+          bottom: BorderSide(
+            color: AppColors.dColorText2,
+            width: 1.0,
+          ),
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: Icon(
+                icon,
+                size: 15.0,
+              ),
+            ),
+            const SizedBox(width: 10.0),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 15.0),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,8 +93,8 @@ class _AccountManagementState extends State<AccountManagement> {
                         height: 110.0,
                         color: Colors.white,
                         child: Image.asset(
-                          'assets/image/logo--footer 2.png', //
-                          fit: BoxFit.cover, //
+                          'assets/image/logo--footer 2.png',
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -95,63 +130,15 @@ class _AccountManagementState extends State<AccountManagement> {
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 40.0,
-                  decoration: const BoxDecoration(
-                    color: AppColors.dColorButtonContainer,
-                    border: Border(
-                      bottom: BorderSide(
-                        color: AppColors.dColorText2,
-                        width: 1.0, //
-                      ),
-                    ),
-                  ),
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: const Text(
-                    'Hỗ trợ',
-                    style: TextStyle(fontSize: 15.0),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 40.0,
-                  decoration: const BoxDecoration(
-                    color: AppColors.dColorButtonContainer,
-                    border: Border(
-                      bottom: BorderSide(
-                        color: AppColors.dColorText2,
-                        width: 1.0, //
-                      ),
-                    ),
-                  ),
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: const Text(
-                    'Chính sách và thông tin',
-                    style: TextStyle(fontSize: 15.0),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 40.0,
-                  decoration: const BoxDecoration(
-                    color: AppColors.dColorButtonContainer,
-                    border: Border(
-                      bottom: BorderSide(
-                        color: AppColors.dColorText2,
-                        width: 1.0, //
-                      ),
-                    ),
-                  ),
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 60.0),
-                  child: const Text(
-                    'Cài đặt',
-                    style: TextStyle(fontSize: 15.0),
-                  ),
-                ),
+                buildIconContainer(Icons.help_outline, 'Hỗ trợ', () {
+                  // Xử lý sự kiện khi người dùng bấm vào 'Hỗ trợ'
+                }),
+                buildIconContainer(Icons.policy, 'Chính sách và thông tin', () {
+                  // Xử lý sự kiện khi người dùng bấm vào 'Chính sách và thông tin'
+                }),
+                buildIconContainer(Icons.settings, 'Cài đặt', () {
+                  // Xử lý sự kiện khi người dùng bấm vào 'Cài đặt'
+                }),
                 const SizedBox(
                   height: 30,
                 ),

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:login_2/config/api.dart';
+import 'package:login_2/data/image/add_image_data.dart';
 import 'package:login_2/data/product/add_product.dart';
 import 'package:login_2/data/product/get_list_product.dart';
 import 'package:login_2/models/product_model.dart';
@@ -42,6 +44,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
   final videoProductController = TextEditingController();
   final certificationController = TextEditingController();
   final ImagePicker picker = ImagePicker();
+  String? imageUrl;
 
   @override
   void initState() {
@@ -59,7 +62,11 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     acreageProductController.text =
         widget.product!.acreage!.toString(); // kiểu double nên xài toString
     rawMaterialAreaProductController.text = widget.product!.rawMaterialArea!;
-    photosController.text = widget.product!.photos!;
+
+    if (widget.product!.photos != null) {
+      imageUrl =
+          '${Api().convertApi(Api.apiGetImage)}/${widget.product!.photos}';
+    }
     recipeProductController.text = widget.product!.recipe!;
     recipePhotosProductController.text = widget.product!.recipePhotos!;
     farmingPhotosController.text = widget.product!.farmingPhotos!;
@@ -90,13 +97,16 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     final productionUnitCode = descriptionProductController.text;
     final acreage = acreageProductController.text;
     final rawMaterialArea = rawMaterialAreaProductController.text;
-    final photos = photosController.text;
+    final photos = image?.path.split('/').last;
     final recipe = recipeProductController.text;
     final recipePhotos = recipePhotosProductController.text;
     final farmingPhotos = farmingPhotosController.text;
     final video = videoProductController.text;
     final certification = certificationController.text;
 
+    if (image != null) {
+      UploadImage().upload(image!);
+    }
     AddProduct()
         .fetchData(
       //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
@@ -108,7 +118,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
       productionUnitCode,
       double.parse(acreage),
       rawMaterialArea,
-      photos,
+      photos!,
       recipe,
       recipePhotos,
       farmingPhotos,
@@ -193,7 +203,18 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       const SizedBox(
-        height: 50,
+        height: 20,
+      ),
+      widget.product != null
+          ? SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: MediaQuery.of(context).size.width * 0.4,
+              child: QrImageView(data: qrData))
+          : const SizedBox(
+              width: 0,
+            ),
+      const SizedBox(
+        height: 20,
       ),
       Form(
         key: _formKey,
@@ -286,82 +307,96 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
             onTap: () => pickImage(ImageSource.gallery),
             child: Column(
               children: [
-                image != null
-                    ? Image.file(
-                        image!,
-                        height: 110,
-                        width: 110,
-                        fit: BoxFit.cover,
-                      )
-                    : Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 204, 201, 201),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        height: 60,
-                        width: 360,
-                        child: const Center(child: Text('Thêm hình ảnh')),
-                      ),
-                const SizedBox(height: 20),
-                InkWell(
-                  onTap: () => pickImage(ImageSource.gallery),
-                  child: Column(
-                    children: [
-                      image != null
-                          ? Image.file(
-                              image!,
-                              height: 110,
-                              width: 110,
-                              fit: BoxFit.cover,
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 204, 201, 201),
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              height: 60,
-                              width: 360,
-                              child: const Center(child: Text('Thêm video')),
+                if (widget.product == null)
+                  image != null
+                      ? Image.file(
+                          image!,
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 204, 201, 201),
+                              width: 2.0,
                             ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          height: 60,
+                          width: 360,
+                          child: const Center(child: Text('Thêm hình ảnh')),
+                        )
+                else
+                  widget.product?.photos != null
+                      ? Image.network(
+                          imageUrl!,
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: const Color.fromARGB(255, 204, 201, 201),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          height: 60,
+                          width: 360,
+                          child: const Center(child: Text('Thêm hình ảnh')),
+                        ),
 
-                      const SizedBox(height: 20),
-                      //Nút botton
-                      CustomButton(
-                          onTap: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              if (widget.product == null) {
-                                handleAddProduct(context);
-                              } else {
-                                //Todo : handleUpdateProduct
-                              }
-                            }
-                          },
-                          //Coi kĩ áp dụng nhiều
-                          text: widget.product != null ? 'Thay đổi' : 'Thêm')
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                widget.product != null
-                    ? SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        height: MediaQuery.of(context).size.width * 0.4,
-                        child: QrImageView(data: qrData))
-                    : const SizedBox(
-                        width: 0,
-                      )
+                // InkWell(
+                //   onTap: () => pickImage(ImageSource.gallery),
+                //   child: Column(
+                //     children: [
+                //       image != null
+                //           ? Image.file(
+                //         image!,
+                //         height: 110,
+                //         width: 110,
+                //         fit: BoxFit.cover,
+                //       )
+                //           : Container(
+                //         decoration: BoxDecoration(
+                //           border: Border.all(
+                //             color:
+                //             const Color.fromARGB(
+                //                 255, 204, 201, 201),
+                //             width: 2.0,
+                //           ),
+                //           borderRadius: BorderRadius.circular(
+                //               10.0),
+                //         ),
+                //         height: 60,
+                //         width: 360,
+                //         child: const Center(
+                //             child: Text('Thêm video')),
+                //       ),
+                //
+                //       const SizedBox(height: 20),
+                //       //Nút botton
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
+          const SizedBox(height: 20),
+          CustomButton(
+              onTap: () {
+                if (_formKey.currentState?.validate() == true) {
+                  if (widget.product == null) {
+                    handleAddProduct(context);
+                  } else {
+                    //Todo : handleUpdateProduct
+                  }
+                }
+              },
+              //Coi kĩ áp dụng nhiều
+              text: widget.product != null ? 'Thay đổi' : 'Thêm')
         ]),
       ),
     ])))));
