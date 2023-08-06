@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
+import 'package:login_2/screens/main/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/name_value_input_regex.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
@@ -13,7 +14,6 @@ import 'package:login_2/utils/website_regex.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 import '../../data/company/add_company.dart';
-import '../../data/company/get_company_by_id_user.dart';
 import '../../data/image/add_image_data.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -41,7 +41,8 @@ class _InfoScreenState extends State<InfoScreen> {
   final addressController = TextEditingController();
   final webController = TextEditingController();
   final ImagePicker picker = ImagePicker();
-  final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
+
+  // final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
   String? imageUrl;
 
   @override
@@ -72,6 +73,7 @@ class _InfoScreenState extends State<InfoScreen> {
       if (imageUrl != null) {
         print('Image uploaded successfully. URL: $imageUrl');
         setState(() {
+          widget.company.logo = image!.path.split('/').last;
           this.imageUrl =
               '${Api().convertApi(Api.apiGetImage)}/${image!.path.split('/').last}';
         });
@@ -90,7 +92,7 @@ class _InfoScreenState extends State<InfoScreen> {
       if (pickedImage == null) return;
 
       final imageFile = File(pickedImage.path);
-      setState(() => this.image = imageFile);
+      setState(() => image = imageFile);
 
       // Call the uploadImage function here to upload the selected image
       await uploadImage();
@@ -153,7 +155,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   child: Center(
                     child: Column(
                       children: [
-                        imageUrl != null
+                        widget.company.logo != null
                             ? Image.network(
                                 imageUrl!,
                                 height: 110,
@@ -292,6 +294,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           onTap: () {
                             if (_formKey.currentState?.validate() == true) {
                               handleSubmit(context);
+                              Get.to(() => MainScreenState());
                             }
                           },
                           text: 'Thay đổi')

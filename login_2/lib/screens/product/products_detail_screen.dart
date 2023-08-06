@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_2/config/api.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/models/product_model.dart';
 
@@ -27,14 +28,19 @@ class ProductsDetailScreen extends StatefulWidget {
 
 class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
   LogBooks? data;
+  String imageUrl =
+      'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
 
   @override
   void initState() {
     super.initState();
 
-    GetLogBook()
-        .fetchData(widget.storeController.storeCompany.value.id ?? 0)
-        .then((value) {
+    if (widget.product.photos != null && widget.product.photos!.isNotEmpty) {
+      imageUrl =
+          '${Api().convertApi(Api.apiGetImage)}/${widget.product.photos}';
+    }
+
+    GetLogBook().fetchData(widget.product.id ?? 0).then((value) {
       setState(() {
         if (value != null) {
           data = value;
@@ -96,7 +102,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
                 height: 200,
                 width: double.infinity,
                 child: Image.network(
-                  'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                  imageUrl,
                   fit: BoxFit.cover,
                 ),
               ),

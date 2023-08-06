@@ -18,8 +18,7 @@ class GetLogBook {
         final jsonData = json.decode(data);
         final status = jsonData['status'];
         if (status == 'true') {
-          dynamic logBookData = json.decode(jsonData['data']);
-          LogBooks logBook = LogBooks.fromJson(logBookData);
+          LogBooks logBook = LogBooks.fromJson(jsonData['data']);
           return logBook;
         }
       }
