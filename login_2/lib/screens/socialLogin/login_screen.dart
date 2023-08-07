@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/config/icons.dart';
 import 'package:login_2/config/stringtext.dart';
@@ -27,7 +26,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool isLoading = false;
+
+  // bool isLoading = false;
 
   late FToast toast;
 
@@ -57,19 +57,20 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
+    //Hiệu Ứng loading
     //set loading
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
     CheckExistEmail().fetchData(email).then((existEmailStatus) {
       if (existEmailStatus != null) {
         if (existEmailStatus == 'false') {
           RegisterData().fetchData(email).then((registerStatus) {
             if (registerStatus != null) {
               if (registerStatus == 'true') {
-                setState(() {
-                  isLoading = false;
-                });
+                // setState(() {
+                //   isLoading = false;
+                // });
                 //Không xài được get to (xài trên máy thật không đăng nhập được)
                 Get.off(() => OtpScreen(email: email));
                 // Navigator.pushReplacement(
@@ -86,9 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           });
         } else if (existEmailStatus == 'true') {
-          setState(() {
-            isLoading = false;
-          });
+          // setState(() {
+          //   isLoading = false;
+          // });
           Get.off(() => PassScreen(email: email));
         }
       }
@@ -165,15 +166,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
 
                         //Hiển thị loading lên màng hình
-                        if (isLoading == true)
-                          const SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: LoadingIndicator(
-                              indicatorType: Indicator.circleStrokeSpin,
-                              strokeWidth: 2,
-                            ),
-                          ),
+                        // if (isLoading == true)
+                        //   const SizedBox(
+                        //     height: 50,
+                        //     width: 50,
+                        //     child: LoadingIndicator(
+                        //       indicatorType: Indicator.circleStrokeSpin,
+                        //       strokeWidth: 2,
+                        //     ),
+                        //   ),
                         const SizedBox(
                           height: 24,
                         ),
