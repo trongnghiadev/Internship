@@ -57,7 +57,7 @@ class MainScreenState extends State<MainScreen> {
 
     if (userId == null) return;
 
-    final company = await _companyByUserId.fetchData(userId!);
+    final company = await _companyByUserId.fetchData(userId);
 
     if (company != null) {
       widget.storeController.updateCompany(company);
@@ -164,7 +164,11 @@ class MainScreenState extends State<MainScreen> {
                               const SizedBox(height: 15),
                               CustomButton(
                                 onTap: () {
-                                  Get.to(InfoScreen(company: company));
+                                  // Get.to(InfoScreen(company: company));
+                                  Get.to(() => InfoScreen(company: company))
+                                      ?.then((value) {
+                                    _fetchCompanyData();
+                                  });
                                 },
                                 text: addCompany,
                               ),

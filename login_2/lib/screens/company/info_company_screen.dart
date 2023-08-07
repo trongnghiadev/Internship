@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
-import 'package:login_2/screens/main/main_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/name_value_input_regex.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
@@ -15,6 +15,7 @@ import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 import '../../data/company/add_company.dart';
 import '../../data/image/add_image_data.dart';
+import '../../widgets/toast_message.dart';
 
 class InfoScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -41,6 +42,7 @@ class _InfoScreenState extends State<InfoScreen> {
   final addressController = TextEditingController();
   final webController = TextEditingController();
   final ImagePicker picker = ImagePicker();
+  late FToast toast;
 
   // final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
   String? imageUrl;
@@ -48,6 +50,8 @@ class _InfoScreenState extends State<InfoScreen> {
   @override
   void initState() {
     super.initState();
+    toast = FToast();
+    toast.init(context);
     // Đặt giá trị ban đầu cho các TextFormField từ widget.company
     //Đã fix ở đây
     // ignore: unnecessary_null_comparison
@@ -117,8 +121,20 @@ class _InfoScreenState extends State<InfoScreen> {
             image!.path.split('/').last,
             website)
         .then((value) {
-      widget.storeController.updateCompany(value as CompanyModel);
+      if (value == null) return;
+      widget.storeController.updateCompany(value);
     });
+
+    // AddCompany()
+    //     .fetchData(widget.storeController.storeUser.value.id ?? 0, nameCompany,
+    //         phone, address, image!.path.split('/').last, website)
+    //     .then((value) {
+    //   if (value is CompanyModel) {
+    //     widget.storeController.updateCompany(value as CompanyModel);
+    //   } else {
+    //     print('Lỗi: fetchData không trả về một đối tượng CompanyModel.');
+    //   }
+    // });
   }
 
   @override
@@ -294,7 +310,18 @@ class _InfoScreenState extends State<InfoScreen> {
                           onTap: () {
                             if (_formKey.currentState?.validate() == true) {
                               handleSubmit(context);
-                              Get.to(() => MainScreenState());
+                              // Get.to(() => MainScreenState())!
+                              //     .then((value) => null);
+                              toast.showToast(
+                                child: ToastMessage(
+                                  message: 'Tạo công ty thành công',
+                                  icon: Icons.check_circle_sharp,
+                                  // Red X icon
+                                  backgroundColor: Colors.lightGreen[800],
+                                  // Light red background
+                                  textColor: Colors.white, // Red text color
+                                ),
+                              );
                             }
                           },
                           text: 'Thay đổi')

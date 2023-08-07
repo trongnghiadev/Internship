@@ -3,16 +3,22 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/author/set_new_pass.dart';
+import 'package:login_2/screens/main/main_screen.dart';
 import 'package:login_2/screens/socialLogin/login_screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../config/icons.dart';
+import '../../data/login.dart';
+import '../../models/user_model.dart';
+import '../../store/storecontroller.dart';
 import '../../widgets/toast_message.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key, required this.email}) : super(key: key);
+  RegisterScreen({Key? key, required this.email}) : super(key: key);
 
   final String email;
+  final storeController = Get.find<StoreController>();
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -24,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isPasswordVisible1 = false;
   bool isPasswordVisible2 = false;
   bool passwordsMatch = false;
+  final storeController = Get.find<StoreController>();
   late FToast toast;
 
   @override
@@ -47,6 +54,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     setState(() {
       passwordsMatch = password == confirmPassword;
     });
+  }
+
+  void saveLoggedInStatus(User user) async {
+    SharedPreferences prefs =
+        await SharedPreferences.getInstance(); // Lưu email đã đăng nhập
+    prefs.setInt('user_id', user.id ?? 0);
+    prefs.setString('user_email', user.email ?? '');
+    prefs.setBool('user_emailVerified', user.emailVerified ?? false);
+    prefs.setString('user_fullname', user.fullname ?? '');
+    prefs.setString('user_phone', user.phone ?? '');
+    Get.offAll(() => MainScreen());
   }
 
   void handleSubmit(BuildContext context) {
@@ -217,21 +235,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       SetNewPass()
                           .fetchData(email, passwordController.text)
                           .then((status) {
-                        if (status != null) {
-                          if (status == 'true') {
-                            Get.off(const LoginScreen());
+                        // if (status != null) {
+                        if (status == 'true') {
+                          Login()
+                              .fetchData(email, passwordController.text)
+                              .then((value) {
+                            if (value != null) {
+                              widget.storeController.updateUser(value);
+                              saveLoggedInStatus(value);
+                            }
                             toast.showToast(
                               child: ToastMessage(
                                 message: 'Tạo tài khoản thành công',
                                 icon: Icons.check_circle_sharp,
                                 // Red X icon
-                                backgroundColor: Colors.green[300],
+                                backgroundColor: Colors.lightGreen[800],
                                 // Light red background
                                 textColor: Colors.white, // Red text color
                               ),
                               gravity: ToastGravity.BOTTOM,
                             );
                           }
+                                  // }
+                                  );
                         }
                       });
                     },
