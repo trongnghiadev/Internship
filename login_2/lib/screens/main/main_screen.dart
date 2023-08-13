@@ -236,11 +236,11 @@ class MainScreenState extends State<MainScreen> {
                 InkWell(
                   onTap: () {
                     if (companyexist) {
-                      Get.to(() => ProductsListScreen());
+                      // Get.to(() => ProductsListScreen());
                     } else {
                       toast.showToast(
-                        child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
+                        child: const ToastMessage(
+                            message: 'Tính năng đang được phát triển'),
                         gravity: ToastGravity.BOTTOM,
                       );
                     }
