@@ -29,7 +29,7 @@ class _EditAccountState extends State<EditAccount> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
           ),
           centerTitle: true,

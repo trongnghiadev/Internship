@@ -6,7 +6,6 @@ import 'package:login_2/models/company_model.dart';
 import 'package:login_2/screens/account/account.management.screen.dart';
 import 'package:login_2/screens/otp/qr_scanner_screen.dart';
 import 'package:login_2/screens/product/products_list_screen.dart';
-import 'package:login_2/screens/seasons/season_products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -225,7 +224,7 @@ class MainScreenState extends State<MainScreen> {
                     }
                   },
                   child: const ItemMain(
-                    icon: Icons.drive_folder_upload,
+                    icon: Icons.local_florist,
                     textName: 'Quản lý sản phẩm',
                     color: Colors.blue,
                     colorIt: Colors.white,
@@ -233,46 +232,26 @@ class MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 // Thêm các child widget khác vào đây (nếu có)
-                InkWell(
-                  onTap: () {
-                    if (companyexist) {
-                      // Get.to(() => ProductsListScreen());
-                    } else {
-                      toast.showToast(
-                        child: const ToastMessage(
-                            message: 'Tính năng đang được phát triển'),
-                        gravity: ToastGravity.BOTTOM,
-                      );
-                    }
-                  },
-                  child: const ItemMain(
-                    icon: Icons.library_books,
-                    textName: 'Quản lý canh tác',
-                    color: Color(0xffEE7C35),
-                    colorIt: Colors.white,
-                    colorIc: Colors.white,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if (companyexist) {
-                      Get.to(() => SeasonProductsListScreen());
-                    } else {
-                      toast.showToast(
-                        child:
-                            const ToastMessage(message: 'Vui lòng tạo công ty'),
-                        gravity: ToastGravity.BOTTOM,
-                      );
-                    }
-                  },
-                  child: const ItemMain(
-                    icon: Icons.local_florist,
-                    textName: 'Quản lý mùa vụ',
-                    color: AppColors.dColorMain,
-                    colorIt: Colors.white,
-                    colorIc: Colors.white,
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     if (companyexist) {
+                //       // Get.to(() => ProductsListScreen());
+                //     } else {
+                //       toast.showToast(
+                //         child: const ToastMessage(
+                //             message: 'Tính năng đang được phát triển'),
+                //         gravity: ToastGravity.BOTTOM,
+                //       );
+                //     }
+                //   },
+                //   child: const ItemMain(
+                //     icon: Icons.library_books,
+                //     textName: 'Quản lý canh tác',
+                //     color: Color(0xffEE7C35),
+                //     colorIt: Colors.white,
+                //     colorIc: Colors.white,
+                //   ),
+                // ),
                 InkWell(
                   onTap: () {
                     if (companyexist) {

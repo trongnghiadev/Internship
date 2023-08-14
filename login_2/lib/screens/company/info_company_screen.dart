@@ -46,6 +46,7 @@ class _InfoScreenState extends State<InfoScreen> {
 
   // final GetCompanyByUserId _companyByUserId = GetCompanyByUserId();
   String? imageUrl;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -149,7 +150,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       icon: const Icon(Icons.arrow_back_ios_new)),
                 ),

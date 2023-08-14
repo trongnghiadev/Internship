@@ -72,7 +72,7 @@ class _AccountManagementState extends State<AccountManagement> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       icon: const Icon(Icons.arrow_back_ios_new)),
                 ),

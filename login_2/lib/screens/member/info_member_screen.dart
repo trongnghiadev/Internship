@@ -54,7 +54,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
     // Thực hiện các xử lý hoặc gọi API tương ứng ở đây
     AddMember()
         .fetchData(widget.storeController.storeCompany.value.id ?? 0, name,
-        double.parse(acreage), location)
+            double.parse(acreage), location)
         .then((value) => Get.offAll(() => MemberListScreen()));
   }
 
@@ -70,7 +70,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                   alignment: Alignment.topLeft,
                   child: IconButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       icon: const Icon(Icons.arrow_back_ios_new)),
                 ),
@@ -96,7 +96,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                               prefixIcon: Icon(Icons.person_2),
                               border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10)),
+                                    BorderRadius.all(Radius.circular(10)),
                               ),
                             ),
                             controller: nameMemberController),
@@ -114,7 +114,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                             prefixIcon: Icon(Icons.map),
                             border: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(10)),
                             ),
                           ),
                           validator: (value) {
@@ -139,7 +139,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                             prefixIcon: Icon(Icons.location_on),
                             border: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(10)),
                             ),
                           ),
                           validator: (value) {
