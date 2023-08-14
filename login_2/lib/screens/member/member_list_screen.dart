@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/data/company/get_list_by_company_id.dart';
+import 'package:login_2/data/member/get_list_by_company_id.dart';
 import 'package:login_2/models/member_model.dart';
 
 import '../../data/company/get_company_by_id_user.dart';
@@ -44,7 +44,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
         .fetchData(widget.storeController.storeUser.value.id ?? 0)
         .then((value) {
       if (value != null) {
-        GetListByCompanyId().fetchData(value.id ?? 0).then(
+        GetMemberListByCompanyId().fetchData(value.id ?? 0).then(
           (value) {
             setState(() {
               memberList = value;
@@ -70,7 +70,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
           ),
           centerTitle: true,

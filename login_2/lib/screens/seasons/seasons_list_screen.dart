@@ -65,7 +65,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
           ),
           centerTitle: true,
@@ -88,9 +88,11 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(30),
                   child: ListView.builder(
-                    itemCount: widget.storeController.storeSeasonsList.length,
+                    itemCount: widget.storeController.storeLoading.value
+                        ? 0
+                        : widget.storeController.storeSeasonsList.length,
                     itemBuilder: (context, index) {
-                      final SeasonsModel seasons =
+                      final SeasonsModel season =
                           widget.storeController.storeSeasonsList[index];
                       return Column(
                         children: [
@@ -102,26 +104,28 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                             ),
                             // Màu nền của ListTile
                             child: InkWell(
-                              // onTap: () => Get.to(
-                              //     ProductsDetailScreen(seasons: seasons)),
+                              onTap: () => Get.to(InfoSeasonProductScreen(
+                                productId: widget.product?.id ?? -1,
+                                season: season,
+                              )),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        decoration: BoxDecoration(
-                                          color: AppColors
-                                              .dColorIG, // Màu nền của ô
-                                          borderRadius: BorderRadius.circular(
-                                              10.0), // Bo góc của ô
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.symmetric(
+                                    //       horizontal: 10),
+                                    //   child: Container(
+                                    //     height: 80,
+                                    //     width: 80,
+                                    //     decoration: BoxDecoration(
+                                    //       color: AppColors
+                                    //           .dColorIG, // Màu nền của ô
+                                    //       borderRadius: BorderRadius.circular(
+                                    //           10.0), // Bo góc của ô
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: Column(
@@ -132,7 +136,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 3),
                                             child: Text(
-                                              seasons.name ?? '',
+                                              season.name ?? '',
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
@@ -145,7 +149,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                                             child: Wrap(
                                               children: [
                                                 Text(
-                                                  'Nhật ký: ${seasons.logBook}',
+                                                  'Nhật ký: ${season.logBook}',
                                                   // product.recipe ?? '',
                                                   style: const TextStyle(
                                                     fontSize: 16,
@@ -197,8 +201,9 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
   Widget buildAddContactFAB() {
     return FloatingActionButton(
       onPressed: () {
-        Get.to(
-            () => InfoSeasonProductScreen(productId: widget.product?.id ?? -1));
+        Get.to(() => InfoSeasonProductScreen(
+              productId: widget.product?.id ?? -1,
+            ));
       },
       backgroundColor: AppColors.dColorMain,
       child: const Icon(Icons.add),

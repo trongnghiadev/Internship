@@ -5,7 +5,7 @@ import 'package:login_2/config/api.dart';
 
 import '../../models/member_model.dart';
 
-class GetListByCompanyId {
+class GetMemberListByCompanyId {
   Dio dio = Dio();
 
   Future<List<Member>> fetchData(int idCompany) async {
@@ -19,11 +19,11 @@ class GetListByCompanyId {
         final status = jsonData['status'];
         if (status == 'true') {
           List<dynamic> companyData = json.decode(jsonData['data']);
-          List<Member> memberlist = [];
+          List<Member> memberList = [];
           for (var element in companyData) {
-            memberlist.add(Member.fromJson(element));
+            memberList.add(Member.fromJson(element));
           }
-          return memberlist;
+          return memberList;
         }
       }
     } catch (e) {
