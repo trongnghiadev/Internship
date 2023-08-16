@@ -119,7 +119,7 @@ class _InfoScreenState extends State<InfoScreen> {
             nameCompany,
             phone,
             address,
-            image!.path.split('/').last,
+            image?.path.split('/').last ?? '',
             website)
         .then((value) {
       if (value == null) return;
@@ -172,7 +172,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   child: Center(
                     child: Column(
                       children: [
-                        widget.company.logo != null
+                        widget.company.logo != null && widget.company.logo != ''
                             ? Image.network(
                                 imageUrl!,
                                 height: 110,

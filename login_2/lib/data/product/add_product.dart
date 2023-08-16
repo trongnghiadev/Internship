@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login_2/config/api.dart';
+
+import '../../widgets/toast_message.dart';
 
 class AddProduct {
   Dio dio = Dio();
@@ -20,7 +24,8 @@ class AddProduct {
       String recipePhotos,
       String farmingPhotos,
       String video,
-      String certification) async {
+      String certification,
+      {FToast? toast}) async {
     try {
       final options = Options(
         contentType: Headers.formUrlEncodedContentType,
@@ -54,6 +59,19 @@ class AddProduct {
 
         addCProduct = json['status'].toString();
         return addCProduct;
+      } else {
+        if (toast == null) return null;
+
+        toast.showToast(
+          child: const ToastMessage(
+            message: 'Xảy ra lỗi vui lòng thử lại',
+            icon: Icons.error,
+            // Red X icon
+            backgroundColor: Colors.red,
+            // Light red background
+            textColor: Colors.white, // Red text color
+          ),
+        );
       }
     } catch (e) {
       print(e);

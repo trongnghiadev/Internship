@@ -120,39 +120,37 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     final photos = image?.path.split('/').last;
     AddProduct()
         .fetchData(
-      //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
-      widget.storeController.storeCompany.value.id ?? 0,
-      key,
-      name,
-      description,
-      content,
-      productionUnitCode,
-      double.parse(acreage),
-      rawMaterialArea,
-      photos!,
-      recipe,
-      recipePhotos,
-      farmingPhotos,
-      video,
-      certification,
-    )
+            //Nếu đối tượng trước 2 dấu ? null, thì xài đối tượng đăng sau
+            widget.storeController.storeCompany.value.id ?? 0,
+            key,
+            name,
+            description,
+            content,
+            productionUnitCode,
+            double.parse(acreage != '' ? acreage : '0'),
+            rawMaterialArea,
+            photos ?? '',
+            recipe,
+            recipePhotos,
+            farmingPhotos,
+            video,
+            certification,
+            toast: toast)
         // .then((value) =>
         // Get.to(() => MainScreen()));
 
         .then((value) {
       setState(() {
         widget.storeController.updateLoading(true);
-      });
-      GetProductList().fetchData(widget.product?.id ?? -1).then((value) {
-        setState(() {
-          widget.storeController.update(value);
-
-          widget.storeController.updateLoading(false);
-        });
-      }).then((value) {
         setState(() {
           isLoading = false;
         });
+      });
+      GetProductList().fetchData(widget.product?.id ?? -1).then((value) {
+        setState(() {
+          widget.storeController.updateLoading(false);
+        });
+      }).then((value) {
         toast.showToast(
           child: ToastMessage(
             message: 'Tạo sản phẩm thành công',
@@ -165,6 +163,10 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
         );
         return Get.back();
       });
+    });
+
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -282,7 +284,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color.fromARGB(255, 160, 159, 159),
+                        color: const Color.fromARGB(255, 160, 159, 159),
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(10.0),
@@ -311,7 +313,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color.fromARGB(255, 160, 159, 159),
+                        color: const Color.fromARGB(255, 160, 159, 159),
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(10.0),

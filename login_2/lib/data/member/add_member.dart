@@ -35,6 +35,7 @@ class AddMember {
         final json = jsonDecode(data);
 
         addMember = json['status'].toString();
+        if (addMember == 'false') return json['message'].toString();
         return addMember;
       }
     } catch (e) {

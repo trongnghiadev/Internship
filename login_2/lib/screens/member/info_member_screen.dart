@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/data/member/add_member.dart';
 import 'package:login_2/models/member_model.dart';
-import 'package:login_2/screens/member/member_list_screen.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
+import 'package:login_2/widgets/loading_placeholder.dart';
+
+import '../../widgets/toast_message.dart';
 
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
@@ -32,10 +35,19 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
   final locationController = TextEditingController();
 
   final storeController = Get.find<StoreController>();
+  late FToast toast;
+
+  bool isLoading = false;
 
   @override
   void initState() {
+    toast = FToast();
+    toast.init(context);
     super.initState();
+
+    setState(() {
+      isLoading = false;
+    });
     // Đặt giá trị ban đầu cho các TextFormField từ widget.company
     //Đã fix ở đây
     // ignore: unnecessary_null_comparison
@@ -51,126 +63,152 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
     final acreage = acreageController.text;
     final location = locationController.text;
 
+    setState(() {
+      isLoading = true;
+    });
+
     // Thực hiện các xử lý hoặc gọi API tương ứng ở đây
     AddMember()
         .fetchData(widget.storeController.storeCompany.value.id ?? 0, name,
-            double.parse(acreage), location)
-        .then((value) => Get.offAll(() => MemberListScreen()));
+            double.parse(acreage ?? '0'), location)
+        .then((value) {
+      toast.showToast(
+        child: ToastMessage(
+          message: 'Tạo thành viên thành công',
+          icon: Icons.check_circle_sharp,
+          // Red X icon
+          backgroundColor: Colors.lightGreen[800],
+          // Light red background
+          textColor: Colors.white, // Red text color
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+      Get.back();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Thêm hợp tác xã',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Tên hợp tác xã',
-                              prefixIcon: Icon(Icons.person_2),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+      child: Stack(
+        children: [
+          Scaffold(
+            body: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: const Icon(Icons.arrow_back_ios_new)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      'Thêm hợp tác xã',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: 'Tên hợp tác xã',
+                                  prefixIcon: Icon(Icons.person_2),
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                ),
+                                controller: nameMemberController),
+                          ),
+
+                          const SizedBox(
+                            height: 20,
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Diện tích',
+                                prefixIcon: Icon(Icons.map),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
                               ),
-                            ),
-                            controller: nameMemberController),
-                      ),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Diện tích',
-                            prefixIcon: Icon(Icons.map),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return _textIsRequired;
+                                }
+                                // Thêm validate cho acreage ở đây (nếu cần)
+                                return null;
+                              },
+                              controller: acreageController,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _textIsRequired;
-                            }
-                            // Thêm validate cho acreage ở đây (nếu cần)
-                            return null;
-                          },
-                          controller: acreageController,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                          const SizedBox(
+                            height: 20,
+                          ),
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Địa điểm',
-                            prefixIcon: Icon(Icons.location_on),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Địa điểm',
+                                prefixIcon: Icon(Icons.location_on),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return _textIsRequired;
+                                }
+                                // Thêm validate cho location ở đây (nếu cần)
+                                return null;
+                              },
+                              controller: locationController,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _textIsRequired;
-                            }
-                            // Thêm validate cho location ở đây (nếu cần)
-                            return null;
-                          },
-                          controller: locationController,
-                        ),
+                          const SizedBox(height: 40),
+                          //Nút botton
+                          CustomButton(
+                              onTap: () {
+                                if (_formKey.currentState?.validate() == true) {
+                                  handleSubmit(context);
+                                }
+                              },
+                              text:
+                                  widget.member != null ? 'Thay đổi' : 'Thêm'),
+                        ],
                       ),
-                      const SizedBox(height: 40),
-                      //Nút botton
-                      CustomButton(
-                          onTap: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              handleSubmit(context);
-                            }
-                          },
-                          text: 'Thay đổi')
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+          LoadingPlaceHolder(isLoading)
+        ],
       ),
     );
   }

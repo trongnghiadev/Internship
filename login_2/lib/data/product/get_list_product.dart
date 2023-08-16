@@ -7,7 +7,9 @@ import 'package:login_2/models/product_model.dart';
 class GetProductList {
   Dio dio = Dio();
 
-  Future<List<ProductModel>> fetchData(int idCompany) async {
+  Future<List<ProductModel>> fetchData(
+    int idCompany,
+  ) async {
     try {
       final getListProductResponse = await dio
           .get('${Api().convertApi(Api.apiGetListProduct)}/$idCompany');
