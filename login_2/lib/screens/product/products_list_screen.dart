@@ -219,7 +219,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                         headerBackgroundColor: Colors.white,
                         header: Row(
                           children: [
-                            (e.photos) != null
+                            (e.photos) != null && (e.photos) != ''
                                 ? Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(
@@ -305,14 +305,15 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
       ),
     );
   }
-}
 
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => InfoProductScreen());
-    },
-    backgroundColor: AppColors.dColorMain,
-    child: const Icon(Icons.add),
-  );
+  Widget buildAddContactFAB() {
+    return FloatingActionButton(
+      onPressed: () {
+        //Khi mà get.to bất cứ màng hình nào có khả naneg Thêm xoá sửa thì thêm câu ?.then
+        Get.to(() => InfoProductScreen())?.then((value) => loadProduct());
+      },
+      backgroundColor: AppColors.dColorMain,
+      child: const Icon(Icons.add),
+    );
+  }
 }

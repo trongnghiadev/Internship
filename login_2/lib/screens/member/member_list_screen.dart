@@ -161,14 +161,14 @@ class _MemberListScreenState extends State<MemberListScreen> {
       ),
     );
   }
-}
 
-Widget buildAddContactFAB() {
-  return FloatingActionButton(
-    onPressed: () {
-      Get.to(() => InfoMemberScreen());
-    },
-    backgroundColor: AppColors.dColorMain,
-    child: const Icon(Icons.add),
-  );
+  Widget buildAddContactFAB() {
+    return FloatingActionButton(
+      onPressed: () {
+        Get.to(() => InfoMemberScreen())?.then((value) => loadContacts());
+      },
+      backgroundColor: AppColors.dColorMain,
+      child: const Icon(Icons.add),
+    );
+  }
 }
