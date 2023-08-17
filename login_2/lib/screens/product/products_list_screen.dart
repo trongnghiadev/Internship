@@ -73,7 +73,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
           centerTitle: true,
           title: const Text('Danh sách sản phẩm'),
         ),
-        body: Padding(
+        body: SingleChildScrollView(
           padding: const EdgeInsets.only(top: 1),
           child: Column(
             children: [
@@ -208,6 +208,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
                   maxOpenSections: 1,
                   contentBorderColor: Colors.white,
                   flipRightIconIfOpen: true,
+                  disableScrolling: true,
                   headerPadding:
                       const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
                   children: productList.map((e) {

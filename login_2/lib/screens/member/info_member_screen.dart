@@ -25,6 +25,7 @@ class InfoMemberScreen extends StatefulWidget {
 class _InfoMemberScreenState extends State<InfoMemberScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
+  final _doubleValid = 'Không hợp lệ, kiểm tra lại (Dấu thập phân là dấu chấm)';
 
   // final _textAcreage = 'dịch tích này không hợp lệ';
   // final _textLocation = 'Địa chỉ này không hợp lệ';
@@ -143,6 +144,9 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: TextFormField(
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: false),
                               decoration: const InputDecoration(
                                 hintText: 'Diện tích',
                                 prefixIcon: Icon(Icons.map),
@@ -155,7 +159,10 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                                 if (value == null || value.isEmpty) {
                                   return _textIsRequired;
                                 }
-                                // Thêm validate cho acreage ở đây (nếu cần)
+
+                                if (double.tryParse(value) == null) {
+                                  return _doubleValid;
+                                }
                                 return null;
                               },
                               controller: acreageController,
