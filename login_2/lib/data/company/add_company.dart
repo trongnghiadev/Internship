@@ -1,18 +1,27 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
+import 'package:login_2/screens/socialLogin/login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddCompany {
   Dio dio = Dio();
 
   Future<CompanyModel?> fetchData(int? userId, String? name, String? phone,
       String? address, String logo, String? website) async {
+    SharedPreferences prefs =
+        await SharedPreferences.getInstance(); // Lưu email đã đăng nhập
+
+    String? token = prefs.getString('token');
+    if (token == null) return Get.offAll(() => const LoginScreen());
+
     try {
       final options = Options(
-        contentType: Headers.formUrlEncodedContentType,
-      );
+          contentType: Headers.formUrlEncodedContentType,
+          headers: {"Authorization": token});
 
       final createCompanyResponse = await dio.post(
         Api().convertApi(Api.apiAddCompany),

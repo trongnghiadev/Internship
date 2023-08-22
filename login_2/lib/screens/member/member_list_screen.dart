@@ -145,7 +145,11 @@ class _MemberListScreenState extends State<MemberListScreen> {
                                 Icons.keyboard_arrow_right,
                                 color: AppColors.dColorMain,
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(() => InfoMemberScreen(
+                                      member: member,
+                                    ))?.then((value) => loadContacts());
+                              },
                             ),
                           ),
                         ),

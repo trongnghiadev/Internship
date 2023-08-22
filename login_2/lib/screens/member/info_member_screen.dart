@@ -9,8 +9,6 @@ import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/loading_placeholder.dart';
 
-import '../../widgets/toast_message.dart';
-
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
@@ -25,6 +23,7 @@ class InfoMemberScreen extends StatefulWidget {
 class _InfoMemberScreenState extends State<InfoMemberScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
+  final _doubleValid = 'Không hợp lệ, kiểm tra lại (Dấu thập phân là dấu chấm)';
 
   // final _textAcreage = 'dịch tích này không hợp lệ';
   // final _textLocation = 'Địa chỉ này không hợp lệ';
@@ -70,22 +69,15 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
     // Thực hiện các xử lý hoặc gọi API tương ứng ở đây
     AddMember()
         .fetchData(widget.storeController.storeCompany.value.id ?? 0, name,
-            double.parse(acreage ?? '0'), location)
+            double.parse(acreage ?? '0'), location,
+            toast: toast)
         .then((value) {
-      toast.showToast(
-        child: ToastMessage(
-          message: 'Tạo thành viên thành công',
-          icon: Icons.check_circle_sharp,
-          // Red X icon
-          backgroundColor: Colors.lightGreen[800],
-          // Light red background
-          textColor: Colors.white, // Red text color
-        ),
-      );
       setState(() {
         isLoading = false;
       });
-      Get.back();
+      if (value == 'true') {
+        Get.back();
+      }
     });
   }
 
@@ -110,8 +102,10 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const Text(
-                      'Thêm hợp tác xã',
+                    Text(
+                      widget.member != null
+                          ? 'Cập nhật xã viên'
+                          : 'Thêm xã viên',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -126,7 +120,7 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: TextFormField(
                                 decoration: const InputDecoration(
-                                  hintText: 'Tên hợp tác xã',
+                                  hintText: 'Tên xã viên',
                                   prefixIcon: Icon(Icons.person_2),
                                   border: OutlineInputBorder(
                                     borderRadius:
@@ -143,6 +137,9 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: TextFormField(
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      decimal: false),
                               decoration: const InputDecoration(
                                 hintText: 'Diện tích',
                                 prefixIcon: Icon(Icons.map),
@@ -155,7 +152,10 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                                 if (value == null || value.isEmpty) {
                                   return _textIsRequired;
                                 }
-                                // Thêm validate cho acreage ở đây (nếu cần)
+
+                                if (double.tryParse(value) == null) {
+                                  return _doubleValid;
+                                }
                                 return null;
                               },
                               controller: acreageController,
@@ -190,7 +190,8 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                           //Nút botton
                           CustomButton(
                               onTap: () {
-                                if (_formKey.currentState?.validate() == true) {
+                                if (_formKey.currentState?.validate() == true &&
+                                    widget.member == null) {
                                   handleSubmit(context);
                                 }
                               },

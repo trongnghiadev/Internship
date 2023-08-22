@@ -107,7 +107,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
                               onTap: () => Get.to(InfoSeasonProductScreen(
                                 productId: widget.product?.id ?? -1,
                                 season: season,
-                              )),
+                              ))?.then((value) => loadContacts()),
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -203,7 +203,7 @@ class _SeasonsListScreenState extends State<SeasonsListScreen> {
       onPressed: () {
         Get.to(() => InfoSeasonProductScreen(
               productId: widget.product?.id ?? -1,
-            ));
+            ))?.then((value) => loadContacts());
       },
       backgroundColor: AppColors.dColorMain,
       child: const Icon(Icons.add),

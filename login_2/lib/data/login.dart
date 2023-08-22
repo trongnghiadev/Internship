@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:login_2/models/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/api.dart';
 
@@ -31,6 +32,12 @@ class Login {
         if (status == 'true') {
           //coi lại đoạn này
           final userModel = User.fromJson(json['data']['user']);
+          SharedPreferences prefs =
+              await SharedPreferences.getInstance(); // Lưu email đã đăng nhập
+          prefs
+              .setString('token', json['data']['token'] ?? '')
+              .timeout(const Duration(days: 15));
+
           return userModel;
         }
       }

@@ -14,7 +14,6 @@ import 'package:login_2/models/product_model.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/loading_placeholder.dart';
-import 'package:login_2/widgets/toast_message.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class InfoProductScreen extends StatefulWidget {
@@ -31,6 +30,7 @@ class InfoProductScreen extends StatefulWidget {
 class _InfoProductScreenState extends State<InfoProductScreen> {
   File? image;
   final _textIsRequired = 'Thông tin này là bắt buộc';
+  final _doubleValid = 'Không hợp lệ, kiểm tra lại (Dấu thập phân là dấu chấm)';
 
   final _formKey = GlobalKey<FormState>();
   final nameProductController = TextEditingController();
@@ -62,23 +62,25 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
     if (widget.product == null) return;
 
     nameProductController.text = widget.product!.name!;
-    keyProductController.text = widget.product!.productKey!;
+    keyProductController.text = widget.product!.productKey ?? '';
     descriptionProductController.text = widget.product!.description!;
-    contentProductController.text = widget.product!.content!;
-    productionUnitCodeController.text = widget.product!.productionUnitCode!;
+    contentProductController.text = widget.product!.content ?? '';
+    productionUnitCodeController.text =
+        widget.product!.productionUnitCode ?? '';
     acreageProductController.text =
         widget.product!.acreage!.toString(); // kiểu double nên xài toString
-    rawMaterialAreaProductController.text = widget.product!.rawMaterialArea!;
+    rawMaterialAreaProductController.text =
+        widget.product!.rawMaterialArea ?? '';
 
     if (widget.product!.photos != null && widget.product!.photos!.isNotEmpty) {
       imageUrl =
           '${Api().convertApi(Api.apiGetImage)}/${widget.product!.photos}';
     }
-    recipeProductController.text = widget.product!.recipe!;
-    recipePhotosProductController.text = widget.product!.recipePhotos!;
-    farmingPhotosController.text = widget.product!.farmingPhotos!;
-    videoProductController.text = widget.product!.video!;
-    certificationController.text = widget.product!.certification!;
+    recipeProductController.text = widget.product!.recipe ?? '';
+    recipePhotosProductController.text = widget.product!.recipePhotos ?? '';
+    farmingPhotosController.text = widget.product!.farmingPhotos ?? '';
+    videoProductController.text = widget.product!.video ?? '';
+    certificationController.text = widget.product!.certification ?? '';
   }
 
   String qrData = 'https://trongnghiadev.github.io/template_page/';
@@ -127,7 +129,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
             description,
             content,
             productionUnitCode,
-            double.parse(acreage != '' ? acreage : '0'),
+            double.parse(acreage != '' ? acreage.trim() : '0'),
             rawMaterialArea,
             photos ?? '',
             recipe,
@@ -145,28 +147,22 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
         setState(() {
           isLoading = false;
         });
+        if (value == 'true') {
+          Get.back();
+        }
       });
       GetProductList().fetchData(widget.product?.id ?? -1).then((value) {
         setState(() {
           widget.storeController.updateLoading(false);
         });
       }).then((value) {
-        toast.showToast(
-          child: ToastMessage(
-            message: 'Tạo sản phẩm thành công',
-            icon: Icons.check_circle_sharp,
-            // Red X icon
-            backgroundColor: Colors.lightGreen[800],
-            // Light red background
-            textColor: Colors.white, // Red text color
-          ),
-        );
-        return Get.back();
+        setState(() {
+          isLoading = false;
+        });
+        if (value == 'true') {
+          Get.back();
+        }
       });
-    });
-
-    setState(() {
-      isLoading = false;
     });
   }
 
@@ -338,6 +334,8 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: TextFormField(
+                    keyboardType:
+                        const TextInputType.numberWithOptions(decimal: false),
                     decoration: const InputDecoration(
                       hintText: 'Diện tích',
                       // prefixIcon: Icon(Icons.map),
@@ -345,6 +343,16 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return _textIsRequired;
+                      }
+
+                      if (double.tryParse(value) == null) {
+                        return _doubleValid;
+                      }
+                      return null;
+                    },
                     controller: acreageProductController,
                   ),
                 ),
