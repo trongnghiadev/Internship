@@ -16,6 +16,8 @@ import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/loading_placeholder.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../widgets/toast_message.dart';
+
 class InfoProductScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
@@ -460,6 +462,11 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                           handleAddProduct(context);
                         } else {
                           //Todo : handleUpdateProduct
+                          toast.showToast(
+                            child: const ToastMessage(
+                                message: 'Tính năng đang được phát triển'),
+                            gravity: ToastGravity.BOTTOM,
+                          );
                         }
                       }
                     },

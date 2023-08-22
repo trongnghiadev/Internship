@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/config/const.dart';
@@ -7,6 +8,7 @@ import 'package:login_2/models/product_model.dart';
 import '../../data/product/get_logbook_product.dart';
 import '../../models/product_detail_model.dart';
 import '../../store/storecontroller.dart';
+import '../../widgets/toast_message.dart';
 import 'info_product_screen.dart';
 
 enum _MenuValues {
@@ -31,8 +33,12 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
   String imageUrl =
       'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80';
 
+  late FToast toast;
+
   @override
   void initState() {
+    toast = FToast();
+    toast.init(context);
     super.initState();
 
     if (widget.product.photos != null && widget.product.photos!.isNotEmpty) {
@@ -79,7 +85,11 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
                     }
                   case _MenuValues.logbookDetail:
                     // TODO: Handle this case.
-
+                    toast.showToast(
+                      child: const ToastMessage(
+                          message: 'Tính năng đang được phát triển'),
+                      gravity: ToastGravity.BOTTOM,
+                    );
                     break;
                 }
               },

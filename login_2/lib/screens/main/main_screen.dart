@@ -9,6 +9,7 @@ import 'package:login_2/screens/product/products_list_screen.dart';
 import 'package:login_2/widgets/item_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config/api.dart';
 import '../../data/company/get_company_by_id_user.dart';
 import '../../store/storecontroller.dart';
 import '../../widgets/buttons/button_bottom.dart';
@@ -67,7 +68,7 @@ class MainScreenState extends State<MainScreen> {
         this.company = company;
         companyName = company.name!;
         companyexist = true;
-        addCompany = "Xem Thông Tin Công Ty";
+        addCompany = "Xem Thông Tin";
         // Cập nhật thông tin công ty trong MainScreen
       });
     }
@@ -150,29 +151,97 @@ class MainScreenState extends State<MainScreen> {
                             color: const Color(0xffFFFBE7),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                companyName,
-                                style: const TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
+                          child: companyexist
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 85,
+                                      height: 85,
+                                      child: company.logo != ''
+                                          ? ClipOval(
+                                              child: Image.network(
+                                                '${Api().convertApi(Api.apiGetImage)}/${company.logo}' ??
+                                                    '',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            )
+                                          : Container(
+                                              width: 150.0,
+                                              height: 150.0,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.dColorMain,
+                                              ),
+                                              child: Center(
+                                                child: ClipOval(
+                                                  child: Container(
+                                                    width: 110.0,
+                                                    height: 110.0,
+                                                    color: Colors.white,
+                                                    child: Image.asset(
+                                                      'assets/image/logo--footer 2.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                    const SizedBox(
+                                      width: 30,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          companyName,
+                                          style: const TextStyle(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        CustomButton(
+                                          onTap: () {
+                                            // Get.to(InfoScreen(company: company));
+                                            Get.to(() => InfoScreen(
+                                                    company: company))
+                                                ?.then((value) {
+                                              _fetchCompanyData();
+                                            });
+                                          },
+                                          text: addCompany,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      companyName,
+                                      style: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    CustomButton(
+                                      onTap: () {
+                                        // Get.to(InfoScreen(company: company));
+                                        Get.to(() =>
+                                                InfoScreen(company: company))
+                                            ?.then((value) {
+                                          _fetchCompanyData();
+                                        });
+                                      },
+                                      text: addCompany,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(height: 15),
-                              CustomButton(
-                                onTap: () {
-                                  // Get.to(InfoScreen(company: company));
-                                  Get.to(() => InfoScreen(company: company))
-                                      ?.then((value) {
-                                    _fetchCompanyData();
-                                  });
-                                },
-                                text: addCompany,
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),

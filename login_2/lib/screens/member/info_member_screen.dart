@@ -9,6 +9,8 @@ import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/loading_placeholder.dart';
 
+import '../../widgets/toast_message.dart';
+
 class InfoMemberScreen extends StatefulWidget {
   final storeController = Get.find<StoreController>();
 
@@ -106,8 +108,8 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                       widget.member != null
                           ? 'Cập nhật xã viên'
                           : 'Thêm xã viên',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 20,
@@ -193,6 +195,15 @@ class _InfoMemberScreenState extends State<InfoMemberScreen> {
                                 if (_formKey.currentState?.validate() == true &&
                                     widget.member == null) {
                                   handleSubmit(context);
+                                }
+                                if (_formKey.currentState?.validate() == true &&
+                                    widget.member != null) {
+                                  toast.showToast(
+                                    child: const ToastMessage(
+                                        message:
+                                            'Tính năng đang được phát triển'),
+                                    gravity: ToastGravity.BOTTOM,
+                                  );
                                 }
                               },
                               text:

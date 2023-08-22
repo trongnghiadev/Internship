@@ -199,6 +199,7 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
           theme: Theme.of(context),
           height: MediaQuery.of(context).size.height * 0.45);
       if (value != null) {
+        packValue = value.millisecondsSinceEpoch;
         packController.text = DateFormat.yMMMMd('vi').format(value);
       } else {
         packController.text = '';
@@ -351,6 +352,11 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
                         handleAddProduct(context);
                       } else {
                         //Todo : handleUpdateProduct
+                        toast.showToast(
+                          child: const ToastMessage(
+                              message: 'Tính năng đang được phát triển'),
+                          gravity: ToastGravity.BOTTOM,
+                        );
                       }
                     }
                   },

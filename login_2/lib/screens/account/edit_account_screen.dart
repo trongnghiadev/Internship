@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/screens/account/account.management.screen.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
 import '../../store/storecontroller.dart';
+import '../../widgets/toast_message.dart';
 
 class EditAccount extends StatefulWidget {
   EditAccount({super.key});
@@ -16,9 +17,17 @@ class EditAccount extends StatefulWidget {
 }
 
 class _EditAccountState extends State<EditAccount> {
+  late FToast toast;
   final fullnamecontroller = TextEditingController();
   final contactcontroller = TextEditingController();
   final emailcontroller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    toast = FToast();
+    toast.init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +100,12 @@ class _EditAccountState extends State<EditAccount> {
             ),
             CustomButton(
                 onTap: () {
-                  Get.to(() => AccountManagement());
+                  toast.showToast(
+                    child: const ToastMessage(
+                        message: 'Tính năng đang được phát triển'),
+                    gravity: ToastGravity.BOTTOM,
+                  );
+                  // Get.to(() => AccountManagement());
                 },
                 text: 'Cập nhật')
           ],
