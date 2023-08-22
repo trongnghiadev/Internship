@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../config/const.dart';
+
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
 
@@ -69,40 +71,48 @@ class _QRViewExampleState extends State<QRViewExample> {
                         'Barcode Type: ${describeEnum(result!.format)} Data: ${result!.code}')
                   else
                     const Text('Scan a code'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  Column(
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller?.toggleFlash();
-                              setState(() {});
-                            },
-                            child: FutureBuilder(
-                              future: controller?.getFlashStatus(),
-                              builder: (context, snapshot) {
-                                return Text('Bật đèn: ${snapshot.data}');
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await controller?.toggleFlash();
+                                setState(() {});
                               },
-                            )),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: const Size(120, 40),
+                                textStyle: const TextStyle(fontSize: 13),
+                              ),
+                              child: FutureBuilder(
+                                future: controller?.getFlashStatus(),
+                                builder: (context, snapshot) {
+                                  return Text('Bật đèn: ${snapshot.data}');
+                                },
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(8),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await controller?.resumeCamera();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonColor,
+                                fixedSize: const Size(120, 40),
+                              ),
+                              child: const Text('Tiếp tục',
+                                  style: TextStyle(fontSize: 14)),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await controller?.resumeCamera();
-                          },
-                          child: const Text('Tiếp tục',
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      )
                     ],
                   ),
                 ],
