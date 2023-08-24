@@ -8,7 +8,6 @@ import 'package:login_2/store/storecontroller.dart';
 
 void main() {
   Get.put(StoreController());
-
   runApp(const MyApp());
 }
 

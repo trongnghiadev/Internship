@@ -7,6 +7,7 @@ import 'package:login_2/config/stringtext.dart';
 import 'package:login_2/data/author/check_exist_email.dart';
 import 'package:login_2/data/register.dart';
 import 'package:login_2/screens/otp/otp_screen.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 import 'package:login_2/utils/email_regex.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 
@@ -98,172 +99,175 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ConnectivityWrapper(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG,
-        body: Center(
-          child: FractionallySizedBox(
-            widthFactor: 0.9,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-
-                  //Logo
-                  const LogoImage(),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  //Welcome
-                  const Text(
-                    textHello,
-                    style: TextStyle(color: AppColors.dColorMain, fontSize: 25),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-
-                  //Nhắc nhở
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      children: [
-                        Text(
-                          textLogin,
-                          style: TextStyle(color: AppColors.dColorText),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+        body: SafeArea(
+          child: Center(
+            child: FractionallySizedBox(
+              widthFactor: 0.9,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 50,
                     ),
-                  ),
 
-                  const SizedBox(
-                    height: 24,
-                  ),
+                    //Logo
+                    const LogoImage(),
 
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 30),
-                          child: TextFormField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              hintText: textEmail,
-                              prefixIcon: const Icon(Icons.person),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    //Welcome
+                    const Text(
+                      textHello,
+                      style:
+                          TextStyle(color: AppColors.dColorMain, fontSize: 25),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+
+                    //Nhắc nhở
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Text(
+                            textLogin,
+                            style: TextStyle(color: AppColors.dColorText),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 24,
+                    ),
+
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 30),
+                            child: TextFormField(
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                hintText: textEmail,
+                                prefixIcon: const Icon(Icons.person),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                             ),
                           ),
-                        ),
 
-                        //Hiển thị loading lên màng hình
-                        // if (isLoading == true)
-                        //   const SizedBox(
-                        //     height: 50,
-                        //     width: 50,
-                        //     child: LoadingIndicator(
-                        //       indicatorType: Indicator.circleStrokeSpin,
-                        //       strokeWidth: 2,
-                        //     ),
-                        //   ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        CustomButton(
-                          onTap: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              handleSubmit(context);
-                            }
-                          },
-                          text: 'Tiếp tục',
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
+                          //Hiển thị loading lên màng hình
+                          // if (isLoading == true)
+                          //   const SizedBox(
+                          //     height: 50,
+                          //     width: 50,
+                          //     child: LoadingIndicator(
+                          //       indicatorType: Indicator.circleStrokeSpin,
+                          //       strokeWidth: 2,
+                          //     ),
+                          //   ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          CustomButton(
+                            onTap: () {
+                              if (_formKey.currentState?.validate() == true) {
+                                handleSubmit(context);
+                              }
+                            },
+                            text: 'Tiếp tục',
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
 
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 30),
-                          child: Row(
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(
+                                    thickness: 0.5,
+                                    color: Color.fromARGB(255, 91, 90, 90),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 8),
+                                  child: Text(
+                                    'Hoặc',
+                                    style: TextStyle(),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(
+                                    thickness: 0.5,
+                                    color: Color.fromARGB(255, 91, 90, 90),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                child: Divider(
-                                  thickness: 0.5,
-                                  color: Color.fromARGB(255, 91, 90, 90),
+                              InkWell(
+                                child: ButtonBottom(
+                                  imagePath: 'assets/image/Zalo.png',
+                                  colors: Colors.white,
+                                  colorText: Colors.blue,
+                                  text: 'Đăng nhập bằng Zalo',
+                                  onTap: () {
+                                    print("Zalo");
+                                  },
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: Text(
-                                  'Hoặc',
-                                  style: TextStyle(),
-                                ),
+                              const SizedBox(
+                                height: 20,
                               ),
-                              Expanded(
-                                child: Divider(
-                                  thickness: 0.5,
-                                  color: Color.fromARGB(255, 91, 90, 90),
-                                ),
+                              ButtonBottom(
+                                imagePath: 'assets/image/gg.png',
+                                colors: Colors.white,
+                                colorText: Colors.black,
+                                text: 'Đăng nhập bằng Google',
+                                onTap: () {
+                                  print("Facebook");
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ButtonBottom(
+                                imagePath: 'assets/image/fb.png',
+                                colors: const Color(0xff1877F2),
+                                colorText: Colors.white,
+                                text: 'Đăng nhập bằng Facebook',
+                                onTap: () {
+                                  print("Google");
+                                },
                               ),
                             ],
                           ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              child: ButtonBottom(
-                                imagePath: 'assets/image/Zalo.png',
-                                colors: Colors.white,
-                                colorText: Colors.blue,
-                                text: 'Đăng nhập bằng Zalo',
-                                onTap: () {
-                                  print("Zalo");
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ButtonBottom(
-                              imagePath: 'assets/image/gg.png',
-                              colors: Colors.white,
-                              colorText: Colors.black,
-                              text: 'Đăng nhập bằng Google',
-                              onTap: () {
-                                print("Facebook");
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ButtonBottom(
-                              imagePath: 'assets/image/fb.png',
-                              colors: const Color(0xff1877F2),
-                              colorText: Colors.white,
-                              text: 'Đăng nhập bằng Facebook',
-                              onTap: () {
-                                print("Google");
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

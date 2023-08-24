@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,82 +45,84 @@ class _QRViewExampleState extends State<QRViewExample> {
 
       return const Spacer();
     }
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.brown.withOpacity(0.5),
-        centerTitle: true,
-        title: const Text('QR Scanner'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Get.back();
-          },
+    return ConnectivityWrapper(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.brown.withOpacity(0.5),
+          centerTitle: true,
+          title: const Text('QR Scanner'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.back();
+            },
+          ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)} Data: ${result!.code}')
-                  else
-                    const Text('Scan a code'),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.all(8),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                await controller?.toggleFlash();
-                                setState(() {});
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.buttonColor,
-                                fixedSize: const Size(120, 40),
-                                textStyle: const TextStyle(fontSize: 13),
-                              ),
-                              child: FutureBuilder(
-                                future: controller?.getFlashStatus(),
-                                builder: (context, snapshot) {
-                                  return Text('Bật đèn: ${snapshot.data}');
+        body: Column(
+          children: <Widget>[
+            Expanded(flex: 4, child: _buildQrView(context)),
+            Expanded(
+              flex: 1,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    if (result != null)
+                      Text(
+                          'Barcode Type: ${describeEnum(result!.format)} Data: ${result!.code}')
+                    else
+                      const Text('Scan a code'),
+                    Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              margin: const EdgeInsets.all(8),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await controller?.toggleFlash();
+                                  setState(() {});
                                 },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.buttonColor,
+                                  fixedSize: const Size(120, 40),
+                                  textStyle: const TextStyle(fontSize: 13),
+                                ),
+                                child: FutureBuilder(
+                                  future: controller?.getFlashStatus(),
+                                  builder: (context, snapshot) {
+                                    return Text('Bật đèn: ${snapshot.data}');
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.all(8),
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                await controller?.resumeCamera();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.buttonColor,
-                                fixedSize: const Size(120, 40),
+                            Container(
+                              margin: const EdgeInsets.all(8),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  await controller?.resumeCamera();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.buttonColor,
+                                  fixedSize: const Size(120, 40),
+                                ),
+                                child: const Text('Tiếp tục',
+                                    style: TextStyle(fontSize: 14)),
                               ),
-                              child: const Text('Tiếp tục',
-                                  style: TextStyle(fontSize: 14)),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

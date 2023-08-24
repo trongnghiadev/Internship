@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_2/config/const.dart';
-import 'package:login_2/screens/personal_screen.dart';
+import 'package:login_2/screens/personal/personal_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../screens/main/main_screen.dart';

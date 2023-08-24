@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/store/storecontroller.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 import 'package:login_2/utils/name_value_input_regex.dart';
 import 'package:login_2/utils/phonenumber_regex.dart';
 import 'package:login_2/utils/website_regex.dart';
@@ -140,199 +141,204 @@ class _InfoScreenState extends State<InfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  'Thông tin công ty',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                  onTap: () => pickImage(ImageSource.gallery),
-                  child: Center(
+    return ConnectivityWrapper(
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(Icons.arrow_back_ios_new)),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    'Thông tin công ty',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                    onTap: () => pickImage(ImageSource.gallery),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          widget.company.logo != null &&
+                                  widget.company.logo != ''
+                              ? Image.network(
+                                  imageUrl!,
+                                  height: 110,
+                                  width: 110,
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  decoration: const BoxDecoration(
+                                      color:
+                                          Color.fromARGB(255, 156, 155, 153)),
+                                  height: 110,
+                                  width: 110,
+                                ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            'Nhấn để thêm logo',
+                            style: TextStyle(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Form(
+                    key: _formKey,
                     child: Column(
                       children: [
-                        widget.company.logo != null && widget.company.logo != ''
-                            ? Image.network(
-                                imageUrl!,
-                                height: 110,
-                                width: 110,
-                                fit: BoxFit.cover,
-                              )
-                            : Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 156, 155, 153)),
-                                height: 110,
-                                width: 110,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Tên công ty',
+                                prefixIcon: Icon(Icons.location_city),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
                               ),
+                              validator: (value) {
+                                print('Value: $value');
+                                if (value == null || value.isEmpty) {
+                                  print('Returning required error message.');
+                                  return _textIsRequired;
+                                }
+                                if (!NameValueInputRegex.nameValuePattern
+                                    .hasMatch(value)) {
+                                  print(
+                                      'Returning invalid format error message.');
+                                  return _textNameValueFormat;
+                                }
+                                return null;
+                              },
+                              controller: nameCompanyController),
+                        ),
+
                         const SizedBox(
-                          height: 10,
+                          height: 20,
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Số điện thoại',
+                                prefixIcon: Icon(Icons.phone),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return _textIsRequired;
+                                }
+                                if (!PhoneRegex.phonePattern.hasMatch(value)) {
+                                  return _textPhoneNumberFormat;
+                                }
+                                return null;
+                              },
+                              controller: phoneController),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
-                        const Text(
-                          'Nhấn để thêm logo',
-                          style: TextStyle(fontSize: 10),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Địa chỉ',
+                              prefixIcon: Icon(Icons.map),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            controller: addressController,
+                          ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Website',
+                              prefixIcon: Icon(Icons.web_asset),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return _textIsRequired;
+                              }
+                              if (!WebsiteRegex.websitePattern
+                                  .hasMatch(value)) {
+                                return _textWebsiteFormat;
+                              }
+                              return null;
+                            },
+                            controller: webController,
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        //Nút botton
+                        CustomButton(
+                            onTap: () {
+                              if (_formKey.currentState?.validate() == true) {
+                                handleSubmit(context);
+                                // Get.to(() => MainScreenState())!
+                                //     .then((value) => null);
+                                toast.showToast(
+                                  child: ToastMessage(
+                                    message: 'Tạo công ty thành công',
+                                    icon: Icons.check_circle_sharp,
+                                    // Red X icon
+                                    backgroundColor: Colors.lightGreen[800],
+                                    // Light red background
+                                    textColor: Colors.white, // Red text color
+                                  ),
+                                );
+                              }
+                            },
+                            text: 'Thay đổi')
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Tên công ty',
-                              prefixIcon: Icon(Icons.location_city),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                            ),
-                            validator: (value) {
-                              print('Value: $value');
-                              if (value == null || value.isEmpty) {
-                                print('Returning required error message.');
-                                return _textIsRequired;
-                              }
-                              if (!NameValueInputRegex.nameValuePattern
-                                  .hasMatch(value)) {
-                                print(
-                                    'Returning invalid format error message.');
-                                return _textNameValueFormat;
-                              }
-                              return null;
-                            },
-                            controller: nameCompanyController),
-                      ),
-
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: 'Số điện thoại',
-                              prefixIcon: Icon(Icons.phone),
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return _textIsRequired;
-                              }
-                              if (!PhoneRegex.phonePattern.hasMatch(value)) {
-                                return _textPhoneNumberFormat;
-                              }
-                              return null;
-                            },
-                            controller: phoneController),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Địa chỉ',
-                            prefixIcon: Icon(Icons.map),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                          ),
-                          controller: addressController,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Website',
-                            prefixIcon: Icon(Icons.web_asset),
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _textIsRequired;
-                            }
-                            if (!WebsiteRegex.websitePattern.hasMatch(value)) {
-                              return _textWebsiteFormat;
-                            }
-                            return null;
-                          },
-                          controller: webController,
-                        ),
-                      ),
-                      const SizedBox(height: 40),
-                      //Nút botton
-                      CustomButton(
-                          onTap: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              handleSubmit(context);
-                              // Get.to(() => MainScreenState())!
-                              //     .then((value) => null);
-                              toast.showToast(
-                                child: ToastMessage(
-                                  message: 'Tạo công ty thành công',
-                                  icon: Icons.check_circle_sharp,
-                                  // Red X icon
-                                  backgroundColor: Colors.lightGreen[800],
-                                  // Light red background
-                                  textColor: Colors.white, // Red text color
-                                ),
-                              );
-                            }
-                          },
-                          text: 'Thay đổi')
-                    ],
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

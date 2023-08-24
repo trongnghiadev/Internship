@@ -12,6 +12,7 @@ import 'package:login_2/data/product/add_product.dart';
 import 'package:login_2/data/product/get_list_product.dart';
 import 'package:login_2/models/product_model.dart';
 import 'package:login_2/store/storecontroller.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 import 'package:login_2/widgets/buttons/button_bottom.dart';
 import 'package:login_2/widgets/loading_placeholder.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -208,9 +209,9 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Stack(children: [
-      Scaffold(
+    return ConnectivityWrapper(
+      child: Stack(children: [
+        Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.dColorMain,
             leading: IconButton(
@@ -222,29 +223,126 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
             centerTitle: true,
             title: const Text('Quản lý sản phẩm'),
           ),
-          body: SingleChildScrollView(
-              child: Center(
-                  child: Column(children: [
-            widget.product != null
-                ? SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.width * 0.4,
-                    child: QrImageView(data: qrData))
-                : const SizedBox(
-                    width: 0,
+          body: SafeArea(
+            child: SingleChildScrollView(
+                child: Center(
+                    child: Column(children: [
+              widget.product != null
+                  ? SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.width * 0.4,
+                      child: QrImageView(data: qrData))
+                  : const SizedBox(
+                      width: 0,
+                    ),
+              const SizedBox(
+                height: 20,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: 'Tên sản phẩm',
+                          // prefixIcon: Icon(Icons.location_city),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return _textIsRequired;
+                          }
+                          return null;
+                        },
+                        controller: nameProductController),
                   ),
-            const SizedBox(
-              height: 20,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: TextFormField(
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: TextFormField(
+                        decoration: const InputDecoration(
+                          hintText: 'Mã sản phẩm',
+                          // prefixIcon: Icon(Icons.phone),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                        controller: keyProductController),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Container(
+                      height: 250,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 160, 159, 159),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            hintText: 'Mô tả sản phẩm',
+                            // prefixIcon: Icon(Icons.map),
+                            border: InputBorder.none,
+                          ),
+                          controller: descriptionProductController,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Container(
+                      height: 250,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 160, 159, 159),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            hintText: 'Nội dung chi tiết sản phẩm',
+                            // prefixIcon: Icon(Icons.map),
+                            border: InputBorder.none,
+                          ),
+                          controller: contentProductController,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: TextFormField(
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: false),
                       decoration: const InputDecoration(
-                        hintText: 'Tên sản phẩm',
-                        // prefixIcon: Icon(Icons.location_city),
+                        hintText: 'Diện tích',
+                        // prefixIcon: Icon(Icons.map),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
@@ -253,232 +351,139 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                         if (value == null || value.isEmpty) {
                           return _textIsRequired;
                         }
+
+                        if (double.tryParse(value) == null) {
+                          return _doubleValid;
+                        }
                         return null;
                       },
-                      controller: nameProductController),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Mã sản phẩm',
-                        // prefixIcon: Icon(Icons.phone),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                      ),
-                      controller: keyProductController),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Container(
-                    height: 250,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 160, 159, 159),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextFormField(
-                        maxLines: null,
-                        decoration: const InputDecoration(
-                          hintText: 'Mô tả sản phẩm',
-                          // prefixIcon: Icon(Icons.map),
-                          border: InputBorder.none,
-                        ),
-                        controller: descriptionProductController,
-                      ),
+                      controller: acreageProductController,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Container(
-                    height: 250,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 160, 159, 159),
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextFormField(
-                        maxLines: null,
-                        decoration: const InputDecoration(
-                          hintText: 'Nội dung chi tiết sản phẩm',
-                          // prefixIcon: Icon(Icons.map),
-                          border: InputBorder.none,
-                        ),
-                        controller: contentProductController,
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: TextFormField(
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: false),
-                    decoration: const InputDecoration(
-                      hintText: 'Diện tích',
-                      // prefixIcon: Icon(Icons.map),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return _textIsRequired;
-                      }
-
-                      if (double.tryParse(value) == null) {
-                        return _doubleValid;
-                      }
-                      return null;
-                    },
-                    controller: acreageProductController,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  onTap: () => pickImage(ImageSource.gallery),
-                  child: Column(
-                    children: [
-                      if (widget.product == null)
-                        image != null
-                            ? Image.file(
-                                image!,
-                                height: 110,
-                                width: 110,
-                                fit: BoxFit.cover,
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 204, 201, 201),
-                                    width: 2.0,
+                  InkWell(
+                    onTap: () => pickImage(ImageSource.gallery),
+                    child: Column(
+                      children: [
+                        if (widget.product == null)
+                          image != null
+                              ? Image.file(
+                                  image!,
+                                  height: 110,
+                                  width: 110,
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 204, 201, 201),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                height: 60,
-                                width: 360,
-                                child:
-                                    const Center(child: Text('Thêm hình ảnh')),
-                              )
-                      else
-                        widget.product!.photos != null &&
-                                widget.product!.photos!.isNotEmpty
-                            ? image == null
-                                ? Image.network(
-                                    imageUrl!,
-                                    height: 110,
-                                    width: 110,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.file(
-                                    image!,
-                                    height: 110,
-                                    width: 110,
-                                    fit: BoxFit.cover,
-                                  )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: const Color.fromARGB(
-                                        255, 204, 201, 201),
-                                    width: 2.0,
+                                  height: 60,
+                                  width: 360,
+                                  child: const Center(
+                                      child: Text('Thêm hình ảnh')),
+                                )
+                        else
+                          widget.product!.photos != null &&
+                                  widget.product!.photos!.isNotEmpty
+                              ? image == null
+                                  ? Image.network(
+                                      imageUrl!,
+                                      height: 110,
+                                      width: 110,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      image!,
+                                      height: 110,
+                                      width: 110,
+                                      fit: BoxFit.cover,
+                                    )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 204, 201, 201),
+                                      width: 2.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  height: 60,
+                                  width: 360,
+                                  child: const Center(
+                                      child: Text('Thêm hình ảnh')),
                                 ),
-                                height: 60,
-                                width: 360,
-                                child:
-                                    const Center(child: Text('Thêm hình ảnh')),
-                              ),
 
-                      // InkWell(
-                      //   onTap: () => pickImage(ImageSource.gallery),
-                      //   child: Column(
-                      //     children: [
-                      //       image != null
-                      //           ? Image.file(
-                      //         image!,
-                      //         height: 110,
-                      //         width: 110,
-                      //         fit: BoxFit.cover,
-                      //       )
-                      //           : Container(
-                      //         decoration: BoxDecoration(
-                      //           border: Border.all(
-                      //             color:
-                      //             const Color.fromARGB(
-                      //                 255, 204, 201, 201),
-                      //             width: 2.0,
-                      //           ),
-                      //           borderRadius: BorderRadius.circular(
-                      //               10.0),
-                      //         ),
-                      //         height: 60,
-                      //         width: 360,
-                      //         child: const Center(
-                      //             child: Text('Thêm video')),
-                      //       ),
-                      //
-                      //       const SizedBox(height: 20),
-                      //       //Nút botton
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
+                        // InkWell(
+                        //   onTap: () => pickImage(ImageSource.gallery),
+                        //   child: Column(
+                        //     children: [
+                        //       image != null
+                        //           ? Image.file(
+                        //         image!,
+                        //         height: 110,
+                        //         width: 110,
+                        //         fit: BoxFit.cover,
+                        //       )
+                        //           : Container(
+                        //         decoration: BoxDecoration(
+                        //           border: Border.all(
+                        //             color:
+                        //             const Color.fromARGB(
+                        //                 255, 204, 201, 201),
+                        //             width: 2.0,
+                        //           ),
+                        //           borderRadius: BorderRadius.circular(
+                        //               10.0),
+                        //         ),
+                        //         height: 60,
+                        //         width: 360,
+                        //         child: const Center(
+                        //             child: Text('Thêm video')),
+                        //       ),
+                        //
+                        //       const SizedBox(height: 20),
+                        //       //Nút botton
+                        //     ],
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                CustomButton(
-                    onTap: () {
-                      if (_formKey.currentState?.validate() == true) {
-                        if (widget.product == null) {
-                          handleAddProduct(context);
-                        } else {
-                          //Todo : handleUpdateProduct
-                          toast.showToast(
-                            child: const ToastMessage(
-                                message: 'Tính năng đang được phát triển'),
-                            gravity: ToastGravity.BOTTOM,
-                          );
+                  const SizedBox(height: 20),
+                  CustomButton(
+                      onTap: () {
+                        if (_formKey.currentState?.validate() == true) {
+                          if (widget.product == null) {
+                            handleAddProduct(context);
+                          } else {
+                            //Todo : handleUpdateProduct
+                            toast.showToast(
+                              child: const ToastMessage(
+                                  message: 'Tính năng đang được phát triển'),
+                              gravity: ToastGravity.BOTTOM,
+                            );
+                          }
                         }
-                      }
-                    },
-                    //Coi kĩ áp dụng nhiều
-                    text: widget.product != null ? 'Thay đổi' : 'Thêm'),
-                const SizedBox(
-                  height: 20,
-                )
-              ]),
-            ),
-          ])))),
-      LoadingPlaceHolder(isLoading)
-    ]));
+                      },
+                      //Coi kĩ áp dụng nhiều
+                      text: widget.product != null ? 'Thay đổi' : 'Thêm'),
+                  const SizedBox(
+                    height: 20,
+                  )
+                ]),
+              ),
+            ]))),
+          ),
+        ),
+        LoadingPlaceHolder(isLoading)
+      ]),
+    );
   }
 }

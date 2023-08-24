@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:login_2/config/api.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/models/product_model.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 
 import '../../data/product/get_logbook_product.dart';
 import '../../models/product_detail_model.dart';
@@ -57,7 +58,7 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ConnectivityWrapper(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
         appBar: AppBar(
@@ -105,87 +106,89 @@ class _ProductsDetailScreenState extends State<ProductsDetailScreen> {
           centerTitle: true,
           title: Text(widget.product.name ?? ''),
         ),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 200,
-                width: double.infinity,
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    const Text(
-                      'Diện tích canh tác',
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Diện tích canh tác',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Container(
+                        padding: const EdgeInsets.all(9.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.dColorMain,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        //
+                        child: Text(
+                          widget.product.acreage.toString(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: AppColors.dColorTF,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Divider(
+                  color: Color(0xffBFBFBF),
+                  thickness: 2,
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 10,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Nhật ký canh tác',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Container(
-                      padding: const EdgeInsets.all(9.0),
-                      decoration: BoxDecoration(
-                        color: AppColors.dColorMain,
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      //
-                      child: Text(
-                        widget.product.acreage.toString(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.dColorTF,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Divider(
-                color: Color(0xffBFBFBF),
-                thickness: 2,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: 10,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Nhật ký canh tác',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                 ),
-              ),
-              // Hiển thị danh sách nhật ký canh tác dưới dạng ListView.builder
-              const SizedBox(height: 10),
-              Expanded(
-                child: data != null
-                    ? ListView.builder(
-                        itemCount: data?.steps.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title:
-                                Text('Ngày ${data?.steps[index].numberOfDay}'),
-                            subtitle: Text(data!.steps[index].content),
-                          );
-                        },
-                      )
-                    : const Text('Nhật ký canh tác rỗng'),
-              ),
-            ],
+                // Hiển thị danh sách nhật ký canh tác dưới dạng ListView.builder
+                const SizedBox(height: 10),
+                Expanded(
+                  child: data != null
+                      ? ListView.builder(
+                          itemCount: data?.steps.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                  'Ngày ${data?.steps[index].numberOfDay}'),
+                              subtitle: Text(data!.steps[index].content),
+                            );
+                          },
+                        )
+                      : const Text('Nhật ký canh tác rỗng'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

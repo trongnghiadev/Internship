@@ -4,6 +4,7 @@ import 'package:loading_indicator/loading_indicator.dart';
 import 'package:login_2/config/const.dart';
 import 'package:login_2/data/member/get_list_by_company_id.dart';
 import 'package:login_2/models/member_model.dart';
+import 'package:login_2/utils/connectivity_mixin.dart';
 
 import '../../data/company/get_company_by_id_user.dart';
 import '../../store/storecontroller.dart';
@@ -62,7 +63,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return ConnectivityWrapper(
       child: Scaffold(
         backgroundColor: AppColors.dColorBG2,
         appBar: AppBar(
@@ -76,92 +77,96 @@ class _MemberListScreenState extends State<MemberListScreen> {
           centerTitle: true,
           title: const Text('Danh sách xã viên'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 1),
-          child: Column(
-            children: [
-              // Padding(
-              //   padding: const EdgeInsets.all(30.0),
-              //   child: Row(
-              //     children: [
-              //       Expanded(
-              //         child: TextField(
-              //           controller: _searchController,
-              //           decoration: InputDecoration(
-              //             filled: true,
-              //             fillColor: AppColors.dColorTF,
-              //             border: OutlineInputBorder(
-              //               borderSide: BorderSide.none,
-              //               borderRadius: BorderRadius.circular(10.0),
-              //             ),
-              //             hintText: 'Nhập tên xã viên',
-              //             suffixIcon: const Icon(Icons.search),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              const SizedBox(
-                height: 12,
-              ),
-              if (isLoading == true)
+        floatingActionButton: buildAddContactFAB(),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 1),
+            child: Column(
+              children: [
+                // Padding(
+                //   padding: const EdgeInsets.all(30.0),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: TextField(
+                //           controller: _searchController,
+                //           decoration: InputDecoration(
+                //             filled: true,
+                //             fillColor: AppColors.dColorTF,
+                //             border: OutlineInputBorder(
+                //               borderSide: BorderSide.none,
+                //               borderRadius: BorderRadius.circular(10.0),
+                //             ),
+                //             hintText: 'Nhập tên xã viên',
+                //             suffixIcon: const Icon(Icons.search),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: LoadingIndicator(
-                    indicatorType: Indicator.circleStrokeSpin,
-                    strokeWidth: 2,
-                  ),
+                  height: 12,
                 ),
-              Expanded(
-                child: ListView.separated(
-                  itemCount: memberList.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 20.0),
-                  itemBuilder: (context, index) {
-                    final member = memberList[index];
-                    return Column(
-                      children: [
-                        ListTileTheme(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          tileColor: AppColors.dColorTF, // Màu nền của ListTile
+                if (isLoading == true)
+                  const SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: LoadingIndicator(
+                      indicatorType: Indicator.circleStrokeSpin,
+                      strokeWidth: 2,
+                    ),
+                  ),
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: memberList.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 20.0),
+                    itemBuilder: (context, index) {
+                      final member = memberList[index];
+                      return Column(
+                        children: [
+                          ListTileTheme(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            tileColor: AppColors.dColorTF,
+                            // Màu nền của ListTile
 
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: ListTile(
-                              title: Text(
-                                member.name ?? '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold), //
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: ListTile(
+                                title: Text(
+                                  member.name ?? '',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold), //
+                                ),
+                                subtitle: Text(
+                                  member.acreage.toString(),
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                                trailing: const Icon(
+                                  Icons.keyboard_arrow_right,
+                                  color: AppColors.dColorMain,
+                                ),
+                                onTap: () {
+                                  Get.to(() => InfoMemberScreen(
+                                        member: member,
+                                      ))?.then((value) => loadContacts());
+                                },
                               ),
-                              subtitle: Text(
-                                member.acreage.toString(),
-                                style: const TextStyle(color: Colors.red),
-                              ),
-                              trailing: const Icon(
-                                Icons.keyboard_arrow_right,
-                                color: AppColors.dColorMain,
-                              ),
-                              onTap: () {
-                                Get.to(() => InfoMemberScreen(
-                                      member: member,
-                                    ))?.then((value) => loadContacts());
-                              },
                             ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        floatingActionButton: buildAddContactFAB(),
       ),
     );
   }
