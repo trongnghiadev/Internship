@@ -41,9 +41,7 @@ class _MemberListScreenState extends State<MemberListScreen> {
       isLoading = true;
     });
     //thêm link ở đây((
-    GetCompanyByUserId()
-        .fetchData(widget.storeController.storeUser.value.id ?? 0)
-        .then((value) {
+    GetCompanyByUserId().fetchData().then((value) {
       if (value != null) {
         GetMemberListByCompanyId().fetchData(value.id ?? 0).then(
           (value) {

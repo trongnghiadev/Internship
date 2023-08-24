@@ -71,15 +71,17 @@ class CustomButton extends StatefulWidget {
   final String text;
   final VoidCallback onTap;
   final double? width;
+  final bool? isLoading;
 
   const CustomButton(
-      {super.key, this.width, required this.onTap, required this.text});
+      {super.key, this.width, required this.onTap, required this.text, this.isLoading});
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
 }
 
 class _CustomButtonState extends State<CustomButton> {
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

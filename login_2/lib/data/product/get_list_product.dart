@@ -11,9 +11,7 @@ import '../../screens/socialLogin/login_screen.dart';
 class GetProductList {
   Dio dio = Dio();
 
-  Future<List<ProductModel>> fetchData(
-    int idCompany,
-  ) async {
+  Future<List<ProductModel>> fetchData() async {
     SharedPreferences prefs =
         await SharedPreferences.getInstance(); // Lưu email đã đăng nhập
 
@@ -26,8 +24,8 @@ class GetProductList {
     try {
       dio.options.headers["authorization"] = token;
 
-      final getListProductResponse = await dio
-          .get('${Api().convertApi(Api.apiGetListProduct)}/$idCompany');
+      final getListProductResponse =
+          await dio.get(Api().convertApi(Api.apiGetListProduct));
 
       if (getListProductResponse.statusCode == 200) {
         final data = getListProductResponse.data;

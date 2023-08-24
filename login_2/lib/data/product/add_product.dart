@@ -45,7 +45,6 @@ class AddProduct {
       final createProductResponse = await dio.post(
         Api().convertApi(Api.apiAddProduct),
         data: {
-          "companyId": companyId,
           "productKey": productKey,
           "name": name,
           "description": description,

@@ -26,7 +26,6 @@ class AddCompany {
       final createCompanyResponse = await dio.post(
         Api().convertApi(Api.apiAddCompany),
         data: {
-          "userId": userId,
           "name": name,
           "phone": phone,
           "address": address,

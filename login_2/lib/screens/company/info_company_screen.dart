@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:login_2/config/api.dart';
+import 'package:login_2/config/const.dart';
 import 'package:login_2/models/company_model.dart';
 import 'package:login_2/store/storecontroller.dart';
 import 'package:login_2/utils/connectivity_mixin.dart';
@@ -84,17 +85,35 @@ class _InfoScreenState extends State<InfoScreen> {
               '${Api().convertApi(Api.apiGetImage)}/${image!.path.split('/').last}';
         });
       } else {
-        print('Failed to upload image.');
+        toast.showToast(
+          child: const ToastMessage(message: 'Đã xảy ra lỗi khi thêm ảnh'),
+          toastDuration: const Duration(seconds: 5),
+          gravity: ToastGravity.BOTTOM,
+        );
       }
     } catch (error) {
       print('Error uploading image: $error');
     }
   }
 
-//Thêm hình ảnh
+//Thêm hình ảnh, hiện thông báo chỉ nhận hình dưới 10MB
   Future pickImage(ImageSource source) async {
     try {
       XFile? pickedImage = await picker.pickImage(source: source);
+      if ((await pickedImage?.length())! > 10000000) {
+        toast.showToast(
+          child: const ToastMessage(
+            message: 'Chỉ nhận file từ dưới 10MB',
+            // Red X icon
+            backgroundColor: AppColors.dButoonInActive,
+            // Light red background
+            textColor: Colors.white,
+          ),
+          gravity: ToastGravity.BOTTOM,
+        );
+        return;
+      }
+
       if (pickedImage == null) return;
 
       final imageFile = File(pickedImage.path);
@@ -245,6 +264,7 @@ class _InfoScreenState extends State<InfoScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: TextFormField(
+                              keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
                                 hintText: 'Số điện thoại',
                                 prefixIcon: Icon(Icons.phone),

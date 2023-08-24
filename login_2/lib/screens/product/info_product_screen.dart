@@ -121,6 +121,18 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
 
     if (image != null) {
       await UploadImage().upload(image!);
+    } else {
+      toast.showToast(
+        child: const ToastMessage(
+          message: 'Thêm hình ảnh là bắt buộc',
+          // Red X icon
+          backgroundColor: AppColors.dButoonInActive,
+          // Light red background
+          textColor: Colors.white,
+        ),
+        gravity: ToastGravity.BOTTOM,
+      );
+      return;
     }
     final photos = image?.path.split('/').last;
     AddProduct()
@@ -154,7 +166,7 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
           Get.back();
         }
       });
-      GetProductList().fetchData(widget.product?.id ?? -1).then((value) {
+      GetProductList().fetchData().then((value) {
         setState(() {
           widget.storeController.updateLoading(false);
         });
@@ -255,6 +267,9 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                           if (value == null || value.isEmpty) {
                             return _textIsRequired;
                           }
+                          if (value.length > 100) {
+                            return 'Tên không quá 100 kí tự';
+                          }
                           return null;
                         },
                         controller: nameProductController),
@@ -298,6 +313,12 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                             // prefixIcon: Icon(Icons.map),
                             border: InputBorder.none,
                           ),
+                          validator: (value) {
+                            if (value != null && value.length > 300) {
+                              return 'Mô tả không quá 300 kí tự';
+                            }
+                            return null;
+                          },
                           controller: descriptionProductController,
                         ),
                       ),
@@ -327,6 +348,12 @@ class _InfoProductScreenState extends State<InfoProductScreen> {
                             // prefixIcon: Icon(Icons.map),
                             border: InputBorder.none,
                           ),
+                          validator: (value) {
+                            if (value != null && value.length > 5000) {
+                              return 'Mô tả chi tiết không quá 5000 kí tự';
+                            }
+                            return null;
+                          },
                           controller: contentProductController,
                         ),
                       ),

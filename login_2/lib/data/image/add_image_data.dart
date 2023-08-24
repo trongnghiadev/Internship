@@ -34,6 +34,8 @@ class UploadImage {
         final jsonData = jsonDecode(response.data);
         String imageUrl = jsonData['data'];
         return imageUrl;
+      } else {
+        print('Loi o day ne');
       }
     } catch (e) {
       print('Error uploading image: $e');

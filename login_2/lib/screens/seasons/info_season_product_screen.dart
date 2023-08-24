@@ -179,8 +179,8 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
     Future<void> selectHarvestDate() async {
       DateTime? value = await showRoundedDatePicker(
           context: context,
-          initialDate: DateTime.now(),
           borderRadius: 8,
+          firstDate: DateTime.now(),
           theme: Theme.of(context),
           height: MediaQuery.of(context).size.height * 0.45);
       if (value != null) {
@@ -194,8 +194,8 @@ class _InfoSeasonProductScreenState extends State<InfoSeasonProductScreen> {
     Future<void> selectPackDate() async {
       DateTime? value = await showRoundedDatePicker(
           context: context,
-          initialDate: DateTime.now(),
           borderRadius: 8,
+          firstDate: DateTime.now(),
           theme: Theme.of(context),
           height: MediaQuery.of(context).size.height * 0.45);
       if (value != null) {

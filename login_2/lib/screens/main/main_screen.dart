@@ -58,7 +58,7 @@ class MainScreenState extends State<MainScreen> {
 
     if (userId == null) return;
 
-    final company = await _companyByUserId.fetchData(userId);
+    final company = await _companyByUserId.fetchData();
 
     if (company != null) {
       widget.storeController.updateCompany(company);
@@ -161,12 +161,10 @@ class MainScreenState extends State<MainScreen> {
                                         width: 85,
                                         height: 85,
                                         child: company.logo != ''
-                                            ? ClipOval(
-                                                child: Image.network(
-                                                  '${Api().convertApi(Api.apiGetImage)}/${company.logo}' ??
-                                                      '',
-                                                  fit: BoxFit.cover,
-                                                ),
+                                            ? Image.network(
+                                                '${Api().convertApi(Api.apiGetImage)}/${company.logo}' ??
+                                                    '',
+                                                fit: BoxFit.cover,
                                               )
                                             : Container(
                                                 width: 150.0,
